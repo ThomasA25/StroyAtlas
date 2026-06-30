@@ -12,6 +12,7 @@
 	import type { LocationId } from '$lib/core/ids';
 	import { t } from '$lib/i18n/i18n.svelte';
 	import { EDIT_MODE } from '$lib/core/env';
+	import { factionColor } from '$lib/ui/faction-color';
 	import PlayerControls from '$lib/ui/PlayerControls.svelte';
 	import SceneTimeline from '$lib/ui/SceneTimeline.svelte';
 	import DragBoard from '$lib/ui/DragBoard.svelte';
@@ -273,7 +274,7 @@
 		const h = cfg.height;
 
 		// Group everyone at the same spot (rounded pixel position).
-		type Person = { name: string; dead: boolean; moving: boolean };
+		type Person = { name: string; dead: boolean; moving: boolean; faction: string };
 		type Cluster = { x: number; y: number; people: Person[] };
 		const clusters = new Map<string, Cluster>();
 		for (const p of characterPlacementsAt(view, tNow)) {
@@ -295,17 +296,19 @@
 			if (stationary && !showStationary) continue;
 			const key = `${Math.round(p.x)},${Math.round(p.y)}`;
 			const cluster = clusters.get(key) ?? { x: p.x, y: p.y, people: [] };
-			cluster.people.push({ name, dead, moving });
+			cluster.people.push({ name, dead, moving, faction });
 			clusters.set(key, cluster);
 		}
 
 		for (const c of clusters.values()) {
+			// Each name is tinted with its faction colour (resolved at the current
+			// time) so allegiance is readable at a glance straight off the map.
+			const named = (p: Person, prefix = '') =>
+				`<span style="color:${factionColor(p.faction)}">${prefix}${escapeHtml(p.name)}</span>`;
 			// Split into the three categories.
-			const travelers = c.people.filter((p) => p.moving).map((p) => escapeHtml(p.name));
-			const stationary = c.people
-				.filter((p) => !p.moving && !p.dead)
-				.map((p) => escapeHtml(p.name));
-			const dead = c.people.filter((p) => p.dead).map((p) => '† ' + escapeHtml(p.name));
+			const travelers = c.people.filter((p) => p.moving).map((p) => named(p));
+			const stationary = c.people.filter((p) => !p.moving && !p.dead).map((p) => named(p));
+			const dead = c.people.filter((p) => p.dead).map((p) => named(p, '† '));
 
 			const sections: string[] = [];
 			const onlyOne = [travelers, stationary, dead].filter((g) => g.length).length === 1;
@@ -561,7 +564,7 @@
 								type="checkbox"
 								checked={!hidden.has(c.id)}
 								onchange={() => toggleChar(c.id)}
-							/>{c.name}
+							/><span style:color={factionColor(factionAt(c, clock.current))}>{c.name}</span>
 						</label>
 					{/each}
 				</div>

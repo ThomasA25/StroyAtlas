@@ -9,6 +9,7 @@
 	import type { CharacterId } from '$lib/core/ids';
 	import { t } from '$lib/i18n/i18n.svelte';
 	import PlayerControls from '$lib/ui/PlayerControls.svelte';
+	import { factionColor } from '$lib/ui/faction-color';
 
 	// Skull overlaid on a character's node once they have died at the current time.
 	const SKULL =
@@ -25,23 +26,6 @@
 	let minWeight = $state(2); // hide weak (single co-occurrence) links by default
 	let hideIsolated = $state(true);
 	let focusId = $state<string | null>(null);
-
-	// Semantic faction colours (work across locales); stable hash fallback otherwise.
-	const FACTION_COLORS: Record<string, string> = {
-		greens: '#4caf50',
-		grüne: '#4caf50',
-		blacks: '#c0413a',
-		schwarze: '#c0413a',
-		neutral: '#9098a6'
-	};
-	function colorFor(faction: string | null | undefined): string {
-		if (!faction) return FACTION_COLORS.neutral;
-		const key = faction.toLowerCase();
-		if (FACTION_COLORS[key]) return FACTION_COLORS[key];
-		let h = 0;
-		for (const ch of faction) h = (h * 31 + ch.charCodeAt(0)) % 360;
-		return `hsl(${h} 55% 55%)`;
-	}
 
 	const maxWeight = $derived(
 		Math.max(1, ...characterRelationships(store.project).map((l) => l.weight))
@@ -72,7 +56,7 @@
 			data: {
 				id: c.id,
 				label: c.name,
-				color: colorFor(c.faction),
+				color: factionColor(c.faction),
 				size: sizeFor(c.id)
 			}
 		}));
@@ -145,7 +129,7 @@
 		cy.batch(() => {
 			cy!.nodes().forEach((n) => {
 				const c = store.project.characters[n.id() as CharacterId];
-				if (c) n.data('color', colorFor(factionAt(c, clock.current)));
+				if (c) n.data('color', factionColor(factionAt(c, clock.current)));
 			});
 		});
 	}
@@ -290,7 +274,7 @@
 	<div class="legend">
 		<span class="legend-title sa-muted">{t('graph.legend')}:</span>
 		{#each factions as f (f)}
-			<span class="chip"><span class="dot" style:background={colorFor(f)}></span>{f}</span>
+			<span class="chip"><span class="dot" style:background={factionColor(f)}></span>{f}</span>
 		{/each}
 	</div>
 </div>
