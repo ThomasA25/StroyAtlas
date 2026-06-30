@@ -9,6 +9,7 @@
 	import { isProjectEmpty, type Project } from '$lib/core/model';
 	import { i18n, t } from '$lib/i18n/i18n.svelte';
 	import { LOCALES, type Locale } from '$lib/i18n/messages';
+	import { EDIT_MODE } from '$lib/core/env';
 
 	let { children } = $props();
 
@@ -43,8 +44,9 @@
 		saveTimer = setTimeout(() => void repo.save(data), 500);
 	});
 
+	// The editor route is authoring-only, so it is shown only when running locally.
 	const nav = $derived([
-		{ href: '/', label: t('nav.editor') },
+		...(EDIT_MODE ? [{ href: '/', label: t('nav.editor') }] : []),
 		{ href: '/map', label: t('nav.mapTimeline') },
 		{ href: '/graph', label: t('nav.graph') }
 	]);

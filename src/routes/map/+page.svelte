@@ -12,6 +12,7 @@
 	import type { Project } from '$lib/core/model';
 	import type { LocationId } from '$lib/core/ids';
 	import { t } from '$lib/i18n/i18n.svelte';
+	import { EDIT_MODE } from '$lib/core/env';
 	import PlayerControls from '$lib/ui/PlayerControls.svelte';
 	import SceneTimeline from '$lib/ui/SceneTimeline.svelte';
 	import DragBoard from '$lib/ui/DragBoard.svelte';
@@ -205,7 +206,7 @@
 			if (loc.coordinates.x == null || loc.coordinates.y == null) continue;
 			if (locFilter && !locFilter.has(loc.id)) continue;
 			const marker = L.marker(toLatLng(loc.coordinates.x, loc.coordinates.y, h), {
-				draggable: true,
+				draggable: EDIT_MODE,
 				icon
 			});
 			marker.bindTooltip(loc.name, {
@@ -419,13 +420,19 @@
 	);
 
 	// Reorderable panels of the Map & Timeline dashboard (the map stays fixed).
+	// The base-map/place-locations panel is authoring-only, so it is shown only
+	// when running locally; the published build is a read-only viewer.
 	const panels = $derived([
 		{ id: 'filter', label: t('map.filter'), rows: 6 },
-		{
-			id: 'mapSetup',
-			label: store.project.map ? t('map.placeLocations') : t('map.setBaseMap'),
-			rows: 4
-		},
+		...(EDIT_MODE
+			? [
+					{
+						id: 'mapSetup',
+						label: store.project.map ? t('map.placeLocations') : t('map.setBaseMap'),
+						rows: 4
+					}
+				]
+			: []),
 		{ id: 'deaths', label: t('map.deaths'), rows: 4 },
 		{ id: 'timeline', label: t('timeline.title'), rows: 7 }
 	]);
