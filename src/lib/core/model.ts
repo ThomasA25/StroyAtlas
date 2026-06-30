@@ -74,6 +74,21 @@ export interface Location {
 	origin: Origin;
 }
 
+/**
+ * Extra context for a single death: who dealt it, how, and with what. All
+ * optional — a natural death has no killer, and detail is filled in only where
+ * the source supports it. Attached to the killing event, keyed by the dying
+ * character (see StoryEvent.deathDetails).
+ */
+export interface DeathDetail {
+	/** The slayer, if a known character; null/omitted for natural or unattributed deaths. */
+	killerId?: CharacterId | null;
+	/** Short prose on how/why they died. */
+	cause?: string;
+	/** Weapon or means (e.g. "Sword", "Dragonfire", "Fire"). */
+	weapon?: string;
+}
+
 export interface StoryEvent {
 	id: EventId;
 	title: string;
@@ -86,6 +101,8 @@ export interface StoryEvent {
 	episode?: number | null;
 	/** Characters who die in this event (canonical ids). Drives death-aware views. */
 	deaths?: CharacterId[];
+	/** Per-death context (killer/cause/weapon), keyed by the dying character id. */
+	deathDetails?: Partial<Record<CharacterId, DeathDetail>>;
 	origin: Origin;
 }
 

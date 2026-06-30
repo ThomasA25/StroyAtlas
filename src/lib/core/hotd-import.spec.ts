@@ -145,3 +145,29 @@ describe('hotdDefaultProject coronation split', () => {
 		expect(factionAt(rhaenyra!, switchOrder)).toBe('Schwarze');
 	});
 });
+
+describe('hotdDefaultProject death details', () => {
+	it('enriches deaths with killer, cause and weapon', () => {
+		const deaths = characterDeaths(hotdDefaultProject('en'));
+		const byChar = (id: string) =>
+			[...deaths.values()].find((d) => (d.characterId as string) === id);
+
+		const luke = byChar('lucerys-velaryon');
+		expect(luke?.killerId).toBe('aemond-targaryen');
+		expect(luke?.weapon).toBeTruthy();
+		expect(luke?.cause).toContain('Vhagar');
+
+		// A natural death has no killer but still carries a cause.
+		const viserys = byChar('viserys-i-targaryen');
+		expect(viserys?.killerId).toBeNull();
+		expect(viserys?.cause).toBeTruthy();
+	});
+
+	it('localizes the cause for the German dataset', () => {
+		const deaths = characterDeaths(hotdDefaultProject('de'));
+		const luke = [...deaths.values()].find((d) => (d.characterId as string) === 'lucerys-velaryon');
+		expect(luke?.killerId).toBe('aemond-targaryen');
+		expect(luke?.cause).toContain('Vhagar');
+		expect(luke?.cause).toContain('Sturmkap');
+	});
+});

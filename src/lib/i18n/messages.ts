@@ -164,6 +164,7 @@ const en = {
 	'death.label': 'Death',
 	'death.died': 'died',
 	'death.diesIn': 'Dies: {event}',
+	'death.by': 'by',
 	'timeline.showDeathsOnly': 'Deaths only'
 } as const;
 
@@ -321,6 +322,7 @@ const de: Messages = {
 	'death.label': 'Tod',
 	'death.died': 'gestorben',
 	'death.diesIn': 'Tod: {event}',
+	'death.by': 'von',
 	'timeline.showDeathsOnly': 'Nur Tode'
 };
 

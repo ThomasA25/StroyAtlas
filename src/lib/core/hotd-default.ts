@@ -177,6 +177,146 @@ function applyCoronationSplit(project: Project): void {
 }
 
 /**
+ * Per-death context for the seeded deaths — who dealt it, how, and with what —
+ * read straight from each killing event's own summary (no invented facts).
+ * Keyed by the dying character's canonical id (= name slug). Cause/weapon are
+ * localized; the killer is a character id (locale-independent).
+ */
+interface DeathFact {
+	killer?: string | null;
+	cause: { en: string; de: string };
+	weapon?: { en: string; de: string };
+}
+const DEATH_DETAILS: Record<string, DeathFact> = {
+	'aemma-arryn': {
+		killer: 'viserys-i-targaryen',
+		cause: { en: 'Died during the forced birth Viserys ordered to try to save the babe.', de: 'Starb bei der von Viserys angeordneten Schnittgeburt, die das Kind retten sollte.' },
+		weapon: { en: "Maester's blade (forced birth)", de: 'Maester-Klinge (Schnittgeburt)' }
+	},
+	'craghas-drahar': {
+		killer: 'daemon-targaryen',
+		cause: { en: 'Cut down by Daemon in the storming of the Stepstones.', de: 'Von Daemon bei der Erstürmung der Stepstones niedergestreckt.' },
+		weapon: { en: 'Sword (Dark Sister)', de: 'Schwert (Dunkle Schwester)' }
+	},
+	'rhea-royce': {
+		killer: 'daemon-targaryen',
+		cause: { en: 'Left for dead by Daemon in the Vale after a fall from her horse.', de: 'Von Daemon im Tal nach einem Sturz vom Pferd dem Tod überlassen.' },
+		weapon: { en: 'Blunt force (a rock)', de: 'Stumpfe Gewalt (ein Stein)' }
+	},
+	'joffrey-lonmouth': {
+		killer: 'criston-cole',
+		cause: { en: 'Beaten to death by Criston Cole at the wedding feast.', de: 'Von Criston Cole beim Hochzeitsfest zu Tode geprügelt.' },
+		weapon: { en: 'Fists', de: 'Fäuste' }
+	},
+	'laena-velaryon': {
+		killer: 'vhagar',
+		cause: { en: 'After a failed labour, commanded her own dragon to end her life.', de: 'Nach einer gescheiterten Geburt befahl sie ihrem eigenen Drachen, sie zu töten.' },
+		weapon: { en: 'Dragonfire (Vhagar)', de: 'Drachenfeuer (Vhagar)' }
+	},
+	'lyonel-strong': {
+		killer: 'larys-strong',
+		cause: { en: 'Burned in the Harrenhal fire his son Larys arranged.', de: 'Im von seinem Sohn Larys gelegten Brand von Harrenhal verbrannt.' },
+		weapon: { en: 'Fire (arson)', de: 'Feuer (Brandstiftung)' }
+	},
+	'harwin-strong': {
+		killer: 'larys-strong',
+		cause: { en: 'Burned in the Harrenhal fire his brother Larys arranged.', de: 'Im von seinem Bruder Larys gelegten Brand von Harrenhal verbrannt.' },
+		weapon: { en: 'Fire (arson)', de: 'Feuer (Brandstiftung)' }
+	},
+	'lyman-beesbury': {
+		killer: 'criston-cole',
+		cause: { en: 'Killed by Criston Cole at the council table for opposing the coup.', de: 'Von Criston Cole am Ratstisch getötet, weil er sich dem Putsch widersetzte.' },
+		weapon: { en: 'Blunt force (struck down)', de: 'Stumpfe Gewalt (erschlagen)' }
+	},
+	'vaemond-velaryon': {
+		killer: 'daemon-targaryen',
+		cause: { en: 'Beheaded by Daemon for slandering Rhaenyra before the court.', de: 'Von Daemon enthauptet, weil er Rhaenyra bei Hofe verleumdete.' },
+		weapon: { en: 'Sword', de: 'Schwert' }
+	},
+	'viserys-i-targaryen': {
+		killer: null,
+		cause: { en: 'Died of the long, wasting illness that consumed him.', de: 'Starb an der langen, zehrenden Krankheit, die ihn verzehrte.' }
+	},
+	'jaehaerys-targaryen': {
+		killer: 'blood',
+		cause: { en: 'Murdered in his chambers by the assassins Blood and Cheese.', de: 'In seinen Gemächern von den Mördern Blood und Cheese ermordet.' },
+		weapon: { en: 'Blade (beheaded)', de: 'Klinge (enthauptet)' }
+	},
+	'lucerys-velaryon': {
+		killer: 'aemond-targaryen',
+		cause: { en: 'He and his dragon Arrax were caught and devoured by Vhagar over Storm’s End.', de: 'Er und sein Drache Arrax wurden über Sturmkap von Vhagar gefasst und verschlungen.' },
+		weapon: { en: 'Dragon (Vhagar)', de: 'Drache (Vhagar)' }
+	},
+	arrax: {
+		killer: 'aemond-targaryen',
+		cause: { en: 'Caught and killed by Vhagar over Storm’s End.', de: 'Über Sturmkap von Vhagar gefasst und getötet.' },
+		weapon: { en: 'Dragon (Vhagar)', de: 'Drache (Vhagar)' }
+	},
+	'arryk-cargyll': {
+		killer: 'erryk-cargyll',
+		cause: { en: 'Slain by his twin Erryk in their duel to the death on Dragonstone.', de: 'Von seinem Zwilling Erryk im Duell auf Drachenstein getötet.' },
+		weapon: { en: 'Sword', de: 'Schwert' }
+	},
+	'erryk-cargyll': {
+		killer: 'arryk-cargyll',
+		cause: { en: 'Slain by his twin Arryk in their duel to the death on Dragonstone.', de: 'Von seinem Zwilling Arryk im Duell auf Drachenstein getötet.' },
+		weapon: { en: 'Sword', de: 'Schwert' }
+	},
+	'gunthor-darklyn': {
+		killer: 'criston-cole',
+		cause: { en: 'Beheaded by Criston Cole after Duskendale fell.', de: 'Von Criston Cole nach dem Fall von Duskendale enthauptet.' },
+		weapon: { en: 'Sword', de: 'Schwert' }
+	},
+	'rhaenys-targaryen': {
+		killer: 'aemond-targaryen',
+		cause: { en: 'She and her dragon Meleys were brought down by Vhagar at Rook’s Rest.', de: 'Sie und ihr Drache Meleys wurden bei Rook’s Rest von Vhagar niedergerungen.' },
+		weapon: { en: 'Dragonfire (Vhagar)', de: 'Drachenfeuer (Vhagar)' }
+	},
+	meleys: {
+		killer: 'aemond-targaryen',
+		cause: { en: 'Brought down by Vhagar at the Battle of Rook’s Rest.', de: 'In der Schlacht von Rook’s Rest von Vhagar niedergerungen.' },
+		weapon: { en: 'Dragonfire (Vhagar)', de: 'Drachenfeuer (Vhagar)' }
+	},
+	'willem-blackwood': {
+		killer: 'daemon-targaryen',
+		cause: { en: 'Executed by Daemon to satisfy the new Riverlands liege Oscar Tully.', de: 'Von Daemon hingerichtet, um den neuen Flusslande-Lehnsherrn Oscar Tully zu besänftigen.' },
+		weapon: { en: 'Sword (execution)', de: 'Schwert (Hinrichtung)' }
+	},
+	'jason-lannister': {
+		killer: 'daemon-targaryen',
+		cause: { en: 'Slain in Daemon’s victory in the Riverlands; his severed head was presented by Roderick Dustin.', de: 'In Daemons Sieg in den Flusslanden getötet; sein abgeschlagener Kopf wurde von Roderick Dustin überbracht.' },
+		weapon: { en: 'Sword (beheaded in battle)', de: 'Schwert (in der Schlacht enthauptet)' }
+	},
+	'jacaerys-velaryon': {
+		killer: null,
+		cause: { en: 'Shot down and killed at the Battle of the Gullet.', de: 'In der Schlacht im Schlund abgeschossen und getötet.' },
+		weapon: { en: 'Scorpion bolts', de: 'Skorpionbolzen' }
+	},
+	vermax: {
+		killer: null,
+		cause: { en: 'Shot down with Jacaerys at the Battle of the Gullet.', de: 'Mit Jacaerys in der Schlacht im Schlund abgeschossen.' },
+		weapon: { en: 'Scorpion bolts', de: 'Skorpionbolzen' }
+	}
+};
+
+/** Attach DEATH_DETAILS to the killing events of the seeded project (see above). */
+function applyDeathDetails(project: Project, locale: Locale): void {
+	const pick = (t?: { en: string; de: string }) => (t ? (locale === 'de' ? t.de : t.en) : undefined);
+	for (const event of Object.values(project.events)) {
+		if (!event.deaths) continue;
+		for (const id of event.deaths) {
+			const fact = DEATH_DETAILS[id as string];
+			if (!fact) continue;
+			(event.deathDetails ??= {})[id] = {
+				killerId: (fact.killer ?? null) as CharacterId | null,
+				cause: pick(fact.cause),
+				weapon: pick(fact.weapon)
+			};
+		}
+	}
+}
+
+/**
  * Build the default House of the Dragon project for a locale by running every
  * episode file through the real extraction pipeline (Zod contract gate ->
  * mergeExtractionInto with stacked order offsets), exactly as the hotd-import
@@ -199,6 +339,7 @@ export function hotdDefaultProject(locale: Locale): Project {
 		mergeExtractionInto(project, result, { orderOffset: nextOrderOffset(project) });
 	}
 	addDragons(project, locale);
+	applyDeathDetails(project, locale);
 	applyCoronationSplit(project);
 	return project;
 }

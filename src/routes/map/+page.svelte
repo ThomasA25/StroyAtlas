@@ -366,7 +366,10 @@
 		deathLayer.clearLayers();
 		if (!cfg) return;
 		const h = cfg.height;
-		const deathsByLoc = new Map<string, { x: number; y: number; names: string[] }>();
+		const deathsByLoc = new Map<
+			string,
+			{ x: number; y: number; entries: { name: string; killer: string | null }[] }
+		>();
 		for (const death of deaths.values()) {
 			if (!isVisible(death.characterId)) continue;
 			if (!kindAllowed(death.characterId as string)) continue;
@@ -394,10 +397,19 @@
 			}
 
 			// Tally the dead per location so skulls don't stack on one spot.
-			const group: { x: number; y: number; names: string[] } = deathsByLoc.get(
-				death.locationId
-			) ?? { x: loc.coordinates.x, y: loc.coordinates.y, names: [] };
-			group.names.push(name);
+			const killer = death.killerId
+				? (store.project.characters[death.killerId]?.name ?? null)
+				: null;
+			const group: {
+				x: number;
+				y: number;
+				entries: { name: string; killer: string | null }[];
+			} = deathsByLoc.get(death.locationId) ?? {
+				x: loc.coordinates.x,
+				y: loc.coordinates.y,
+				entries: []
+			};
+			group.entries.push({ name, killer });
 			deathsByLoc.set(death.locationId, group);
 		}
 
@@ -406,15 +418,22 @@
 		for (const g of deathsByLoc.values()) {
 			const icon = L.divIcon({
 				className: 'sa-death-badge',
-				html: `💀<span class="n">${g.names.length}</span>`,
+				html: `💀<span class="n">${g.entries.length}</span>`,
 				iconSize: [34, 20],
 				iconAnchor: [-10, 10]
 			});
 			L.marker(toLatLng(g.x, g.y, h), { icon })
-				.bindTooltip(g.names.map((n) => '† ' + escapeHtml(n)).join('<br>'), {
-					direction: 'top',
-					className: 'sa-people-tip'
-				})
+				.bindTooltip(
+					g.entries
+						.map(
+							(e) =>
+								'† ' +
+								escapeHtml(e.name) +
+								(e.killer ? ` — ${t('death.by')} ${escapeHtml(e.killer)}` : '')
+						)
+						.join('<br>'),
+					{ direction: 'top', className: 'sa-people-tip' }
+				)
 				.addTo(deathLayer);
 		}
 	});
@@ -462,7 +481,10 @@
 				place: d.locationId
 					? (store.project.locations[d.locationId]?.name ?? (d.locationId as string))
 					: '—',
-				ep: epLabel(store.project.events[d.eventId])
+				ep: epLabel(store.project.events[d.eventId]),
+				killer: d.killerId ? (store.project.characters[d.killerId]?.name ?? null) : null,
+				cause: d.cause ?? null,
+				weapon: d.weapon ?? null
 			}))
 	);
 
@@ -640,6 +662,11 @@
 								>
 								<span class="who">{d.name}</span>
 								<span class="at sa-muted">@ {d.place}{d.ep ? ` · ${d.ep}` : ''}</span>
+								{#if d.killer || d.cause || d.weapon}
+									<span class="detail sa-muted">
+										{#if d.killer}<span class="killer">† {t('death.by')} {d.killer}</span>{/if}{#if d.cause}<span class="cause">{d.cause}</span>{/if}{#if d.weapon}<span class="weapon">⚔ {d.weapon}</span>{/if}
+									</span>
+								{/if}
 							</li>
 						{/each}
 					</ol>
@@ -718,14 +745,30 @@
 	}
 	.death-list li {
 		display: flex;
+		flex-wrap: wrap;
 		align-items: baseline;
-		gap: 0.4rem;
-		padding: 0.2rem 0;
+		gap: 0.2rem 0.4rem;
+		padding: 0.25rem 0;
 		font-size: 0.85rem;
 		opacity: 0.45;
+		border-bottom: 1px solid var(--sa-border);
 	}
 	.death-list li.occurred {
 		opacity: 1;
+	}
+	.death-list .detail {
+		flex-basis: 100%;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.15rem 0.6rem;
+		font-size: 0.74rem;
+		line-height: 1.35;
+	}
+	.death-list .detail .killer {
+		color: var(--sa-danger);
+	}
+	.death-list .detail .weapon {
+		white-space: nowrap;
 	}
 	.death-list .seek {
 		font-variant-numeric: tabular-nums;
