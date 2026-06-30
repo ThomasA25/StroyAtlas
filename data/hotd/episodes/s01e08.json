@@ -1,0 +1,40 @@
+{
+	"source": {
+		"title": "Wikipedia — House of the Dragon S01E08: The Lord of the Tides",
+		"url": "https://en.wikipedia.org/wiki/House_of_the_Dragon_season_1",
+		"type": "wiki"
+	},
+	"story": {
+		"series": "House of the Dragon",
+		"season": 1,
+		"episode": 8,
+		"title": "The Lord of the Tides",
+		"characters": [
+			{ "id": "vaemond-velaryon", "name": "Vaemond Velaryon", "faction": "Greens", "aliases": ["Ser Vaemond Velaryon"] },
+			{ "id": "rhaenys-targaryen", "name": "Rhaenys Targaryen", "faction": "Blacks", "aliases": ["The Queen Who Never Was", "Princess Rhaenys"] },
+			{ "id": "rhaenyra-targaryen", "name": "Rhaenyra Targaryen", "faction": "Blacks", "aliases": ["The Realm's Delight", "Princess of Dragonstone", "Queen Rhaenyra"] },
+			{ "id": "daemon-targaryen", "name": "Daemon Targaryen", "faction": "Blacks", "aliases": ["The Rogue Prince", "Prince of the City"] },
+			{ "id": "viserys-i-targaryen", "name": "Viserys I Targaryen", "faction": "Neutral", "aliases": ["King Viserys I", "Viserys the Peaceful"] },
+			{ "id": "lucerys-velaryon", "name": "Lucerys Velaryon", "faction": "Blacks", "aliases": ["Luke"] },
+			{ "id": "alicent-hightower", "name": "Alicent Hightower", "faction": "Greens", "aliases": ["Queen Alicent", "The Queen Dowager"] },
+			{ "id": "aemond-targaryen", "name": "Aemond Targaryen", "faction": "Greens", "aliases": ["Aemond One-Eye", "Prince Aemond"] }
+		],
+		"locations": [
+			{ "id": "red-keep", "name": "Red Keep", "type": "castle", "coordinates": { "x": 580, "y": 606 } }
+		],
+		"events": [
+			{ "id": "s01e08-ev1", "title": "Vaemond petitions for Driftmark", "location_id": "red-keep", "characters_involved": ["vaemond-velaryon", "rhaenys-targaryen"], "summary": "With Corlys gravely wounded in the Stepstones, his brother Vaemond claims Driftmark, branding Rhaenyra's sons bastards.", "order_index": 0 },
+			{ "id": "s01e08-ev2", "title": "Rhaenyra and Daemon return to court", "location_id": "red-keep", "characters_involved": ["rhaenyra-targaryen", "daemon-targaryen"], "summary": "Rhaenyra and Daemon come back to King's Landing to defend Lucerys's claim.", "order_index": 1 },
+			{ "id": "s01e08-ev3", "title": "Viserys upholds Lucerys as heir to Driftmark", "location_id": "red-keep", "characters_involved": ["viserys-i-targaryen", "rhaenyra-targaryen", "lucerys-velaryon", "alicent-hightower"], "summary": "The ailing king takes the throne one last time and affirms Lucerys as heir to Driftmark.", "order_index": 2 },
+			{ "id": "s01e08-ev4", "title": "Daemon beheads Vaemond", "location_id": "red-keep", "characters_involved": ["daemon-targaryen", "vaemond-velaryon"], "summary": "When Vaemond slanders Rhaenyra before the court, Daemon strikes off his head.", "order_index": 3, "deaths": ["vaemond-velaryon"] },
+			{ "id": "s01e08-ev5", "title": "A fragile family feast", "location_id": "red-keep", "characters_involved": ["viserys-i-targaryen", "alicent-hightower", "aemond-targaryen", "rhaenyra-targaryen", "daemon-targaryen"], "summary": "A feast briefly reconciles the families before Aemond's barbs reopen old wounds.", "order_index": 4 },
+			{ "id": "s01e08-ev6", "title": "Viserys's last, misheard words", "location_id": "red-keep", "characters_involved": ["viserys-i-targaryen", "alicent-hightower"], "summary": "Dying, Viserys mistakes Alicent for Rhaenyra and murmurs the prophecy; Alicent misreads it as a deathbed wish for Aegon.", "order_index": 5, "deaths": ["viserys-i-targaryen"] }
+		],
+		"scenes": [
+			{ "id": "s01e08-sc1", "order_index": 0, "start_hint": "The Driftmark succession petition", "end_hint": "Vaemond presses his claim", "location_id": "red-keep", "characters": ["vaemond-velaryon", "rhaenys-targaryen"], "event_ids": ["s01e08-ev1"], "transition_to_next": "Rhaenyra and Daemon arrive to answer it." },
+			{ "id": "s01e08-sc2", "order_index": 1, "start_hint": "The throne room", "end_hint": "A judgment and a beheading", "location_id": "red-keep", "characters": ["viserys-i-targaryen", "rhaenyra-targaryen", "daemon-targaryen", "lucerys-velaryon", "alicent-hightower", "vaemond-velaryon"], "event_ids": ["s01e08-ev2", "s01e08-ev3", "s01e08-ev4"], "transition_to_next": "A feast tries, and fails, to mend the family." },
+			{ "id": "s01e08-sc3", "order_index": 2, "start_hint": "The reconciliation feast", "end_hint": "Aemond reopens the rift", "location_id": "red-keep", "characters": ["viserys-i-targaryen", "alicent-hightower", "aemond-targaryen", "rhaenyra-targaryen", "daemon-targaryen"], "event_ids": ["s01e08-ev5"], "transition_to_next": "Alone with the king at the end." },
+			{ "id": "s01e08-sc4", "order_index": 3, "start_hint": "The king's bedchamber", "end_hint": "A fatal misunderstanding", "location_id": "red-keep", "characters": ["viserys-i-targaryen", "alicent-hightower"], "event_ids": ["s01e08-ev6"], "transition_to_next": "" }
+		]
+	}
+}

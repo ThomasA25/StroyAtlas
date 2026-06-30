@@ -1,0 +1,42 @@
+{
+	"source": {
+		"title": "Wikipedia — House of the Dragon S01E10: The Black Queen",
+		"url": "https://en.wikipedia.org/wiki/House_of_the_Dragon_season_1",
+		"type": "wiki"
+	},
+	"story": {
+		"series": "House of the Dragon",
+		"season": 1,
+		"episode": 10,
+		"title": "The Black Queen",
+		"characters": [
+			{ "id": "rhaenys-targaryen", "name": "Rhaenys Targaryen", "faction": "Blacks", "aliases": ["The Queen Who Never Was", "Princess Rhaenys"] },
+			{ "id": "rhaenyra-targaryen", "name": "Rhaenyra Targaryen", "faction": "Blacks", "aliases": ["The Realm's Delight", "Princess of Dragonstone", "Queen Rhaenyra"] },
+			{ "id": "daemon-targaryen", "name": "Daemon Targaryen", "faction": "Blacks", "aliases": ["The Rogue Prince", "Prince of the City"] },
+			{ "id": "erryk-cargyll", "name": "Erryk Cargyll", "faction": "Blacks", "aliases": ["Ser Erryk Cargyll"] },
+			{ "id": "corlys-velaryon", "name": "Corlys Velaryon", "faction": "Blacks", "aliases": ["The Sea Snake", "Lord of the Tides", "Lord of Driftmark"] },
+			{ "id": "otto-hightower", "name": "Otto Hightower", "faction": "Greens", "aliases": ["Lord Otto", "Hand of the King"] },
+			{ "id": "jacaerys-velaryon", "name": "Jacaerys Velaryon", "faction": "Blacks", "aliases": ["Jace", "Prince Jacaerys"] },
+			{ "id": "lucerys-velaryon", "name": "Lucerys Velaryon", "faction": "Blacks", "aliases": ["Luke"] },
+			{ "id": "aemond-targaryen", "name": "Aemond Targaryen", "faction": "Greens", "aliases": ["Aemond One-Eye", "Prince Aemond"] },
+			{ "id": "borros-baratheon", "name": "Borros Baratheon", "faction": "Greens", "aliases": ["Lord of Storm's End"] }
+		],
+		"locations": [
+			{ "id": "dragonstone", "name": "Dragonstone", "type": "castle", "coordinates": { "x": 750, "y": 628 } },
+			{ "id": "storms-end", "name": "Storm's End", "type": "castle", "coordinates": { "x": 606, "y": 818 } }
+		],
+		"events": [
+			{ "id": "s01e10-ev1", "title": "News of the usurpation; a stillbirth", "location_id": "dragonstone", "characters_involved": ["rhaenys-targaryen", "rhaenyra-targaryen", "daemon-targaryen"], "summary": "Rhaenys brings word of Viserys's death and Aegon's crowning; the shock sends Rhaenyra into a fatal premature labour.", "order_index": 0 },
+			{ "id": "s01e10-ev2", "title": "Rhaenyra proclaimed queen; Velaryons declare", "location_id": "dragonstone", "characters_involved": ["rhaenyra-targaryen", "daemon-targaryen", "erryk-cargyll", "corlys-velaryon"], "summary": "Ser Erryk delivers Viserys's crown and Rhaenyra is named queen; Corlys pledges House Velaryon to the Blacks.", "order_index": 1 },
+			{ "id": "s01e10-ev3", "title": "Otto delivers Aegon's terms", "location_id": "dragonstone", "characters_involved": ["otto-hightower", "rhaenyra-targaryen"], "summary": "Otto Hightower arrives with terms for Rhaenyra's surrender, which she refuses.", "order_index": 2 },
+			{ "id": "s01e10-ev4", "title": "Envoys sent to win allies", "location_id": "dragonstone", "characters_involved": ["rhaenyra-targaryen", "jacaerys-velaryon", "lucerys-velaryon"], "summary": "Jacaerys and Lucerys are dispatched as envoys to secure Houses Stark, Arryn and Baratheon.", "order_index": 3 },
+			{ "id": "s01e10-ev5", "title": "Death of Lucerys over Storm's End", "location_id": "storms-end", "characters_involved": ["lucerys-velaryon", "aemond-targaryen", "borros-baratheon"], "summary": "At Storm's End Luke crosses paths with Aemond; Vhagar kills Lucerys and his dragon Arrax, igniting open war.", "order_index": 4, "deaths": ["lucerys-velaryon"] }
+		],
+		"scenes": [
+			{ "id": "s01e10-sc1", "order_index": 0, "start_hint": "Grim news reaches Dragonstone", "end_hint": "Rhaenyra loses her child", "location_id": "dragonstone", "characters": ["rhaenys-targaryen", "rhaenyra-targaryen", "daemon-targaryen"], "event_ids": ["s01e10-ev1"], "transition_to_next": "Rhaenyra is proclaimed queen." },
+			{ "id": "s01e10-sc2", "order_index": 1, "start_hint": "The Black queen's court", "end_hint": "Terms refused", "location_id": "dragonstone", "characters": ["rhaenyra-targaryen", "daemon-targaryen", "erryk-cargyll", "corlys-velaryon", "otto-hightower"], "event_ids": ["s01e10-ev2", "s01e10-ev3"], "transition_to_next": "Envoys are dispatched to win allies." },
+			{ "id": "s01e10-sc3", "order_index": 2, "start_hint": "Envoys depart Dragonstone", "end_hint": "Riders take to the skies", "location_id": "dragonstone", "characters": ["rhaenyra-targaryen", "jacaerys-velaryon", "lucerys-velaryon"], "event_ids": ["s01e10-ev4"], "transition_to_next": "At Storm's End, two dragons meet." },
+			{ "id": "s01e10-sc4", "order_index": 3, "start_hint": "Storm's End in the storm", "end_hint": "Luke is killed", "location_id": "storms-end", "characters": ["lucerys-velaryon", "aemond-targaryen", "borros-baratheon"], "event_ids": ["s01e10-ev5"], "transition_to_next": "" }
+		]
+	}
+}

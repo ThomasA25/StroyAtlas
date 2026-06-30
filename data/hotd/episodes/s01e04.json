@@ -1,0 +1,39 @@
+{
+	"source": {
+		"title": "Wikipedia — House of the Dragon S01E04: King of the Narrow Sea",
+		"url": "https://en.wikipedia.org/wiki/House_of_the_Dragon_season_1",
+		"type": "wiki"
+	},
+	"story": {
+		"series": "House of the Dragon",
+		"season": 1,
+		"episode": 4,
+		"title": "King of the Narrow Sea",
+		"characters": [
+			{ "id": "daemon-targaryen", "name": "Daemon Targaryen", "faction": "Blacks", "aliases": ["The Rogue Prince", "Prince of the City"] },
+			{ "id": "viserys-i-targaryen", "name": "Viserys I Targaryen", "faction": "Neutral", "aliases": ["King Viserys I", "Viserys the Peaceful"] },
+			{ "id": "rhaenyra-targaryen", "name": "Rhaenyra Targaryen", "faction": "Blacks", "aliases": ["The Realm's Delight", "Princess of Dragonstone", "Queen Rhaenyra"] },
+			{ "id": "criston-cole", "name": "Criston Cole", "faction": "Greens", "aliases": ["Ser Criston Cole", "The Kingmaker", "Lord Commander of the Kingsguard"] },
+			{ "id": "otto-hightower", "name": "Otto Hightower", "faction": "Greens", "aliases": ["Lord Otto", "Hand of the King"] },
+			{ "id": "laenor-velaryon", "name": "Laenor Velaryon", "faction": "Blacks", "aliases": [] },
+			{ "id": "mysaria", "name": "Mysaria", "faction": "Blacks", "aliases": ["The White Worm", "Lady Mysaria"] }
+		],
+		"locations": [
+			{ "id": "red-keep", "name": "Red Keep", "type": "castle", "coordinates": { "x": 580, "y": 606 } },
+			{ "id": "kings-landing", "name": "King's Landing", "type": "city", "coordinates": { "x": 560, "y": 620 } }
+		],
+		"events": [
+			{ "id": "s01e04-ev1", "title": "Daemon returns and bends the knee", "location_id": "red-keep", "characters_involved": ["daemon-targaryen", "viserys-i-targaryen"], "summary": "Daemon comes back to court styling himself 'King of the Narrow Sea' and swears loyalty to Viserys.", "order_index": 0 },
+			{ "id": "s01e04-ev2", "title": "Daemon and Rhaenyra roam the city", "location_id": "kings-landing", "characters_involved": ["daemon-targaryen", "rhaenyra-targaryen"], "summary": "The two slip out at night through King's Landing and a brothel; Daemon begins, then abandons, a seduction.", "order_index": 1 },
+			{ "id": "s01e04-ev3", "title": "Rhaenyra and Criston Cole", "location_id": "red-keep", "characters_involved": ["rhaenyra-targaryen", "criston-cole"], "summary": "Back in the keep, Rhaenyra and her sworn shield Criston Cole sleep together.", "order_index": 2 },
+			{ "id": "s01e04-ev4", "title": "Daemon exiled; Rhaenyra betrothed to Laenor", "location_id": "red-keep", "characters_involved": ["viserys-i-targaryen", "daemon-targaryen", "rhaenyra-targaryen", "laenor-velaryon", "mysaria"], "summary": "Told of the night's events via Mysaria's spies, Viserys exiles Daemon and orders Rhaenyra to marry Laenor.", "order_index": 3 },
+			{ "id": "s01e04-ev5", "title": "Otto dismissed as Hand", "location_id": "red-keep", "characters_involved": ["viserys-i-targaryen", "otto-hightower"], "summary": "Viserys removes Otto Hightower as Hand of the King, distrusting his manipulations.", "order_index": 4 }
+		],
+		"scenes": [
+			{ "id": "s01e04-sc1", "order_index": 0, "start_hint": "Daemon's return to court", "end_hint": "He kneels to the king", "location_id": "red-keep", "characters": ["daemon-targaryen", "viserys-i-targaryen"], "event_ids": ["s01e04-ev1"], "transition_to_next": "That night they roam the city in disguise." },
+			{ "id": "s01e04-sc2", "order_index": 1, "start_hint": "The streets and a brothel", "end_hint": "Daemon walks away", "location_id": "kings-landing", "characters": ["daemon-targaryen", "rhaenyra-targaryen"], "event_ids": ["s01e04-ev2"], "transition_to_next": "Back in the keep, Rhaenyra turns to her sworn shield." },
+			{ "id": "s01e04-sc3", "order_index": 2, "start_hint": "Rhaenyra's chambers", "end_hint": "A line is crossed", "location_id": "red-keep", "characters": ["rhaenyra-targaryen", "criston-cole"], "event_ids": ["s01e04-ev3"], "transition_to_next": "Word of the night reaches the king." },
+			{ "id": "s01e04-sc4", "order_index": 3, "start_hint": "The king's judgment", "end_hint": "Exile and betrothal decreed", "location_id": "red-keep", "characters": ["viserys-i-targaryen", "daemon-targaryen", "rhaenyra-targaryen", "laenor-velaryon", "otto-hightower"], "event_ids": ["s01e04-ev4", "s01e04-ev5"], "transition_to_next": "" }
+		]
+	}
+}

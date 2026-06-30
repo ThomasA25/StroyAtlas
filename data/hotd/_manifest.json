@@ -1,0 +1,68 @@
+{
+	"dataset": "House of the Dragon — StoryAtlas first dataset",
+	"generated_at": "2026-06-29",
+	"series": "House of the Dragon",
+	"files": {
+		"character_registry": "characters.json",
+		"location_registry": "locations.json",
+		"episodes_dir": "episodes/",
+		"relationships_extension": "relationships.json"
+	},
+	"counts": {
+		"episode_files": 19,
+		"registry_characters": 56,
+		"registry_locations": 25,
+		"characters_used_in_episodes": 52,
+		"locations_used_in_episodes": 20,
+		"total_events": 96,
+		"total_scenes": 81,
+		"relationships": 45
+	},
+	"validation": {
+		"tool": "scratchpad/validate-hotd.mjs",
+		"result": "0 errors, 0 warnings — all location_id / characters_involved / event_ids references resolve within each episode; all episode entity ids exist in the shared registries; all relationship endpoints exist in the character registry.",
+		"unused_registry_characters": ["daeron-targaryen", "gwayne-hightower", "ormund-hightower", "orwyle"],
+		"unused_registry_locations": ["winterfell", "braavos", "the-narrow-sea", "casterly-rock", "oldtown"],
+		"unused_note": "Canonical entities kept in the registry for consistency and future episodes; not an error."
+	},
+	"coverage": {
+		"season_1": { "episodes_total": 10, "aired": "all (2022)", "covered": "s01e01–s01e10" },
+		"season_2": { "episodes_total": 8, "aired": "all (2024)", "covered": "s02e01–s02e08" },
+		"season_3": {
+			"episodes_total_planned": 8,
+			"premiere": "2026-06-21 (weekly, Sundays, HBO / HBO Max)",
+			"aired_so_far": ["s03e01 (2026-06-21)", "s03e02 (2026-06-28)"],
+			"covered": "s03e01 (enriched: added Aegon's flight from King's Landing, the Dragonstone launch of Jacaerys & Baela, Addam & Alyn at the Gullet, and Jason Lannister's death — 7 events / 7 scenes)",
+			"not_covered": "s03e02 — aired 2026-06-28 but no reliable plot source was available at generation time (title officially unannounced; reported writer Sara Hess, director Clare Kilner). Left out deliberately rather than fabricated.",
+			"unaired_at_generation": "s03e03–s03e08 (future weekly releases)"
+		}
+	},
+	"sources": [
+		{ "title": "Wikipedia — House of the Dragon season 1", "url": "https://en.wikipedia.org/wiki/House_of_the_Dragon_season_1", "used_for": "S1 episode titles, air dates, plots" },
+		{ "title": "Wikipedia — House of the Dragon season 2", "url": "https://en.wikipedia.org/wiki/House_of_the_Dragon_season_2", "used_for": "S2 episode titles, air dates, plots" },
+		{ "title": "Wikipedia — House of the Dragon season 3", "url": "https://en.wikipedia.org/wiki/House_of_the_Dragon_season_3", "used_for": "S3 coverage, S3E1 plot, air dates" },
+		{ "title": "A Wiki of Ice and Fire — Greens", "url": "https://awoiaf.westeros.org/index.php/Greens", "used_for": "canonical names, titles, faction allegiances" },
+		{ "title": "Sky / Den of Geek — Greens vs Blacks guides", "url": "https://www.denofgeek.com/tv/house-of-the-dragon-who-are-the-greens-and-blacks/", "used_for": "faction allegiance verification" }
+	],
+	"open_gaps": [
+		"s03e02 plot not yet documented (see coverage.season_3).",
+		"s03e03–s03e08 unaired at generation time.",
+		"Location coordinates (x/y) are all null — to be placed manually once a base map is chosen.",
+		"A few canonical registry entities are not yet referenced by any episode (see validation.unused_*)."
+	],
+	"assets": {
+		"westeros_base_map": {
+			"status": "REQUIRED, NOT BUNDLED",
+			"reason": "No clearly free/CC-licensed Westeros map was confirmed at generation time. Per task rules, official HBO maps must not be copied blindly.",
+			"how_to_add": "Place a chosen map image at data/hotd/assets/westeros-map.<ext>, prefer a freely/Creative-Commons or fan-licensed map, and record its source + license in data/hotd/assets/README.md. Then set the image and its pixel dimensions in the app's Map view and place locations (coordinates currently null).",
+			"see": "data/hotd/assets/README.md"
+		}
+	},
+	"conventions": {
+		"faction_values": ["Greens", "Blacks", "Neutral"],
+		"id_scheme": "stable kebab-case slugs (e.g. \"kings-landing\", \"rhaenyra-targaryen\"); shared across episodes for dedup/consistency.",
+		"registry_files": "characters.json / locations.json carry a small wrapper (kind/series/note); episode files follow the strict episode data contract.",
+		"summaries": "factual, written in our own words; no verbatim wiki/transcript passages."
+	},
+	"data_usage_estimate": "Well under the ~2 GB budget. Only text pages were fetched (a handful of Wikipedia season pages) plus a few web searches; no large media assets were downloaded — on the order of a few megabytes total."
+}

@@ -1,0 +1,45 @@
+{
+	"source": {
+		"title": "Wikipedia — House of the Dragon S02E03: The Burning Mill",
+		"url": "https://en.wikipedia.org/wiki/House_of_the_Dragon_season_2",
+		"type": "wiki"
+	},
+	"story": {
+		"series": "House of the Dragon",
+		"season": 2,
+		"episode": 3,
+		"title": "The Burning Mill",
+		"characters": [
+			{ "id": "willem-blackwood", "name": "Willem Blackwood", "faction": "Blacks", "aliases": ["Ser Willem Blackwood"] },
+			{ "id": "daemon-targaryen", "name": "Daemon Targaryen", "faction": "Blacks", "aliases": ["The Rogue Prince", "Prince of the City"] },
+			{ "id": "simon-strong", "name": "Simon Strong", "faction": "Blacks", "aliases": ["Ser Simon Strong", "Castellan of Harrenhal"] },
+			{ "id": "mysaria", "name": "Mysaria", "faction": "Blacks", "aliases": ["The White Worm", "Lady Mysaria"] },
+			{ "id": "rhaenyra-targaryen", "name": "Rhaenyra Targaryen", "faction": "Blacks", "aliases": ["The Realm's Delight", "Princess of Dragonstone", "Queen Rhaenyra"] },
+			{ "id": "larys-strong", "name": "Larys Strong", "faction": "Greens", "aliases": ["The Clubfoot", "Lord Larys", "Master of Whisperers"] },
+			{ "id": "alicent-hightower", "name": "Alicent Hightower", "faction": "Greens", "aliases": ["Queen Alicent", "The Queen Dowager"] },
+			{ "id": "ulf-white", "name": "Ulf White", "faction": "Blacks", "aliases": ["Ulf the White"] }
+		],
+		"locations": [
+			{ "id": "the-riverlands", "name": "The Riverlands", "type": "region", "coordinates": { "x": 440, "y": 505 } },
+			{ "id": "harrenhal", "name": "Harrenhal", "type": "castle", "coordinates": { "x": 478, "y": 545 } },
+			{ "id": "dragonstone", "name": "Dragonstone", "type": "castle", "coordinates": { "x": 750, "y": 628 } },
+			{ "id": "red-keep", "name": "Red Keep", "type": "castle", "coordinates": { "x": 580, "y": 606 } },
+			{ "id": "kings-landing", "name": "King's Landing", "type": "city", "coordinates": { "x": 560, "y": 620 } }
+		],
+		"events": [
+			{ "id": "s02e03-ev1", "title": "Brackens and Blackwoods clash", "location_id": "the-riverlands", "characters_involved": ["willem-blackwood"], "summary": "The feud between Houses Bracken and Blackwood flares into open fighting in the Riverlands.", "order_index": 0 },
+			{ "id": "s02e03-ev2", "title": "Daemon takes Harrenhal", "location_id": "harrenhal", "characters_involved": ["daemon-targaryen", "simon-strong"], "summary": "Daemon occupies Harrenhal, where castellan Ser Simon Strong yields to him.", "order_index": 1 },
+			{ "id": "s02e03-ev3", "title": "Mysaria advises the queen", "location_id": "dragonstone", "characters_involved": ["mysaria", "rhaenyra-targaryen"], "summary": "Mysaria becomes one of Rhaenyra's trusted advisers on Dragonstone.", "order_index": 2 },
+			{ "id": "s02e03-ev4", "title": "Larys made Master of Whisperers", "location_id": "red-keep", "characters_involved": ["larys-strong"], "summary": "Larys Strong takes the post of Master of Whisperers on the Greens' council.", "order_index": 3 },
+			{ "id": "s02e03-ev5", "title": "A failed peace between the queens", "location_id": "kings-landing", "characters_involved": ["rhaenyra-targaryen", "alicent-hightower"], "summary": "Rhaenyra secretly slips into King's Landing to meet Alicent, but their attempt at peace collapses.", "order_index": 4 },
+			{ "id": "s02e03-ev6", "title": "Ulf claims royal blood", "location_id": "kings-landing", "characters_involved": ["ulf-white"], "summary": "In a tavern, a man named Ulf boasts of being a Targaryen bastard.", "order_index": 5 }
+		],
+		"scenes": [
+			{ "id": "s02e03-sc1", "order_index": 0, "start_hint": "Feud in the Riverlands", "end_hint": "A mill burns", "location_id": "the-riverlands", "characters": ["willem-blackwood"], "event_ids": ["s02e03-ev1"], "transition_to_next": "Daemon claims Harrenhal." },
+			{ "id": "s02e03-sc2", "order_index": 1, "start_hint": "The gates of Harrenhal", "end_hint": "The castle yields", "location_id": "harrenhal", "characters": ["daemon-targaryen", "simon-strong"], "event_ids": ["s02e03-ev2"], "transition_to_next": "Rhaenyra reshapes her council." },
+			{ "id": "s02e03-sc3", "order_index": 2, "start_hint": "Dragonstone counsel", "end_hint": "A new adviser", "location_id": "dragonstone", "characters": ["mysaria", "rhaenyra-targaryen"], "event_ids": ["s02e03-ev3"], "transition_to_next": "In the capital, Larys rises." },
+			{ "id": "s02e03-sc4", "order_index": 3, "start_hint": "The Green council", "end_hint": "A spymaster appointed", "location_id": "red-keep", "characters": ["larys-strong"], "event_ids": ["s02e03-ev4"], "transition_to_next": "Two queens meet in secret." },
+			{ "id": "s02e03-sc5", "order_index": 4, "start_hint": "A clandestine meeting", "end_hint": "Peace slips away", "location_id": "kings-landing", "characters": ["rhaenyra-targaryen", "alicent-hightower", "ulf-white"], "event_ids": ["s02e03-ev5", "s02e03-ev6"], "transition_to_next": "" }
+		]
+	}
+}

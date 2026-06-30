@@ -1,0 +1,42 @@
+{
+	"source": {
+		"title": "Wikipedia — House of the Dragon S01E10: Die Schwarze Königin",
+		"url": "https://en.wikipedia.org/wiki/House_of_the_Dragon_season_1",
+		"type": "wiki"
+	},
+	"story": {
+		"series": "House of the Dragon",
+		"season": 1,
+		"episode": 10,
+		"title": "Die Schwarze Königin",
+		"characters": [
+			{ "id": "rhaenys-targaryen", "name": "Rhaenys Targaryen", "faction": "Schwarze", "aliases": ["Die Königin, die niemals war", "Prinzessin Rhaenys"] },
+			{ "id": "rhaenyra-targaryen", "name": "Rhaenyra Targaryen", "faction": "Schwarze", "aliases": ["Die Freude des Reiches", "Prinzessin von Drachenstein", "Königin Rhaenyra"] },
+			{ "id": "daemon-targaryen", "name": "Daemon Targaryen", "faction": "Schwarze", "aliases": ["Der Schurkenprinz", "Prinz der Stadt"] },
+			{ "id": "erryk-cargyll", "name": "Erryk Cargyll", "faction": "Schwarze", "aliases": ["Ser Erryk Cargyll"] },
+			{ "id": "corlys-velaryon", "name": "Corlys Velaryon", "faction": "Schwarze", "aliases": ["Die Seeschlange", "Herr der Gezeiten", "Lord von Driftmark"] },
+			{ "id": "otto-hightower", "name": "Otto Hightower", "faction": "Grüne", "aliases": ["Lord Otto", "Hand des Königs"] },
+			{ "id": "jacaerys-velaryon", "name": "Jacaerys Velaryon", "faction": "Schwarze", "aliases": ["Jace", "Prinz Jacaerys"] },
+			{ "id": "lucerys-velaryon", "name": "Lucerys Velaryon", "faction": "Schwarze", "aliases": ["Luke"] },
+			{ "id": "aemond-targaryen", "name": "Aemond Targaryen", "faction": "Grüne", "aliases": ["Aemond Einauge", "Prinz Aemond"] },
+			{ "id": "borros-baratheon", "name": "Borros Baratheon", "faction": "Grüne", "aliases": ["Lord von Sturmkap"] }
+		],
+		"locations": [
+			{ "id": "dragonstone", "name": "Drachenstein", "type": "castle", "coordinates": { "x": 750, "y": 628 } },
+			{ "id": "storms-end", "name": "Sturmkap", "type": "castle", "coordinates": { "x": 606, "y": 818 } }
+		],
+		"events": [
+			{ "id": "s01e10-ev1", "title": "Nachricht von der Usurpation; eine Totgeburt", "location_id": "dragonstone", "characters_involved": ["rhaenys-targaryen", "rhaenyra-targaryen", "daemon-targaryen"], "summary": "Rhaenys überbringt die Nachricht von Viserys' Tod und Aegons Krönung; der Schock treibt Rhaenyra in eine tödliche Frühgeburt.", "order_index": 0 },
+			{ "id": "s01e10-ev2", "title": "Rhaenyra zur Königin ausgerufen; die Velaryons erklären sich", "location_id": "dragonstone", "characters_involved": ["rhaenyra-targaryen", "daemon-targaryen", "erryk-cargyll", "corlys-velaryon"], "summary": "Ser Erryk überbringt Viserys' Krone und Rhaenyra wird zur Königin ausgerufen; Corlys verpflichtet Haus Velaryon den Schwarzen.", "order_index": 1 },
+			{ "id": "s01e10-ev3", "title": "Otto überbringt Aegons Bedingungen", "location_id": "dragonstone", "characters_involved": ["otto-hightower", "rhaenyra-targaryen"], "summary": "Otto Hightower trifft mit Bedingungen für Rhaenyras Kapitulation ein, die sie ablehnt.", "order_index": 2 },
+			{ "id": "s01e10-ev4", "title": "Gesandte ausgeschickt, um Verbündete zu gewinnen", "location_id": "dragonstone", "characters_involved": ["rhaenyra-targaryen", "jacaerys-velaryon", "lucerys-velaryon"], "summary": "Jacaerys und Lucerys werden als Gesandte entsandt, um die Häuser Stark, Arryn und Baratheon zu gewinnen.", "order_index": 3 },
+			{ "id": "s01e10-ev5", "title": "Tod von Lucerys über Sturmkap", "location_id": "storms-end", "characters_involved": ["lucerys-velaryon", "aemond-targaryen", "borros-baratheon"], "summary": "In Sturmkap kreuzt Luke den Weg von Aemond; Vhagar tötet Lucerys und seinen Drachen Arrax und entfacht den offenen Krieg.", "order_index": 4, "deaths": ["lucerys-velaryon"] }
+		],
+		"scenes": [
+			{ "id": "s01e10-sc1", "order_index": 0, "start_hint": "Düstere Nachricht erreicht Drachenstein", "end_hint": "Rhaenyra verliert ihr Kind", "location_id": "dragonstone", "characters": ["rhaenys-targaryen", "rhaenyra-targaryen", "daemon-targaryen"], "event_ids": ["s01e10-ev1"], "transition_to_next": "Rhaenyra wird zur Königin ausgerufen." },
+			{ "id": "s01e10-sc2", "order_index": 1, "start_hint": "Der Hof der Schwarzen Königin", "end_hint": "Bedingungen abgelehnt", "location_id": "dragonstone", "characters": ["rhaenyra-targaryen", "daemon-targaryen", "erryk-cargyll", "corlys-velaryon", "otto-hightower"], "event_ids": ["s01e10-ev2", "s01e10-ev3"], "transition_to_next": "Gesandte werden ausgeschickt, um Verbündete zu gewinnen." },
+			{ "id": "s01e10-sc3", "order_index": 2, "start_hint": "Gesandte verlassen Drachenstein", "end_hint": "Reiter erheben sich in die Lüfte", "location_id": "dragonstone", "characters": ["rhaenyra-targaryen", "jacaerys-velaryon", "lucerys-velaryon"], "event_ids": ["s01e10-ev4"], "transition_to_next": "In Sturmkap begegnen sich zwei Drachen." },
+			{ "id": "s01e10-sc4", "order_index": 3, "start_hint": "Sturmkap im Sturm", "end_hint": "Luke wird getötet", "location_id": "storms-end", "characters": ["lucerys-velaryon", "aemond-targaryen", "borros-baratheon"], "event_ids": ["s01e10-ev5"], "transition_to_next": "" }
+		]
+	}
+}

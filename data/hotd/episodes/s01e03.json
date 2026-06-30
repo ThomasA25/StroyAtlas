@@ -1,0 +1,40 @@
+{
+	"source": {
+		"title": "Wikipedia — House of the Dragon S01E03: Second of His Name",
+		"url": "https://en.wikipedia.org/wiki/House_of_the_Dragon_season_1",
+		"type": "wiki"
+	},
+	"story": {
+		"series": "House of the Dragon",
+		"season": 1,
+		"episode": 3,
+		"title": "Second of His Name",
+		"characters": [
+			{ "id": "viserys-i-targaryen", "name": "Viserys I Targaryen", "faction": "Neutral", "aliases": ["King Viserys I", "Viserys the Peaceful"] },
+			{ "id": "rhaenyra-targaryen", "name": "Rhaenyra Targaryen", "faction": "Blacks", "aliases": ["The Realm's Delight", "Princess of Dragonstone", "Queen Rhaenyra"] },
+			{ "id": "otto-hightower", "name": "Otto Hightower", "faction": "Greens", "aliases": ["Lord Otto", "Hand of the King"] },
+			{ "id": "aegon-ii-targaryen", "name": "Aegon II Targaryen", "faction": "Greens", "aliases": ["Aegon the Elder", "King Aegon II"] },
+			{ "id": "lyonel-strong", "name": "Lyonel Strong", "faction": "Neutral", "aliases": ["Lord Lyonel Strong", "Hand of the King"] },
+			{ "id": "hobert-hightower", "name": "Hobert Hightower", "faction": "Greens", "aliases": ["Lord Hobert Hightower"] },
+			{ "id": "daemon-targaryen", "name": "Daemon Targaryen", "faction": "Blacks", "aliases": ["The Rogue Prince", "Prince of the City"] },
+			{ "id": "corlys-velaryon", "name": "Corlys Velaryon", "faction": "Blacks", "aliases": ["The Sea Snake", "Lord of the Tides", "Lord of Driftmark"] },
+			{ "id": "craghas-drahar", "name": "Craghas Drahar", "faction": "Neutral", "aliases": ["The Crabfeeder", "Prince-Admiral"] }
+		],
+		"locations": [
+			{ "id": "the-kingswood", "name": "The Kingswood", "type": "region", "coordinates": { "x": 548, "y": 690 } },
+			{ "id": "red-keep", "name": "Red Keep", "type": "castle", "coordinates": { "x": 580, "y": 606 } },
+			{ "id": "the-stepstones", "name": "The Stepstones", "type": "region", "coordinates": { "x": 820, "y": 895 } }
+		],
+		"events": [
+			{ "id": "s01e03-ev1", "title": "Royal hunt for Aegon's second nameday", "location_id": "the-kingswood", "characters_involved": ["viserys-i-targaryen", "rhaenyra-targaryen", "otto-hightower", "aegon-ii-targaryen"], "summary": "A grand hunt marks Prince Aegon's second birthday; Viserys presses Rhaenyra to take a husband.", "order_index": 0 },
+			{ "id": "s01e03-ev2", "title": "Laenor proposed as Rhaenyra's match", "location_id": "the-kingswood", "characters_involved": ["viserys-i-targaryen", "lyonel-strong", "rhaenyra-targaryen"], "summary": "Lord Lyonel Strong advises Viserys that Ser Laenor Velaryon would make a strong match for Rhaenyra.", "order_index": 1 },
+			{ "id": "s01e03-ev3", "title": "Hightowers scheme for Aegon", "location_id": "red-keep", "characters_involved": ["otto-hightower", "hobert-hightower"], "summary": "Otto and Hobert Hightower quietly work to position young Aegon as the realm's successor.", "order_index": 2 },
+			{ "id": "s01e03-ev4", "title": "Daemon slays the Crabfeeder", "location_id": "the-stepstones", "characters_involved": ["daemon-targaryen", "corlys-velaryon", "craghas-drahar"], "summary": "With royal aid finally sent, Daemon and Corlys break the Triarchy; Daemon kills Craghas Drahar.", "order_index": 3, "deaths": ["craghas-drahar"] }
+		],
+		"scenes": [
+			{ "id": "s01e03-sc1", "order_index": 0, "start_hint": "The hunt camp", "end_hint": "Marriage pressure on Rhaenyra", "location_id": "the-kingswood", "characters": ["viserys-i-targaryen", "rhaenyra-targaryen", "otto-hightower", "aegon-ii-targaryen", "lyonel-strong"], "event_ids": ["s01e03-ev1", "s01e03-ev2"], "transition_to_next": "In the capital, the Hightowers plot." },
+			{ "id": "s01e03-sc2", "order_index": 1, "start_hint": "Red Keep corridors", "end_hint": "A quiet conspiracy", "location_id": "red-keep", "characters": ["otto-hightower", "hobert-hightower"], "event_ids": ["s01e03-ev3"], "transition_to_next": "In the Stepstones, the war reaches its climax." },
+			{ "id": "s01e03-sc3", "order_index": 2, "start_hint": "Assault on the Stepstones", "end_hint": "The Crabfeeder falls", "location_id": "the-stepstones", "characters": ["daemon-targaryen", "corlys-velaryon", "craghas-drahar"], "event_ids": ["s01e03-ev4"], "transition_to_next": "" }
+		]
+	}
+}

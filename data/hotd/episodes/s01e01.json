@@ -1,0 +1,44 @@
+{
+	"source": {
+		"title": "Wikipedia — House of the Dragon S01E01: The Heirs of the Dragon",
+		"url": "https://en.wikipedia.org/wiki/House_of_the_Dragon_season_1",
+		"type": "wiki"
+	},
+	"story": {
+		"series": "House of the Dragon",
+		"season": 1,
+		"episode": 1,
+		"title": "The Heirs of the Dragon",
+		"characters": [
+			{ "id": "jaehaerys-i-targaryen", "name": "Jaehaerys I Targaryen", "faction": "Neutral", "aliases": ["The Old King", "The Conciliator", "King Jaehaerys I"] },
+			{ "id": "viserys-i-targaryen", "name": "Viserys I Targaryen", "faction": "Neutral", "aliases": ["King Viserys I", "Viserys the Peaceful"] },
+			{ "id": "rhaenys-targaryen", "name": "Rhaenys Targaryen", "faction": "Blacks", "aliases": ["The Queen Who Never Was", "Princess Rhaenys"] },
+			{ "id": "corlys-velaryon", "name": "Corlys Velaryon", "faction": "Blacks", "aliases": ["The Sea Snake", "Lord of the Tides", "Lord of Driftmark"] },
+			{ "id": "aemma-arryn", "name": "Aemma Arryn", "faction": "Neutral", "aliases": ["Queen Aemma"] },
+			{ "id": "daemon-targaryen", "name": "Daemon Targaryen", "faction": "Blacks", "aliases": ["The Rogue Prince", "Prince of the City"] },
+			{ "id": "rhaenyra-targaryen", "name": "Rhaenyra Targaryen", "faction": "Blacks", "aliases": ["The Realm's Delight", "Princess of Dragonstone", "Queen Rhaenyra"] },
+			{ "id": "alicent-hightower", "name": "Alicent Hightower", "faction": "Greens", "aliases": ["Queen Alicent", "The Queen Dowager"] },
+			{ "id": "otto-hightower", "name": "Otto Hightower", "faction": "Greens", "aliases": ["Lord Otto", "Hand of the King"] },
+			{ "id": "criston-cole", "name": "Criston Cole", "faction": "Greens", "aliases": ["Ser Criston Cole", "The Kingmaker", "Lord Commander of the Kingsguard"] }
+		],
+		"locations": [
+			{ "id": "harrenhal", "name": "Harrenhal", "type": "castle", "coordinates": { "x": 478, "y": 545 } },
+			{ "id": "kings-landing", "name": "King's Landing", "type": "city", "coordinates": { "x": 560, "y": 620 } },
+			{ "id": "red-keep", "name": "Red Keep", "type": "castle", "coordinates": { "x": 580, "y": 606 } }
+		],
+		"events": [
+			{ "id": "s01e01-ev1", "title": "Great Council names Viserys heir", "location_id": "harrenhal", "characters_involved": ["jaehaerys-i-targaryen", "viserys-i-targaryen", "rhaenys-targaryen", "corlys-velaryon"], "summary": "At a Great Council, the lords of the realm choose Viserys over Rhaenys as King Jaehaerys I's successor.", "order_index": 0 },
+			{ "id": "s01e01-ev2", "title": "Tournament for the queen's pregnancy", "location_id": "kings-landing", "characters_involved": ["viserys-i-targaryen", "criston-cole", "daemon-targaryen", "rhaenyra-targaryen", "alicent-hightower"], "summary": "Viserys holds a tourney to celebrate Aemma's pregnancy; the unknown Criston Cole unhorses Prince Daemon in the lists.", "order_index": 1 },
+			{ "id": "s01e01-ev3", "title": "Council weighs the Triarchy threat", "location_id": "red-keep", "characters_involved": ["viserys-i-targaryen", "otto-hightower", "corlys-velaryon", "daemon-targaryen"], "summary": "The small council discusses the growing power of the Triarchy in the Stepstones.", "order_index": 2 },
+			{ "id": "s01e01-ev4", "title": "Death of Queen Aemma", "location_id": "red-keep", "characters_involved": ["viserys-i-targaryen", "aemma-arryn"], "summary": "Aemma dies during a forced birth Viserys authorises to save the child; the newborn son survives only briefly.", "order_index": 3, "deaths": ["aemma-arryn"] },
+			{ "id": "s01e01-ev5", "title": "Daemon banished for the 'Heir for a Day' jest", "location_id": "red-keep", "characters_involved": ["viserys-i-targaryen", "daemon-targaryen", "otto-hightower"], "summary": "Learning Daemon mocked the dead infant as 'The Heir for a Day', Viserys banishes his brother from court.", "order_index": 4 },
+			{ "id": "s01e01-ev6", "title": "Rhaenyra named heir; the prophecy shared", "location_id": "red-keep", "characters_involved": ["viserys-i-targaryen", "rhaenyra-targaryen"], "summary": "Viserys names Rhaenyra his heir and confides Aegon the Conqueror's dream of a coming darkness, the Song of Ice and Fire.", "order_index": 5 }
+		],
+		"scenes": [
+			{ "id": "s01e01-sc1", "order_index": 0, "start_hint": "The Great Council convenes", "end_hint": "Viserys is chosen", "location_id": "harrenhal", "characters": ["jaehaerys-i-targaryen", "viserys-i-targaryen", "rhaenys-targaryen", "corlys-velaryon"], "event_ids": ["s01e01-ev1"], "transition_to_next": "Years later, the capital celebrates a royal tournament." },
+			{ "id": "s01e01-sc2", "order_index": 1, "start_hint": "Tournament grounds", "end_hint": "Daemon is unhorsed", "location_id": "kings-landing", "characters": ["viserys-i-targaryen", "criston-cole", "daemon-targaryen", "rhaenyra-targaryen", "alicent-hightower"], "event_ids": ["s01e01-ev2"], "transition_to_next": "Inside the Red Keep, the birth turns to tragedy." },
+			{ "id": "s01e01-sc3", "order_index": 2, "start_hint": "Council chamber and birthing room", "end_hint": "Aemma and the infant die", "location_id": "red-keep", "characters": ["viserys-i-targaryen", "otto-hightower", "corlys-velaryon", "aemma-arryn"], "event_ids": ["s01e01-ev3", "s01e01-ev4"], "transition_to_next": "Daemon's callous jest reaches the king." },
+			{ "id": "s01e01-sc4", "order_index": 3, "start_hint": "The throne room", "end_hint": "Rhaenyra is named heir", "location_id": "red-keep", "characters": ["viserys-i-targaryen", "daemon-targaryen", "otto-hightower", "rhaenyra-targaryen"], "event_ids": ["s01e01-ev5", "s01e01-ev6"], "transition_to_next": "" }
+		]
+	}
+}

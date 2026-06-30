@@ -1,0 +1,40 @@
+{
+	"source": {
+		"title": "Wikipedia — House of the Dragon S01E05: We Light the Way",
+		"url": "https://en.wikipedia.org/wiki/House_of_the_Dragon_season_1",
+		"type": "wiki"
+	},
+	"story": {
+		"series": "House of the Dragon",
+		"season": 1,
+		"episode": 5,
+		"title": "We Light the Way",
+		"characters": [
+			{ "id": "daemon-targaryen", "name": "Daemon Targaryen", "faction": "Blacks", "aliases": ["The Rogue Prince", "Prince of the City"] },
+			{ "id": "rhea-royce", "name": "Rhea Royce", "faction": "Neutral", "aliases": ["Lady of Runestone"] },
+			{ "id": "otto-hightower", "name": "Otto Hightower", "faction": "Greens", "aliases": ["Lord Otto", "Hand of the King"] },
+			{ "id": "alicent-hightower", "name": "Alicent Hightower", "faction": "Greens", "aliases": ["Queen Alicent", "The Queen Dowager"] },
+			{ "id": "viserys-i-targaryen", "name": "Viserys I Targaryen", "faction": "Neutral", "aliases": ["King Viserys I", "Viserys the Peaceful"] },
+			{ "id": "rhaenyra-targaryen", "name": "Rhaenyra Targaryen", "faction": "Blacks", "aliases": ["The Realm's Delight", "Princess of Dragonstone", "Queen Rhaenyra"] },
+			{ "id": "laenor-velaryon", "name": "Laenor Velaryon", "faction": "Blacks", "aliases": [] },
+			{ "id": "criston-cole", "name": "Criston Cole", "faction": "Greens", "aliases": ["Ser Criston Cole", "The Kingmaker", "Lord Commander of the Kingsguard"] },
+			{ "id": "joffrey-lonmouth", "name": "Joffrey Lonmouth", "faction": "Blacks", "aliases": ["Ser Joffrey Lonmouth", "Knight of Kisses"] }
+		],
+		"locations": [
+			{ "id": "runestone", "name": "Runestone", "type": "castle", "coordinates": { "x": 712, "y": 448 } },
+			{ "id": "red-keep", "name": "Red Keep", "type": "castle", "coordinates": { "x": 580, "y": 606 } }
+		],
+		"events": [
+			{ "id": "s01e05-ev1", "title": "Daemon kills Rhea Royce", "location_id": "runestone", "characters_involved": ["daemon-targaryen", "rhea-royce"], "summary": "In the Vale, Daemon murders his estranged wife, Lady Rhea Royce of Runestone.", "order_index": 0, "deaths": ["rhea-royce"] },
+			{ "id": "s01e05-ev2", "title": "Otto warns Alicent", "location_id": "red-keep", "characters_involved": ["otto-hightower", "alicent-hightower"], "summary": "Otto warns Alicent that a crowned Rhaenyra would one day threaten Alicent's own children.", "order_index": 1 },
+			{ "id": "s01e05-ev3", "title": "Alicent's green gown", "location_id": "red-keep", "characters_involved": ["alicent-hightower", "viserys-i-targaryen", "rhaenyra-targaryen", "laenor-velaryon"], "summary": "Alicent arrives late to the betrothal feast in a green gown, House Hightower's call to arms.", "order_index": 2 },
+			{ "id": "s01e05-ev4", "title": "Criston kills Joffrey Lonmouth", "location_id": "red-keep", "characters_involved": ["criston-cole", "joffrey-lonmouth"], "summary": "When Ser Joffrey Lonmouth hints he knows of Criston's affair, Criston beats him to death amid the feast.", "order_index": 3, "deaths": ["joffrey-lonmouth"] },
+			{ "id": "s01e05-ev5", "title": "A hurried wedding; the king collapses", "location_id": "red-keep", "characters_involved": ["rhaenyra-targaryen", "laenor-velaryon", "viserys-i-targaryen"], "summary": "Rhaenyra and Laenor are wed in a rushed ceremony as a frail Viserys collapses.", "order_index": 4 }
+		],
+		"scenes": [
+			{ "id": "s01e05-sc1", "order_index": 0, "start_hint": "Runestone in the Vale", "end_hint": "Rhea Royce is killed", "location_id": "runestone", "characters": ["daemon-targaryen", "rhea-royce"], "event_ids": ["s01e05-ev1"], "transition_to_next": "In King's Landing, Otto stokes Alicent's fears." },
+			{ "id": "s01e05-sc2", "order_index": 1, "start_hint": "The betrothal feast", "end_hint": "Bloodshed in the hall", "location_id": "red-keep", "characters": ["otto-hightower", "alicent-hightower", "viserys-i-targaryen", "rhaenyra-targaryen", "laenor-velaryon", "criston-cole", "joffrey-lonmouth"], "event_ids": ["s01e05-ev2", "s01e05-ev3", "s01e05-ev4"], "transition_to_next": "The wedding is hastened amid the chaos." },
+			{ "id": "s01e05-sc3", "order_index": 2, "start_hint": "The wedding rite", "end_hint": "Viserys collapses", "location_id": "red-keep", "characters": ["rhaenyra-targaryen", "laenor-velaryon", "viserys-i-targaryen"], "event_ids": ["s01e05-ev5"], "transition_to_next": "" }
+		]
+	}
+}

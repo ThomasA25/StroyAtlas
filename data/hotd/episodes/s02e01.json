@@ -1,0 +1,42 @@
+{
+	"source": {
+		"title": "Wikipedia — House of the Dragon S02E01: A Son for a Son",
+		"url": "https://en.wikipedia.org/wiki/House_of_the_Dragon_season_2",
+		"type": "wiki"
+	},
+	"story": {
+		"series": "House of the Dragon",
+		"season": 2,
+		"episode": 1,
+		"title": "A Son for a Son",
+		"characters": [
+			{ "id": "cregan-stark", "name": "Cregan Stark", "faction": "Blacks", "aliases": ["Lord of Winterfell"] },
+			{ "id": "jacaerys-velaryon", "name": "Jacaerys Velaryon", "faction": "Blacks", "aliases": ["Jace", "Prince Jacaerys"] },
+			{ "id": "rhaenyra-targaryen", "name": "Rhaenyra Targaryen", "faction": "Blacks", "aliases": ["The Realm's Delight", "Princess of Dragonstone", "Queen Rhaenyra"] },
+			{ "id": "daemon-targaryen", "name": "Daemon Targaryen", "faction": "Blacks", "aliases": ["The Rogue Prince", "Prince of the City"] },
+			{ "id": "rhaenys-targaryen", "name": "Rhaenys Targaryen", "faction": "Blacks", "aliases": ["The Queen Who Never Was", "Princess Rhaenys"] },
+			{ "id": "blood", "name": "Blood", "faction": "Neutral", "aliases": [] },
+			{ "id": "cheese", "name": "Cheese", "faction": "Neutral", "aliases": [] },
+			{ "id": "jaehaerys-targaryen", "name": "Jaehaerys Targaryen", "faction": "Greens", "aliases": ["Prince Jaehaerys"] },
+			{ "id": "helaena-targaryen", "name": "Helaena Targaryen", "faction": "Greens", "aliases": ["Queen Helaena"] }
+		],
+		"locations": [
+			{ "id": "the-wall", "name": "The Wall", "type": "other", "coordinates": { "x": 410, "y": 95 } },
+			{ "id": "dragonstone", "name": "Dragonstone", "type": "castle", "coordinates": { "x": 750, "y": 628 } },
+			{ "id": "kings-landing", "name": "King's Landing", "type": "city", "coordinates": { "x": 560, "y": 620 } },
+			{ "id": "red-keep", "name": "Red Keep", "type": "castle", "coordinates": { "x": 580, "y": 606 } }
+		],
+		"events": [
+			{ "id": "s02e01-ev1", "title": "Cregan Stark pledges men", "location_id": "the-wall", "characters_involved": ["cregan-stark", "jacaerys-velaryon"], "summary": "At the Wall, Lord Cregan Stark promises troops to Jacaerys for Rhaenyra's cause.", "order_index": 0 },
+			{ "id": "s02e01-ev2", "title": "Rhaenyra demands vengeance", "location_id": "dragonstone", "characters_involved": ["rhaenyra-targaryen", "daemon-targaryen", "rhaenys-targaryen"], "summary": "With Luke's death confirmed, Rhaenyra demands retribution and Daemon resolves to deliver it.", "order_index": 1 },
+			{ "id": "s02e01-ev3", "title": "Daemon hires assassins", "location_id": "kings-landing", "characters_involved": ["daemon-targaryen", "blood", "cheese"], "summary": "Daemon engages two killers, 'Blood' and 'Cheese', to slay Aemond inside the capital.", "order_index": 2 },
+			{ "id": "s02e01-ev4", "title": "Murder of Prince Jaehaerys", "location_id": "red-keep", "characters_involved": ["blood", "cheese", "jaehaerys-targaryen", "helaena-targaryen"], "summary": "Unable to find Aemond, the assassins kill the young Prince Jaehaerys in Helaena's chambers.", "order_index": 3, "deaths": ["jaehaerys-targaryen"] }
+		],
+		"scenes": [
+			{ "id": "s02e01-sc1", "order_index": 0, "start_hint": "At the Wall", "end_hint": "Northern troops promised", "location_id": "the-wall", "characters": ["cregan-stark", "jacaerys-velaryon"], "event_ids": ["s02e01-ev1"], "transition_to_next": "On Dragonstone, Rhaenyra demands vengeance." },
+			{ "id": "s02e01-sc2", "order_index": 1, "start_hint": "Dragonstone, in grief", "end_hint": "A vow of revenge", "location_id": "dragonstone", "characters": ["rhaenyra-targaryen", "daemon-targaryen", "rhaenys-targaryen"], "event_ids": ["s02e01-ev2"], "transition_to_next": "Daemon sends killers into the capital." },
+			{ "id": "s02e01-sc3", "order_index": 2, "start_hint": "A back-alley bargain", "end_hint": "The deed is set", "location_id": "kings-landing", "characters": ["daemon-targaryen", "blood", "cheese"], "event_ids": ["s02e01-ev3"], "transition_to_next": "They strike inside the Red Keep." },
+			{ "id": "s02e01-sc4", "order_index": 3, "start_hint": "The royal apartments", "end_hint": "A child is killed", "location_id": "red-keep", "characters": ["blood", "cheese", "jaehaerys-targaryen", "helaena-targaryen"], "event_ids": ["s02e01-ev4"], "transition_to_next": "" }
+		]
+	}
+}

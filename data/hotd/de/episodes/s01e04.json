@@ -1,0 +1,39 @@
+{
+	"source": {
+		"title": "Wikipedia — House of the Dragon S01E04: König der Meerenge",
+		"url": "https://en.wikipedia.org/wiki/House_of_the_Dragon_season_1",
+		"type": "wiki"
+	},
+	"story": {
+		"series": "House of the Dragon",
+		"season": 1,
+		"episode": 4,
+		"title": "König der Meerenge",
+		"characters": [
+			{ "id": "daemon-targaryen", "name": "Daemon Targaryen", "faction": "Schwarze", "aliases": ["Der Schurkenprinz", "Prinz der Stadt"] },
+			{ "id": "viserys-i-targaryen", "name": "Viserys I Targaryen", "faction": "Neutral", "aliases": ["König Viserys I.", "Viserys der Friedfertige"] },
+			{ "id": "rhaenyra-targaryen", "name": "Rhaenyra Targaryen", "faction": "Schwarze", "aliases": ["Die Freude des Reiches", "Prinzessin von Drachenstein", "Königin Rhaenyra"] },
+			{ "id": "criston-cole", "name": "Criston Cole", "faction": "Grüne", "aliases": ["Ser Criston Cole", "Der Königsmacher", "Lord Kommandant der Königsgarde"] },
+			{ "id": "otto-hightower", "name": "Otto Hightower", "faction": "Grüne", "aliases": ["Lord Otto", "Hand des Königs"] },
+			{ "id": "laenor-velaryon", "name": "Laenor Velaryon", "faction": "Schwarze", "aliases": [] },
+			{ "id": "mysaria", "name": "Mysaria", "faction": "Schwarze", "aliases": ["Der Weiße Wurm", "Lady Mysaria"] }
+		],
+		"locations": [
+			{ "id": "red-keep", "name": "Roter Bergfried", "type": "castle", "coordinates": { "x": 580, "y": 606 } },
+			{ "id": "kings-landing", "name": "Königsmund", "type": "city", "coordinates": { "x": 560, "y": 620 } }
+		],
+		"events": [
+			{ "id": "s01e04-ev1", "title": "Daemon kehrt zurück und beugt das Knie", "location_id": "red-keep", "characters_involved": ["daemon-targaryen", "viserys-i-targaryen"], "summary": "Daemon kehrt an den Hof zurück, nennt sich 'König der Meerenge' und schwört Viserys die Treue.", "order_index": 0 },
+			{ "id": "s01e04-ev2", "title": "Daemon und Rhaenyra streifen durch die Stadt", "location_id": "kings-landing", "characters_involved": ["daemon-targaryen", "rhaenyra-targaryen"], "summary": "Die beiden schleichen sich nachts durch Königsmund und ein Bordell; Daemon beginnt eine Verführung, lässt dann aber davon ab.", "order_index": 1 },
+			{ "id": "s01e04-ev3", "title": "Rhaenyra und Criston Cole", "location_id": "red-keep", "characters_involved": ["rhaenyra-targaryen", "criston-cole"], "summary": "Zurück im Bergfried schlafen Rhaenyra und ihr Schwurschild Criston Cole miteinander.", "order_index": 2 },
+			{ "id": "s01e04-ev4", "title": "Daemon verbannt; Rhaenyra mit Laenor verlobt", "location_id": "red-keep", "characters_involved": ["viserys-i-targaryen", "daemon-targaryen", "rhaenyra-targaryen", "laenor-velaryon", "mysaria"], "summary": "Durch Mysarias Spione über die Ereignisse der Nacht unterrichtet, verbannt Viserys Daemon und befiehlt Rhaenyra, Laenor zu heiraten.", "order_index": 3 },
+			{ "id": "s01e04-ev5", "title": "Otto als Hand entlassen", "location_id": "red-keep", "characters_involved": ["viserys-i-targaryen", "otto-hightower"], "summary": "Viserys enthebt Otto Hightower des Amtes als Hand des Königs, da er dessen Machenschaften misstraut.", "order_index": 4 }
+		],
+		"scenes": [
+			{ "id": "s01e04-sc1", "order_index": 0, "start_hint": "Daemons Rückkehr an den Hof", "end_hint": "Er kniet vor dem König nieder", "location_id": "red-keep", "characters": ["daemon-targaryen", "viserys-i-targaryen"], "event_ids": ["s01e04-ev1"], "transition_to_next": "In jener Nacht streifen sie verkleidet durch die Stadt." },
+			{ "id": "s01e04-sc2", "order_index": 1, "start_hint": "Die Straßen und ein Bordell", "end_hint": "Daemon geht davon", "location_id": "kings-landing", "characters": ["daemon-targaryen", "rhaenyra-targaryen"], "event_ids": ["s01e04-ev2"], "transition_to_next": "Zurück im Bergfried wendet sich Rhaenyra ihrem Schwurschild zu." },
+			{ "id": "s01e04-sc3", "order_index": 2, "start_hint": "Rhaenyras Gemächer", "end_hint": "Eine Grenze wird überschritten", "location_id": "red-keep", "characters": ["rhaenyra-targaryen", "criston-cole"], "event_ids": ["s01e04-ev3"], "transition_to_next": "Die Kunde von der Nacht erreicht den König." },
+			{ "id": "s01e04-sc4", "order_index": 3, "start_hint": "Das Urteil des Königs", "end_hint": "Verbannung und Verlobung verkündet", "location_id": "red-keep", "characters": ["viserys-i-targaryen", "daemon-targaryen", "rhaenyra-targaryen", "laenor-velaryon", "otto-hightower"], "event_ids": ["s01e04-ev4", "s01e04-ev5"], "transition_to_next": "" }
+		]
+	}
+}

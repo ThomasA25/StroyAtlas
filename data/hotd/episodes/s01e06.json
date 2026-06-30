@@ -1,0 +1,44 @@
+{
+	"source": {
+		"title": "Wikipedia — House of the Dragon S01E06: The Princess and the Queen",
+		"url": "https://en.wikipedia.org/wiki/House_of_the_Dragon_season_1",
+		"type": "wiki"
+	},
+	"story": {
+		"series": "House of the Dragon",
+		"season": 1,
+		"episode": 6,
+		"title": "The Princess and the Queen",
+		"characters": [
+			{ "id": "rhaenyra-targaryen", "name": "Rhaenyra Targaryen", "faction": "Blacks", "aliases": ["The Realm's Delight", "Princess of Dragonstone", "Queen Rhaenyra"] },
+			{ "id": "viserys-i-targaryen", "name": "Viserys I Targaryen", "faction": "Neutral", "aliases": ["King Viserys I", "Viserys the Peaceful"] },
+			{ "id": "alicent-hightower", "name": "Alicent Hightower", "faction": "Greens", "aliases": ["Queen Alicent", "The Queen Dowager"] },
+			{ "id": "jacaerys-velaryon", "name": "Jacaerys Velaryon", "faction": "Blacks", "aliases": ["Jace", "Prince Jacaerys"] },
+			{ "id": "lucerys-velaryon", "name": "Lucerys Velaryon", "faction": "Blacks", "aliases": ["Luke"] },
+			{ "id": "joffrey-velaryon", "name": "Joffrey Velaryon", "faction": "Blacks", "aliases": [] },
+			{ "id": "daemon-targaryen", "name": "Daemon Targaryen", "faction": "Blacks", "aliases": ["The Rogue Prince", "Prince of the City"] },
+			{ "id": "laena-velaryon", "name": "Laena Velaryon", "faction": "Blacks", "aliases": [] },
+			{ "id": "larys-strong", "name": "Larys Strong", "faction": "Greens", "aliases": ["The Clubfoot", "Lord Larys", "Master of Whisperers"] },
+			{ "id": "lyonel-strong", "name": "Lyonel Strong", "faction": "Neutral", "aliases": ["Lord Lyonel Strong", "Hand of the King"] },
+			{ "id": "harwin-strong", "name": "Harwin Strong", "faction": "Blacks", "aliases": ["Breakbones", "Ser Harwin Strong"] }
+		],
+		"locations": [
+			{ "id": "kings-landing", "name": "King's Landing", "type": "city", "coordinates": { "x": 560, "y": 620 } },
+			{ "id": "pentos", "name": "Pentos", "type": "city", "coordinates": { "x": 945, "y": 642 } },
+			{ "id": "harrenhal", "name": "Harrenhal", "type": "castle", "coordinates": { "x": 478, "y": 545 } },
+			{ "id": "dragonstone", "name": "Dragonstone", "type": "castle", "coordinates": { "x": 750, "y": 628 } }
+		],
+		"events": [
+			{ "id": "s01e06-ev1", "title": "Doubts over the princes' paternity", "location_id": "kings-landing", "characters_involved": ["rhaenyra-targaryen", "viserys-i-targaryen", "alicent-hightower", "jacaerys-velaryon", "lucerys-velaryon", "joffrey-velaryon"], "summary": "A decade on, Rhaenyra has three sons who lack Targaryen looks; Viserys refuses Alicent's insinuations about their father.", "order_index": 0 },
+			{ "id": "s01e06-ev2", "title": "Death of Laena Velaryon", "location_id": "pentos", "characters_involved": ["daemon-targaryen", "laena-velaryon"], "summary": "Living in Pentos with Daemon, Laena dies after a failed labour, commanding her dragon to end her life.", "order_index": 1, "deaths": ["laena-velaryon"] },
+			{ "id": "s01e06-ev3", "title": "The Harrenhal fire", "location_id": "harrenhal", "characters_involved": ["larys-strong", "lyonel-strong", "harwin-strong"], "summary": "Larys Strong has criminals set Harrenhal ablaze, killing his father Lyonel and brother Harwin.", "order_index": 2, "deaths": ["lyonel-strong", "harwin-strong"] },
+			{ "id": "s01e06-ev4", "title": "Rhaenyra removes to Dragonstone", "location_id": "dragonstone", "characters_involved": ["rhaenyra-targaryen", "jacaerys-velaryon", "lucerys-velaryon"], "summary": "Estranged from court, Rhaenyra relocates her household to Dragonstone.", "order_index": 3 }
+		],
+		"scenes": [
+			{ "id": "s01e06-sc1", "order_index": 0, "start_hint": "Court life, years later", "end_hint": "Viserys waves off the rumours", "location_id": "kings-landing", "characters": ["rhaenyra-targaryen", "viserys-i-targaryen", "alicent-hightower", "jacaerys-velaryon", "lucerys-velaryon", "joffrey-velaryon"], "event_ids": ["s01e06-ev1"], "transition_to_next": "Across the sea in Pentos, tragedy strikes Daemon's family." },
+			{ "id": "s01e06-sc2", "order_index": 1, "start_hint": "Pentos", "end_hint": "Laena's death", "location_id": "pentos", "characters": ["daemon-targaryen", "laena-velaryon"], "event_ids": ["s01e06-ev2"], "transition_to_next": "At Harrenhal, Larys removes an obstacle." },
+			{ "id": "s01e06-sc3", "order_index": 2, "start_hint": "Harrenhal at night", "end_hint": "The castle burns", "location_id": "harrenhal", "characters": ["larys-strong", "lyonel-strong", "harwin-strong"], "event_ids": ["s01e06-ev3"], "transition_to_next": "Rhaenyra withdraws from court." },
+			{ "id": "s01e06-sc4", "order_index": 3, "start_hint": "Departure for Dragonstone", "end_hint": "A new household", "location_id": "dragonstone", "characters": ["rhaenyra-targaryen", "jacaerys-velaryon", "lucerys-velaryon"], "event_ids": ["s01e06-ev4"], "transition_to_next": "" }
+		]
+	}
+}

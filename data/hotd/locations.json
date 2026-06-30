@@ -1,0 +1,32 @@
+{
+	"kind": "location-registry",
+	"series": "House of the Dragon",
+	"note": "Shared canonical location registry with stable ids. coordinates.x/y are in image-pixel space of the (not-yet-fixed) base map and are left null until a base map is chosen and locations are placed manually. `region_hint` is an auxiliary, non-contract field describing rough placement in Westeros/Essos.",
+	"locations": [
+		{ "id": "kings-landing", "name": "King's Landing", "type": "city", "coordinates": { "x": 560, "y": 620 }, "region_hint": "Crownlands, east coast" },
+		{ "id": "red-keep", "name": "Red Keep", "type": "castle", "coordinates": { "x": 580, "y": 606 }, "region_hint": "King's Landing" },
+		{ "id": "dragonpit", "name": "Dragonpit", "type": "other", "coordinates": { "x": 545, "y": 634 }, "region_hint": "King's Landing (Rhaenys's Hill)" },
+		{ "id": "dragonstone", "name": "Dragonstone", "type": "castle", "coordinates": { "x": 750, "y": 628 }, "region_hint": "Island in Blackwater Bay / Narrow Sea" },
+		{ "id": "driftmark", "name": "Driftmark", "type": "castle", "coordinates": { "x": 722, "y": 664 }, "region_hint": "Island seat of House Velaryon (High Tide), Blackwater Bay" },
+		{ "id": "the-stepstones", "name": "The Stepstones", "type": "region", "coordinates": { "x": 820, "y": 895 }, "region_hint": "Island chain between Westeros and Essos" },
+		{ "id": "pentos", "name": "Pentos", "type": "city", "coordinates": { "x": 945, "y": 642 }, "region_hint": "Free City, western Essos" },
+		{ "id": "harrenhal", "name": "Harrenhal", "type": "castle", "coordinates": { "x": 478, "y": 545 }, "region_hint": "Riverlands, shore of the Gods Eye" },
+		{ "id": "the-vale", "name": "The Vale", "type": "region", "coordinates": { "x": 650, "y": 430 }, "region_hint": "East-central Westeros (House Arryn)" },
+		{ "id": "runestone", "name": "Runestone", "type": "castle", "coordinates": { "x": 712, "y": 448 }, "region_hint": "The Vale (House Royce)" },
+		{ "id": "storms-end", "name": "Storm's End", "type": "castle", "coordinates": { "x": 606, "y": 818 }, "region_hint": "Stormlands (House Baratheon)" },
+		{ "id": "winterfell", "name": "Winterfell", "type": "castle", "coordinates": { "x": 410, "y": 250 }, "region_hint": "The North (House Stark)" },
+		{ "id": "the-wall", "name": "The Wall", "type": "other", "coordinates": { "x": 410, "y": 95 }, "region_hint": "Far north of Westeros" },
+		{ "id": "the-twins", "name": "The Twins", "type": "castle", "coordinates": { "x": 380, "y": 430 }, "region_hint": "Riverlands crossing of the Green Fork (House Frey)" },
+		{ "id": "the-riverlands", "name": "The Riverlands", "type": "region", "coordinates": { "x": 440, "y": 505 }, "region_hint": "Central Westeros" },
+		{ "id": "duskendale", "name": "Duskendale", "type": "castle", "coordinates": { "x": 612, "y": 576 }, "region_hint": "Crownlands, coast north of King's Landing" },
+		{ "id": "rooks-rest", "name": "Rook's Rest", "type": "castle", "coordinates": { "x": 656, "y": 650 }, "region_hint": "Crownlands coast" },
+		{ "id": "golden-tooth", "name": "Golden Tooth", "type": "castle", "coordinates": { "x": 335, "y": 558 }, "region_hint": "Western gate of the Westerlands" },
+		{ "id": "the-kingswood", "name": "The Kingswood", "type": "region", "coordinates": { "x": 548, "y": 690 }, "region_hint": "Forest south of King's Landing" },
+		{ "id": "sharp-point", "name": "Sharp Point", "type": "castle", "coordinates": { "x": 676, "y": 634 }, "region_hint": "Crownlands, mouth of Blackwater Bay" },
+		{ "id": "braavos", "name": "Braavos", "type": "city", "coordinates": { "x": 956, "y": 360 }, "region_hint": "Free City, northwestern Essos" },
+		{ "id": "the-gullet", "name": "The Gullet", "type": "sea", "coordinates": { "x": 700, "y": 648 }, "region_hint": "Waters between Dragonstone, Driftmark and the mainland" },
+		{ "id": "the-narrow-sea", "name": "The Narrow Sea", "type": "sea", "coordinates": { "x": 862, "y": 560 }, "region_hint": "Sea between Westeros and Essos" },
+		{ "id": "casterly-rock", "name": "Casterly Rock", "type": "castle", "coordinates": { "x": 238, "y": 560 }, "region_hint": "Westerlands (House Lannister)" },
+		{ "id": "oldtown", "name": "Oldtown", "type": "city", "coordinates": { "x": 372, "y": 950 }, "region_hint": "The Reach (House Hightower)" }
+	]
+}

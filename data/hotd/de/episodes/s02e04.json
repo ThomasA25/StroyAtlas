@@ -1,0 +1,38 @@
+{
+	"source": {
+		"title": "Wikipedia — House of the Dragon S02E04: Der rote Drache und das Gold",
+		"url": "https://en.wikipedia.org/wiki/House_of_the_Dragon_season_2",
+		"type": "wiki"
+	},
+	"story": {
+		"series": "House of the Dragon",
+		"season": 2,
+		"episode": 4,
+		"title": "Der rote Drache und das Gold",
+		"characters": [
+			{ "id": "daemon-targaryen", "name": "Daemon Targaryen", "faction": "Schwarze", "aliases": ["Der Schurkenprinz", "Prinz der Stadt"] },
+			{ "id": "alys-rivers", "name": "Alys Rivers", "faction": "Grüne", "aliases": ["Die Hexe von Harrenhal"] },
+			{ "id": "criston-cole", "name": "Criston Cole", "faction": "Grüne", "aliases": ["Ser Criston Cole", "Der Königsmacher", "Lord Kommandant der Königsgarde"] },
+			{ "id": "gunthor-darklyn", "name": "Gunthor Darklyn", "faction": "Neutral", "aliases": ["Lord Gunthor Darklyn"] },
+			{ "id": "aegon-ii-targaryen", "name": "Aegon II Targaryen", "faction": "Grüne", "aliases": ["Aegon der Ältere", "König Aegon II."] },
+			{ "id": "rhaenys-targaryen", "name": "Rhaenys Targaryen", "faction": "Schwarze", "aliases": ["Die Königin, die niemals war", "Prinzessin Rhaenys"] },
+			{ "id": "aemond-targaryen", "name": "Aemond Targaryen", "faction": "Grüne", "aliases": ["Aemond Einauge", "Prinz Aemond"] }
+		],
+		"locations": [
+			{ "id": "harrenhal", "name": "Harrenhal", "type": "castle", "coordinates": { "x": 478, "y": 545 } },
+			{ "id": "duskendale", "name": "Dämmertal", "type": "castle", "coordinates": { "x": 612, "y": 576 } },
+			{ "id": "rooks-rest", "name": "Krähenrast", "type": "castle", "coordinates": { "x": 656, "y": 650 } }
+		],
+		"events": [
+			{ "id": "s02e04-ev1", "title": "Alys Rivers verunsichert Daemon", "location_id": "harrenhal", "characters_involved": ["daemon-targaryen", "alys-rivers"], "summary": "Im heimgesuchten Harrenhal quält Alys Rivers Daemon mit Visionen.", "order_index": 0 },
+			{ "id": "s02e04-ev2", "title": "Criston richtet Gunthor Darklyn hin", "location_id": "duskendale", "characters_involved": ["criston-cole", "gunthor-darklyn"], "summary": "Criston nimmt Dämmertal ein und enthauptet Lord Gunthor Darklyn, weil dieser sich weigert, sich zu unterwerfen.", "order_index": 1, "deaths": ["gunthor-darklyn"] },
+			{ "id": "s02e04-ev3", "title": "Aegon reitet nach Krähenrast", "location_id": "rooks-rest", "characters_involved": ["aegon-ii-targaryen"], "summary": "Gegen jeden Rat fliegt ein betrunkener Aegon auf seinem Drachen zu den Kämpfen bei Krähenrast.", "order_index": 2 },
+			{ "id": "s02e04-ev4", "title": "Schlacht von Krähenrast", "location_id": "rooks-rest", "characters_involved": ["rhaenys-targaryen", "aemond-targaryen", "aegon-ii-targaryen"], "summary": "Vhagar tötet Rhaenys und ihren Drachen Meleys; Aegon wird vom Himmel geholt und schwer verbrannt, während Aemond über ihm steht.", "order_index": 3, "deaths": ["rhaenys-targaryen"] }
+		],
+		"scenes": [
+			{ "id": "s02e04-sc1", "order_index": 0, "start_hint": "Das heimgesuchte Harrenhal", "end_hint": "Daemons Visionen vertiefen sich", "location_id": "harrenhal", "characters": ["daemon-targaryen", "alys-rivers"], "event_ids": ["s02e04-ev1"], "transition_to_next": "In Dämmertal erzwingt Criston die Unterwerfung." },
+			{ "id": "s02e04-sc2", "order_index": 1, "start_hint": "Dämmertal eingenommen", "end_hint": "Ein Lord enthauptet", "location_id": "duskendale", "characters": ["criston-cole", "gunthor-darklyn"], "event_ids": ["s02e04-ev2"], "transition_to_next": "Bei Krähenrast wird eine Falle gestellt." },
+			{ "id": "s02e04-sc3", "order_index": 2, "start_hint": "Die Schlacht von Krähenrast", "end_hint": "Rhaenys stirbt; Aegon verbrennt", "location_id": "rooks-rest", "characters": ["aegon-ii-targaryen", "rhaenys-targaryen", "aemond-targaryen"], "event_ids": ["s02e04-ev3", "s02e04-ev4"], "transition_to_next": "" }
+		]
+	}
+}

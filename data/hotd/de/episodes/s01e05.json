@@ -1,0 +1,40 @@
+{
+	"source": {
+		"title": "Wikipedia — House of the Dragon S01E05: Wir leuchten den Weg",
+		"url": "https://en.wikipedia.org/wiki/House_of_the_Dragon_season_1",
+		"type": "wiki"
+	},
+	"story": {
+		"series": "House of the Dragon",
+		"season": 1,
+		"episode": 5,
+		"title": "Wir leuchten den Weg",
+		"characters": [
+			{ "id": "daemon-targaryen", "name": "Daemon Targaryen", "faction": "Schwarze", "aliases": ["Der Schurkenprinz", "Prinz der Stadt"] },
+			{ "id": "rhea-royce", "name": "Rhea Royce", "faction": "Neutral", "aliases": ["Herrin von Runenstein"] },
+			{ "id": "otto-hightower", "name": "Otto Hightower", "faction": "Grüne", "aliases": ["Lord Otto", "Hand des Königs"] },
+			{ "id": "alicent-hightower", "name": "Alicent Hightower", "faction": "Grüne", "aliases": ["Königin Alicent", "Die Königinwitwe"] },
+			{ "id": "viserys-i-targaryen", "name": "Viserys I Targaryen", "faction": "Neutral", "aliases": ["König Viserys I.", "Viserys der Friedfertige"] },
+			{ "id": "rhaenyra-targaryen", "name": "Rhaenyra Targaryen", "faction": "Schwarze", "aliases": ["Die Freude des Reiches", "Prinzessin von Drachenstein", "Königin Rhaenyra"] },
+			{ "id": "laenor-velaryon", "name": "Laenor Velaryon", "faction": "Schwarze", "aliases": [] },
+			{ "id": "criston-cole", "name": "Criston Cole", "faction": "Grüne", "aliases": ["Ser Criston Cole", "Der Königsmacher", "Lord Kommandant der Königsgarde"] },
+			{ "id": "joffrey-lonmouth", "name": "Joffrey Lonmouth", "faction": "Schwarze", "aliases": ["Ser Joffrey Lonmouth", "Ritter der Küsse"] }
+		],
+		"locations": [
+			{ "id": "runestone", "name": "Runenstein", "type": "castle", "coordinates": { "x": 712, "y": 448 } },
+			{ "id": "red-keep", "name": "Roter Bergfried", "type": "castle", "coordinates": { "x": 580, "y": 606 } }
+		],
+		"events": [
+			{ "id": "s01e05-ev1", "title": "Daemon tötet Rhea Royce", "location_id": "runestone", "characters_involved": ["daemon-targaryen", "rhea-royce"], "summary": "Im Grünen Tal ermordet Daemon seine ihm entfremdete Frau, Lady Rhea Royce von Runenstein.", "order_index": 0, "deaths": ["rhea-royce"] },
+			{ "id": "s01e05-ev2", "title": "Otto warnt Alicent", "location_id": "red-keep", "characters_involved": ["otto-hightower", "alicent-hightower"], "summary": "Otto warnt Alicent, dass eine gekrönte Rhaenyra eines Tages Alicents eigene Kinder bedrohen würde.", "order_index": 1 },
+			{ "id": "s01e05-ev3", "title": "Alicents grünes Gewand", "location_id": "red-keep", "characters_involved": ["alicent-hightower", "viserys-i-targaryen", "rhaenyra-targaryen", "laenor-velaryon"], "summary": "Alicent erscheint verspätet zum Verlobungsfest in einem grünen Gewand, dem Aufruf zu den Waffen des Hauses Hohenturm.", "order_index": 2 },
+			{ "id": "s01e05-ev4", "title": "Criston tötet Joffrey Lonmouth", "location_id": "red-keep", "characters_involved": ["criston-cole", "joffrey-lonmouth"], "summary": "Als Ser Joffrey Lonmouth andeutet, von Cristons Affäre zu wissen, prügelt Criston ihn inmitten des Festes zu Tode.", "order_index": 3, "deaths": ["joffrey-lonmouth"] },
+			{ "id": "s01e05-ev5", "title": "Eine überstürzte Hochzeit; der König bricht zusammen", "location_id": "red-keep", "characters_involved": ["rhaenyra-targaryen", "laenor-velaryon", "viserys-i-targaryen"], "summary": "Rhaenyra und Laenor werden in einer hastigen Zeremonie vermählt, während ein gebrechlicher Viserys zusammenbricht.", "order_index": 4 }
+		],
+		"scenes": [
+			{ "id": "s01e05-sc1", "order_index": 0, "start_hint": "Runenstein im Grünen Tal", "end_hint": "Rhea Royce wird getötet", "location_id": "runestone", "characters": ["daemon-targaryen", "rhea-royce"], "event_ids": ["s01e05-ev1"], "transition_to_next": "In Königsmund schürt Otto Alicents Ängste." },
+			{ "id": "s01e05-sc2", "order_index": 1, "start_hint": "Das Verlobungsfest", "end_hint": "Blutvergießen in der Halle", "location_id": "red-keep", "characters": ["otto-hightower", "alicent-hightower", "viserys-i-targaryen", "rhaenyra-targaryen", "laenor-velaryon", "criston-cole", "joffrey-lonmouth"], "event_ids": ["s01e05-ev2", "s01e05-ev3", "s01e05-ev4"], "transition_to_next": "Inmitten des Chaos wird die Hochzeit beschleunigt." },
+			{ "id": "s01e05-sc3", "order_index": 2, "start_hint": "Der Hochzeitsritus", "end_hint": "Viserys bricht zusammen", "location_id": "red-keep", "characters": ["rhaenyra-targaryen", "laenor-velaryon", "viserys-i-targaryen"], "event_ids": ["s01e05-ev5"], "transition_to_next": "" }
+		]
+	}
+}

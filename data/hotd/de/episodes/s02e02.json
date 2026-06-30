@@ -1,0 +1,40 @@
+{
+	"source": {
+		"title": "Wikipedia — House of the Dragon S02E02: Rhaenyra die Grausame",
+		"url": "https://en.wikipedia.org/wiki/House_of_the_Dragon_season_2",
+		"type": "wiki"
+	},
+	"story": {
+		"series": "House of the Dragon",
+		"season": 2,
+		"episode": 2,
+		"title": "Rhaenyra die Grausame",
+		"characters": [
+			{ "id": "aegon-ii-targaryen", "name": "Aegon II Targaryen", "faction": "Grüne", "aliases": ["Aegon der Ältere", "König Aegon II."] },
+			{ "id": "otto-hightower", "name": "Otto Hightower", "faction": "Grüne", "aliases": ["Lord Otto", "Hand des Königs"] },
+			{ "id": "blood", "name": "Blood", "faction": "Neutral", "aliases": [] },
+			{ "id": "criston-cole", "name": "Criston Cole", "faction": "Grüne", "aliases": ["Ser Criston Cole", "Der Königsmacher", "Lord Kommandant der Königsgarde"] },
+			{ "id": "arryk-cargyll", "name": "Arryk Cargyll", "faction": "Grüne", "aliases": ["Ser Arryk Cargyll"] },
+			{ "id": "erryk-cargyll", "name": "Erryk Cargyll", "faction": "Schwarze", "aliases": ["Ser Erryk Cargyll"] },
+			{ "id": "rhaenyra-targaryen", "name": "Rhaenyra Targaryen", "faction": "Schwarze", "aliases": ["Die Freude des Reiches", "Prinzessin von Drachenstein", "Königin Rhaenyra"] }
+		],
+		"locations": [
+			{ "id": "kings-landing", "name": "Königsmund", "type": "city", "coordinates": { "x": 560, "y": 620 } },
+			{ "id": "red-keep", "name": "Roter Bergfried", "type": "castle", "coordinates": { "x": 580, "y": 606 } },
+			{ "id": "dragonstone", "name": "Drachenstein", "type": "castle", "coordinates": { "x": 750, "y": 628 } }
+		],
+		"events": [
+			{ "id": "s02e02-ev1", "title": "Eine Beerdigung als Propaganda", "location_id": "kings-landing", "characters_involved": ["aegon-ii-targaryen", "otto-hightower"], "summary": "Otto inszeniert Jaehaerys' öffentlichen Trauerzug, um die Königin als 'Rhaenyra die Grausame' zu brandmarken.", "order_index": 0 },
+			{ "id": "s02e02-ev2", "title": "Blood gesteht", "location_id": "red-keep", "characters_involved": ["blood"], "summary": "Der gefangene Meuchelmörder Blood gesteht, dass Daemon die Tötung befohlen hat.", "order_index": 1 },
+			{ "id": "s02e02-ev3", "title": "Criston schickt einen Zwilling, um Rhaenyra zu töten", "location_id": "red-keep", "characters_involved": ["criston-cole", "arryk-cargyll"], "summary": "Criston befiehlt Ser Arryk, sich als sein Zwilling Erryk auszugeben und Drachenstein zu infiltrieren, um Rhaenyra zu ermorden.", "order_index": 2 },
+			{ "id": "s02e02-ev4", "title": "Die Cargyll-Zwillinge töten einander", "location_id": "dragonstone", "characters_involved": ["arryk-cargyll", "erryk-cargyll", "rhaenyra-targaryen"], "summary": "Arryk erreicht Rhaenyra, doch Erryk schreitet ein; die Brüder duellieren sich bis zum Tod.", "order_index": 3, "deaths": ["arryk-cargyll", "erryk-cargyll"] },
+			{ "id": "s02e02-ev5", "title": "Criston zur Hand ernannt", "location_id": "red-keep", "characters_involved": ["aegon-ii-targaryen", "criston-cole", "otto-hightower"], "summary": "Aegon entlässt Otto und ernennt Criston Cole zur Hand des Königs.", "order_index": 4 }
+		],
+		"scenes": [
+			{ "id": "s02e02-sc1", "order_index": 0, "start_hint": "Der Trauerzug", "end_hint": "Ein grausamer Beiname verbreitet sich", "location_id": "kings-landing", "characters": ["aegon-ii-targaryen", "otto-hightower"], "event_ids": ["s02e02-ev1"], "transition_to_next": "Ein Meuchelmörder wird gefasst und redet." },
+			{ "id": "s02e02-sc2", "order_index": 1, "start_hint": "Verhör und ein Plan", "end_hint": "Ein Zwilling wird entsandt", "location_id": "red-keep", "characters": ["blood", "criston-cole", "arryk-cargyll"], "event_ids": ["s02e02-ev2", "s02e02-ev3"], "transition_to_next": "Ein Zwilling infiltriert Drachenstein." },
+			{ "id": "s02e02-sc3", "order_index": 2, "start_hint": "Bruder gegen Bruder", "end_hint": "Beide Cargylls fallen", "location_id": "dragonstone", "characters": ["arryk-cargyll", "erryk-cargyll", "rhaenyra-targaryen"], "event_ids": ["s02e02-ev4"], "transition_to_next": "Aegon stellt seinen Rat um." },
+			{ "id": "s02e02-sc4", "order_index": 3, "start_hint": "Eine neue Hand", "end_hint": "Otto verstoßen", "location_id": "red-keep", "characters": ["aegon-ii-targaryen", "criston-cole", "otto-hightower"], "event_ids": ["s02e02-ev5"], "transition_to_next": "" }
+		]
+	}
+}

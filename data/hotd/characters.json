@@ -1,0 +1,343 @@
+{
+	"kind": "character-registry",
+	"series": "House of the Dragon",
+	"note": "Shared canonical character registry with stable ids. Episode files reuse these ids/names/factions. faction: Blacks (Rhaenyra/Aegon-the-heir), Greens (Aegon II/Hightower), or Neutral.",
+	"characters": [
+		{
+			"id": "rhaenyra-targaryen",
+			"name": "Rhaenyra Targaryen",
+			"faction": "Blacks",
+			"aliases": ["The Realm's Delight", "Princess of Dragonstone", "Queen Rhaenyra"]
+		},
+		{
+			"id": "daemon-targaryen",
+			"name": "Daemon Targaryen",
+			"faction": "Blacks",
+			"aliases": ["The Rogue Prince", "Prince of the City"]
+		},
+		{
+			"id": "viserys-i-targaryen",
+			"name": "Viserys I Targaryen",
+			"faction": "Neutral",
+			"aliases": ["King Viserys I", "Viserys the Peaceful"]
+		},
+		{
+			"id": "alicent-hightower",
+			"name": "Alicent Hightower",
+			"faction": "Greens",
+			"aliases": ["Queen Alicent", "The Queen Dowager"]
+		},
+		{
+			"id": "otto-hightower",
+			"name": "Otto Hightower",
+			"faction": "Greens",
+			"aliases": ["Lord Otto", "Hand of the King"]
+		},
+		{
+			"id": "aegon-ii-targaryen",
+			"name": "Aegon II Targaryen",
+			"faction": "Greens",
+			"aliases": ["Aegon the Elder", "King Aegon II"]
+		},
+		{
+			"id": "aemond-targaryen",
+			"name": "Aemond Targaryen",
+			"faction": "Greens",
+			"aliases": ["Aemond One-Eye", "Prince Aemond"]
+		},
+		{
+			"id": "helaena-targaryen",
+			"name": "Helaena Targaryen",
+			"faction": "Greens",
+			"aliases": ["Queen Helaena"]
+		},
+		{
+			"id": "daeron-targaryen",
+			"name": "Daeron Targaryen",
+			"faction": "Greens",
+			"aliases": ["Prince Daeron"]
+		},
+		{
+			"id": "criston-cole",
+			"name": "Criston Cole",
+			"faction": "Greens",
+			"aliases": ["Ser Criston Cole", "The Kingmaker", "Lord Commander of the Kingsguard"]
+		},
+		{
+			"id": "larys-strong",
+			"name": "Larys Strong",
+			"faction": "Greens",
+			"aliases": ["The Clubfoot", "Lord Larys", "Master of Whisperers"]
+		},
+		{
+			"id": "rhaenys-targaryen",
+			"name": "Rhaenys Targaryen",
+			"faction": "Blacks",
+			"aliases": ["The Queen Who Never Was", "Princess Rhaenys"]
+		},
+		{
+			"id": "corlys-velaryon",
+			"name": "Corlys Velaryon",
+			"faction": "Blacks",
+			"aliases": ["The Sea Snake", "Lord of the Tides", "Lord of Driftmark"]
+		},
+		{
+			"id": "laenor-velaryon",
+			"name": "Laenor Velaryon",
+			"faction": "Blacks",
+			"aliases": []
+		},
+		{
+			"id": "laena-velaryon",
+			"name": "Laena Velaryon",
+			"faction": "Blacks",
+			"aliases": []
+		},
+		{
+			"id": "jacaerys-velaryon",
+			"name": "Jacaerys Velaryon",
+			"faction": "Blacks",
+			"aliases": ["Jace", "Prince Jacaerys"]
+		},
+		{
+			"id": "lucerys-velaryon",
+			"name": "Lucerys Velaryon",
+			"faction": "Blacks",
+			"aliases": ["Luke"]
+		},
+		{
+			"id": "joffrey-velaryon",
+			"name": "Joffrey Velaryon",
+			"faction": "Blacks",
+			"aliases": []
+		},
+		{
+			"id": "baela-targaryen",
+			"name": "Baela Targaryen",
+			"faction": "Blacks",
+			"aliases": []
+		},
+		{
+			"id": "rhaena-targaryen",
+			"name": "Rhaena Targaryen",
+			"faction": "Blacks",
+			"aliases": []
+		},
+		{
+			"id": "mysaria",
+			"name": "Mysaria",
+			"faction": "Blacks",
+			"aliases": ["The White Worm", "Lady Mysaria"]
+		},
+		{
+			"id": "harwin-strong",
+			"name": "Harwin Strong",
+			"faction": "Blacks",
+			"aliases": ["Breakbones", "Ser Harwin Strong"]
+		},
+		{
+			"id": "lyonel-strong",
+			"name": "Lyonel Strong",
+			"faction": "Neutral",
+			"aliases": ["Lord Lyonel Strong", "Hand of the King"]
+		},
+		{
+			"id": "cregan-stark",
+			"name": "Cregan Stark",
+			"faction": "Blacks",
+			"aliases": ["Lord of Winterfell"]
+		},
+		{
+			"id": "borros-baratheon",
+			"name": "Borros Baratheon",
+			"faction": "Greens",
+			"aliases": ["Lord of Storm's End"]
+		},
+		{
+			"id": "jason-lannister",
+			"name": "Jason Lannister",
+			"faction": "Greens",
+			"aliases": ["Lord of Casterly Rock"]
+		},
+		{
+			"id": "tyland-lannister",
+			"name": "Tyland Lannister",
+			"faction": "Greens",
+			"aliases": ["Master of Coin"]
+		},
+		{
+			"id": "gwayne-hightower",
+			"name": "Gwayne Hightower",
+			"faction": "Greens",
+			"aliases": ["Ser Gwayne Hightower"]
+		},
+		{
+			"id": "ormund-hightower",
+			"name": "Ormund Hightower",
+			"faction": "Greens",
+			"aliases": ["Lord of Oldtown"]
+		},
+		{
+			"id": "erryk-cargyll",
+			"name": "Erryk Cargyll",
+			"faction": "Blacks",
+			"aliases": ["Ser Erryk Cargyll"]
+		},
+		{
+			"id": "arryk-cargyll",
+			"name": "Arryk Cargyll",
+			"faction": "Greens",
+			"aliases": ["Ser Arryk Cargyll"]
+		},
+		{
+			"id": "harrold-westerling",
+			"name": "Harrold Westerling",
+			"faction": "Neutral",
+			"aliases": ["Ser Harrold Westerling", "Lord Commander of the Kingsguard"]
+		},
+		{
+			"id": "rhea-royce",
+			"name": "Rhea Royce",
+			"faction": "Neutral",
+			"aliases": ["Lady of Runestone"]
+		},
+		{
+			"id": "vaemond-velaryon",
+			"name": "Vaemond Velaryon",
+			"faction": "Greens",
+			"aliases": ["Ser Vaemond Velaryon"]
+		},
+		{
+			"id": "alys-rivers",
+			"name": "Alys Rivers",
+			"faction": "Greens",
+			"aliases": ["The Witch of Harrenhal"]
+		},
+		{
+			"id": "addam-of-hull",
+			"name": "Addam of Hull",
+			"faction": "Blacks",
+			"aliases": ["Addam Velaryon"]
+		},
+		{
+			"id": "hugh-hammer",
+			"name": "Hugh Hammer",
+			"faction": "Blacks",
+			"aliases": ["Hard Hugh Hammer"]
+		},
+		{
+			"id": "ulf-white",
+			"name": "Ulf White",
+			"faction": "Blacks",
+			"aliases": ["Ulf the White"]
+		},
+		{
+			"id": "jaehaerys-i-targaryen",
+			"name": "Jaehaerys I Targaryen",
+			"faction": "Neutral",
+			"aliases": ["The Old King", "The Conciliator", "King Jaehaerys I"]
+		},
+		{
+			"id": "aemma-arryn",
+			"name": "Aemma Arryn",
+			"faction": "Neutral",
+			"aliases": ["Queen Aemma"]
+		},
+		{
+			"id": "craghas-drahar",
+			"name": "Craghas Drahar",
+			"faction": "Neutral",
+			"aliases": ["The Crabfeeder", "Prince-Admiral"]
+		},
+		{
+			"id": "joffrey-lonmouth",
+			"name": "Joffrey Lonmouth",
+			"faction": "Blacks",
+			"aliases": ["Ser Joffrey Lonmouth", "Knight of Kisses"]
+		},
+		{
+			"id": "qarl-correy",
+			"name": "Qarl Correy",
+			"faction": "Neutral",
+			"aliases": ["Ser Qarl Correy"]
+		},
+		{
+			"id": "lyman-beesbury",
+			"name": "Lyman Beesbury",
+			"faction": "Blacks",
+			"aliases": ["Lord Beesbury", "Master of Coin"]
+		},
+		{
+			"id": "hobert-hightower",
+			"name": "Hobert Hightower",
+			"faction": "Greens",
+			"aliases": ["Lord Hobert Hightower"]
+		},
+		{
+			"id": "jaehaerys-targaryen",
+			"name": "Jaehaerys Targaryen",
+			"faction": "Greens",
+			"aliases": ["Prince Jaehaerys"]
+		},
+		{
+			"id": "blood",
+			"name": "Blood",
+			"faction": "Neutral",
+			"aliases": []
+		},
+		{
+			"id": "cheese",
+			"name": "Cheese",
+			"faction": "Neutral",
+			"aliases": []
+		},
+		{
+			"id": "simon-strong",
+			"name": "Simon Strong",
+			"faction": "Blacks",
+			"aliases": ["Ser Simon Strong", "Castellan of Harrenhal"]
+		},
+		{
+			"id": "orwyle",
+			"name": "Orwyle",
+			"faction": "Greens",
+			"aliases": ["Grand Maester Orwyle"]
+		},
+		{
+			"id": "gunthor-darklyn",
+			"name": "Gunthor Darklyn",
+			"faction": "Neutral",
+			"aliases": ["Lord Gunthor Darklyn"]
+		},
+		{
+			"id": "steffon-darklyn",
+			"name": "Steffon Darklyn",
+			"faction": "Blacks",
+			"aliases": ["Ser Steffon Darklyn"]
+		},
+		{
+			"id": "alyn-of-hull",
+			"name": "Alyn of Hull",
+			"faction": "Blacks",
+			"aliases": ["Alyn Velaryon"]
+		},
+		{
+			"id": "oscar-tully",
+			"name": "Oscar Tully",
+			"faction": "Blacks",
+			"aliases": ["Lord Oscar Tully"]
+		},
+		{
+			"id": "willem-blackwood",
+			"name": "Willem Blackwood",
+			"faction": "Blacks",
+			"aliases": ["Ser Willem Blackwood"]
+		},
+		{
+			"id": "roderick-dustin",
+			"name": "Roderick Dustin",
+			"faction": "Blacks",
+			"aliases": ["Roddy the Ruin", "Lord Roderick Dustin"]
+		}
+	]
+}

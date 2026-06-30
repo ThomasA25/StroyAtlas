@@ -1,0 +1,44 @@
+{
+	"source": {
+		"title": "Wikipedia — House of the Dragon S01E01: Die Erben des Drachen",
+		"url": "https://en.wikipedia.org/wiki/House_of_the_Dragon_season_1",
+		"type": "wiki"
+	},
+	"story": {
+		"series": "House of the Dragon",
+		"season": 1,
+		"episode": 1,
+		"title": "Die Erben des Drachen",
+		"characters": [
+			{ "id": "jaehaerys-i-targaryen", "name": "Jaehaerys I Targaryen", "faction": "Neutral", "aliases": ["Der Alte König", "Der Schlichter", "König Jaehaerys I."] },
+			{ "id": "viserys-i-targaryen", "name": "Viserys I Targaryen", "faction": "Neutral", "aliases": ["König Viserys I.", "Viserys der Friedfertige"] },
+			{ "id": "rhaenys-targaryen", "name": "Rhaenys Targaryen", "faction": "Schwarze", "aliases": ["Die Königin, die niemals war", "Prinzessin Rhaenys"] },
+			{ "id": "corlys-velaryon", "name": "Corlys Velaryon", "faction": "Schwarze", "aliases": ["Die Seeschlange", "Herr der Gezeiten", "Lord von Driftmark"] },
+			{ "id": "aemma-arryn", "name": "Aemma Arryn", "faction": "Neutral", "aliases": ["Königin Aemma"] },
+			{ "id": "daemon-targaryen", "name": "Daemon Targaryen", "faction": "Schwarze", "aliases": ["Der Schurkenprinz", "Prinz der Stadt"] },
+			{ "id": "rhaenyra-targaryen", "name": "Rhaenyra Targaryen", "faction": "Schwarze", "aliases": ["Die Freude des Reiches", "Prinzessin von Drachenstein", "Königin Rhaenyra"] },
+			{ "id": "alicent-hightower", "name": "Alicent Hightower", "faction": "Grüne", "aliases": ["Königin Alicent", "Die Königinwitwe"] },
+			{ "id": "otto-hightower", "name": "Otto Hightower", "faction": "Grüne", "aliases": ["Lord Otto", "Hand des Königs"] },
+			{ "id": "criston-cole", "name": "Criston Cole", "faction": "Grüne", "aliases": ["Ser Criston Cole", "Der Königsmacher", "Lord Kommandant der Königsgarde"] }
+		],
+		"locations": [
+			{ "id": "harrenhal", "name": "Harrenhal", "type": "castle", "coordinates": { "x": 478, "y": 545 } },
+			{ "id": "kings-landing", "name": "Königsmund", "type": "city", "coordinates": { "x": 560, "y": 620 } },
+			{ "id": "red-keep", "name": "Roter Bergfried", "type": "castle", "coordinates": { "x": 580, "y": 606 } }
+		],
+		"events": [
+			{ "id": "s01e01-ev1", "title": "Der Große Rat ernennt Viserys zum Erben", "location_id": "harrenhal", "characters_involved": ["jaehaerys-i-targaryen", "viserys-i-targaryen", "rhaenys-targaryen", "corlys-velaryon"], "summary": "Auf einem Großen Rat wählen die Lords des Reiches Viserys anstelle von Rhaenys zum Nachfolger von König Jaehaerys I.", "order_index": 0 },
+			{ "id": "s01e01-ev2", "title": "Turnier zur Schwangerschaft der Königin", "location_id": "kings-landing", "characters_involved": ["viserys-i-targaryen", "criston-cole", "daemon-targaryen", "rhaenyra-targaryen", "alicent-hightower"], "summary": "Viserys richtet ein Turnier aus, um Aemmas Schwangerschaft zu feiern; der unbekannte Criston Cole wirft Prinz Daemon in den Schranken aus dem Sattel.", "order_index": 1 },
+			{ "id": "s01e01-ev3", "title": "Der Rat erwägt die Bedrohung durch die Triarchie", "location_id": "red-keep", "characters_involved": ["viserys-i-targaryen", "otto-hightower", "corlys-velaryon", "daemon-targaryen"], "summary": "Der Kleine Rat erörtert die wachsende Macht der Triarchie auf den Trittsteinen.", "order_index": 2 },
+			{ "id": "s01e01-ev4", "title": "Der Tod von Königin Aemma", "location_id": "red-keep", "characters_involved": ["viserys-i-targaryen", "aemma-arryn"], "summary": "Aemma stirbt während einer erzwungenen Geburt, die Viserys anordnet, um das Kind zu retten; der neugeborene Sohn überlebt nur kurz.", "order_index": 3, "deaths": ["aemma-arryn"] },
+			{ "id": "s01e01-ev5", "title": "Daemon wird wegen des Scherzes 'Erbe für einen Tag' verbannt", "location_id": "red-keep", "characters_involved": ["viserys-i-targaryen", "daemon-targaryen", "otto-hightower"], "summary": "Als Viserys erfährt, dass Daemon das tote Kind als 'Den Erben für einen Tag' verspottet hat, verbannt er seinen Bruder vom Hof.", "order_index": 4 },
+			{ "id": "s01e01-ev6", "title": "Rhaenyra wird zur Erbin ernannt; die Prophezeiung wird geteilt", "location_id": "red-keep", "characters_involved": ["viserys-i-targaryen", "rhaenyra-targaryen"], "summary": "Viserys ernennt Rhaenyra zu seiner Erbin und vertraut ihr Aegons des Eroberers Traum von einer kommenden Dunkelheit an, das Lied von Eis und Feuer.", "order_index": 5 }
+		],
+		"scenes": [
+			{ "id": "s01e01-sc1", "order_index": 0, "start_hint": "Der Große Rat tritt zusammen", "end_hint": "Viserys wird gewählt", "location_id": "harrenhal", "characters": ["jaehaerys-i-targaryen", "viserys-i-targaryen", "rhaenys-targaryen", "corlys-velaryon"], "event_ids": ["s01e01-ev1"], "transition_to_next": "Jahre später feiert die Hauptstadt ein königliches Turnier." },
+			{ "id": "s01e01-sc2", "order_index": 1, "start_hint": "Turnierplatz", "end_hint": "Daemon wird aus dem Sattel geworfen", "location_id": "kings-landing", "characters": ["viserys-i-targaryen", "criston-cole", "daemon-targaryen", "rhaenyra-targaryen", "alicent-hightower"], "event_ids": ["s01e01-ev2"], "transition_to_next": "Im Roten Bergfried wird die Geburt zur Tragödie." },
+			{ "id": "s01e01-sc3", "order_index": 2, "start_hint": "Ratskammer und Geburtszimmer", "end_hint": "Aemma und das Kind sterben", "location_id": "red-keep", "characters": ["viserys-i-targaryen", "otto-hightower", "corlys-velaryon", "aemma-arryn"], "event_ids": ["s01e01-ev3", "s01e01-ev4"], "transition_to_next": "Daemons herzloser Scherz erreicht den König." },
+			{ "id": "s01e01-sc4", "order_index": 3, "start_hint": "Der Thronsaal", "end_hint": "Rhaenyra wird zur Erbin ernannt", "location_id": "red-keep", "characters": ["viserys-i-targaryen", "daemon-targaryen", "otto-hightower", "rhaenyra-targaryen"], "event_ids": ["s01e01-ev5", "s01e01-ev6"], "transition_to_next": "" }
+		]
+	}
+}

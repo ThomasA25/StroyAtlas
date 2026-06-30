@@ -1,0 +1,41 @@
+{
+	"source": {
+		"title": "Wikipedia — House of the Dragon S02E05: Regent",
+		"url": "https://en.wikipedia.org/wiki/House_of_the_Dragon_season_2",
+		"type": "wiki"
+	},
+	"story": {
+		"series": "House of the Dragon",
+		"season": 2,
+		"episode": 5,
+		"title": "Regent",
+		"characters": [
+			{ "id": "corlys-velaryon", "name": "Corlys Velaryon", "faction": "Schwarze", "aliases": ["Die Seeschlange", "Herr der Gezeiten", "Lord von Driftmark"] },
+			{ "id": "rhaenyra-targaryen", "name": "Rhaenyra Targaryen", "faction": "Schwarze", "aliases": ["Die Freude des Reiches", "Prinzessin von Drachenstein", "Königin Rhaenyra"] },
+			{ "id": "baela-targaryen", "name": "Baela Targaryen", "faction": "Schwarze", "aliases": [] },
+			{ "id": "aegon-ii-targaryen", "name": "Aegon II Targaryen", "faction": "Grüne", "aliases": ["Aegon der Ältere", "König Aegon II."] },
+			{ "id": "aemond-targaryen", "name": "Aemond Targaryen", "faction": "Grüne", "aliases": ["Aemond Einauge", "Prinz Aemond"] },
+			{ "id": "alicent-hightower", "name": "Alicent Hightower", "faction": "Grüne", "aliases": ["Königin Alicent", "Die Königinwitwe"] },
+			{ "id": "jacaerys-velaryon", "name": "Jacaerys Velaryon", "faction": "Schwarze", "aliases": ["Jace", "Prinz Jacaerys"] },
+			{ "id": "daemon-targaryen", "name": "Daemon Targaryen", "faction": "Schwarze", "aliases": ["Der Schurkenprinz", "Prinz der Stadt"] }
+		],
+		"locations": [
+			{ "id": "dragonstone", "name": "Drachenstein", "type": "castle", "coordinates": { "x": 750, "y": 628 } },
+			{ "id": "red-keep", "name": "Roter Bergfried", "type": "castle", "coordinates": { "x": 580, "y": 606 } },
+			{ "id": "the-twins", "name": "Die Zwillinge", "type": "castle", "coordinates": { "x": 380, "y": 430 } },
+			{ "id": "the-riverlands", "name": "Die Flusslande", "type": "region", "coordinates": { "x": 440, "y": 505 } }
+		],
+		"events": [
+			{ "id": "s02e05-ev1", "title": "Trauer um Rhaenys", "location_id": "dragonstone", "characters_involved": ["corlys-velaryon", "rhaenyra-targaryen", "baela-targaryen"], "summary": "Corlys, Rhaenyra und Baela trauern nach Krähenrast um Rhaenys auf Drachenstein.", "order_index": 0 },
+			{ "id": "s02e05-ev2", "title": "Aemond zum Regenten ernannt", "location_id": "red-keep", "characters_involved": ["aegon-ii-targaryen", "aemond-targaryen", "alicent-hightower"], "summary": "Da Aegon im Koma liegt und schwer verbrannt ist, macht der Rat Aemond anstelle von Alicent zum Regenten.", "order_index": 1 },
+			{ "id": "s02e05-ev3", "title": "Jace gewinnt die Freys", "location_id": "the-twins", "characters_involved": ["jacaerys-velaryon"], "summary": "Bei den Zwillingen gewinnt Jacaerys die Treue des Hauses Frey, indem er ihnen Harrenhal verspricht.", "order_index": 2 },
+			{ "id": "s02e05-ev4", "title": "Daemon unterwirft die Brackens", "location_id": "the-riverlands", "characters_involved": ["daemon-targaryen"], "summary": "Daemon verwüstet die Brackens bis zur Unterwerfung und ruft sich selbst zum künftigen König aus.", "order_index": 3 }
+		],
+		"scenes": [
+			{ "id": "s02e05-sc1", "order_index": 0, "start_hint": "Trauer auf Drachenstein", "end_hint": "Trauer und Entschlossenheit", "location_id": "dragonstone", "characters": ["corlys-velaryon", "rhaenyra-targaryen", "baela-targaryen"], "event_ids": ["s02e05-ev1"], "transition_to_next": "In Königsmund wird ein Regent gewählt." },
+			{ "id": "s02e05-sc2", "order_index": 1, "start_hint": "Der Rat ernennt einen Regenten", "end_hint": "Aemond hält die Macht", "location_id": "red-keep", "characters": ["aegon-ii-targaryen", "aemond-targaryen", "alicent-hightower"], "event_ids": ["s02e05-ev2"], "transition_to_next": "Jace handelt bei den Zwillingen." },
+			{ "id": "s02e05-sc3", "order_index": 2, "start_hint": "Die Zwillinge", "end_hint": "Ein Bündnis erkauft", "location_id": "the-twins", "characters": ["jacaerys-velaryon"], "event_ids": ["s02e05-ev3"], "transition_to_next": "Daemon bedrängt die Flusslande." },
+			{ "id": "s02e05-sc4", "order_index": 3, "start_hint": "Die Flusslande", "end_hint": "Ein selbsternannter König", "location_id": "the-riverlands", "characters": ["daemon-targaryen"], "event_ids": ["s02e05-ev4"], "transition_to_next": "" }
+		]
+	}
+}

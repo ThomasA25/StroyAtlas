@@ -1,0 +1,32 @@
+{
+	"kind": "location-registry",
+	"series": "House of the Dragon",
+	"note": "Deutsche Variante des kanonischen Ortsregisters. Ids bleiben stabil und identisch zur englischen Registry (data/hotd/locations.json); name und region_hint sind eingedeutscht. type/coordinates bleiben unverändert (Vertragsfelder).",
+	"locations": [
+		{ "id": "kings-landing", "name": "Königsmund", "type": "city", "coordinates": { "x": 560, "y": 620 }, "region_hint": "Kronland, Ostküste" },
+		{ "id": "red-keep", "name": "Roter Bergfried", "type": "castle", "coordinates": { "x": 580, "y": 606 }, "region_hint": "Königsmund" },
+		{ "id": "dragonpit", "name": "Drachengrube", "type": "other", "coordinates": { "x": 545, "y": 634 }, "region_hint": "Königsmund (Rhaenys' Hügel)" },
+		{ "id": "dragonstone", "name": "Drachenstein", "type": "castle", "coordinates": { "x": 750, "y": 628 }, "region_hint": "Insel in der Schwarzwasserbucht / Meerenge" },
+		{ "id": "driftmark", "name": "Driftmark", "type": "castle", "coordinates": { "x": 722, "y": 664 }, "region_hint": "Inselsitz des Hauses Velaryon (Hohe Flut), Schwarzwasserbucht" },
+		{ "id": "the-stepstones", "name": "Die Trittsteine", "type": "region", "coordinates": { "x": 820, "y": 895 }, "region_hint": "Inselkette zwischen Westeros und Essos" },
+		{ "id": "pentos", "name": "Pentos", "type": "city", "coordinates": { "x": 945, "y": 642 }, "region_hint": "Freie Stadt, westliches Essos" },
+		{ "id": "harrenhal", "name": "Harrenhal", "type": "castle", "coordinates": { "x": 478, "y": 545 }, "region_hint": "Flusslande, Ufer des Götterauges" },
+		{ "id": "the-vale", "name": "Das Grüne Tal", "type": "region", "coordinates": { "x": 650, "y": 430 }, "region_hint": "Ostzentrales Westeros (Haus Arryn)" },
+		{ "id": "runestone", "name": "Runenstein", "type": "castle", "coordinates": { "x": 712, "y": 448 }, "region_hint": "Das Grüne Tal (Haus Royce)" },
+		{ "id": "storms-end", "name": "Sturmkap", "type": "castle", "coordinates": { "x": 606, "y": 818 }, "region_hint": "Sturmlande (Haus Baratheon)" },
+		{ "id": "winterfell", "name": "Winterfell", "type": "castle", "coordinates": { "x": 410, "y": 250 }, "region_hint": "Der Norden (Haus Stark)" },
+		{ "id": "the-wall", "name": "Die Mauer", "type": "other", "coordinates": { "x": 410, "y": 95 }, "region_hint": "Hoher Norden von Westeros" },
+		{ "id": "the-twins", "name": "Die Zwillinge", "type": "castle", "coordinates": { "x": 380, "y": 430 }, "region_hint": "Flusslande, Übergang über die Grüne Gabel (Haus Frey)" },
+		{ "id": "the-riverlands", "name": "Die Flusslande", "type": "region", "coordinates": { "x": 440, "y": 505 }, "region_hint": "Zentrales Westeros" },
+		{ "id": "duskendale", "name": "Dämmertal", "type": "castle", "coordinates": { "x": 612, "y": 576 }, "region_hint": "Kronland, Küste nördlich von Königsmund" },
+		{ "id": "rooks-rest", "name": "Krähenrast", "type": "castle", "coordinates": { "x": 656, "y": 650 }, "region_hint": "Küste des Kronlands" },
+		{ "id": "golden-tooth", "name": "Goldzahn", "type": "castle", "coordinates": { "x": 335, "y": 558 }, "region_hint": "Westliches Tor der Westlande" },
+		{ "id": "the-kingswood", "name": "Der Königswald", "type": "region", "coordinates": { "x": 548, "y": 690 }, "region_hint": "Wald südlich von Königsmund" },
+		{ "id": "sharp-point", "name": "Spitzkap", "type": "castle", "coordinates": { "x": 676, "y": 634 }, "region_hint": "Kronland, Mündung der Schwarzwasserbucht" },
+		{ "id": "braavos", "name": "Braavos", "type": "city", "coordinates": { "x": 956, "y": 360 }, "region_hint": "Freie Stadt, nordwestliches Essos" },
+		{ "id": "the-gullet", "name": "Der Schlund", "type": "sea", "coordinates": { "x": 700, "y": 648 }, "region_hint": "Gewässer zwischen Drachenstein, Driftmark und dem Festland" },
+		{ "id": "the-narrow-sea", "name": "Die Meerenge", "type": "sea", "coordinates": { "x": 862, "y": 560 }, "region_hint": "Meer zwischen Westeros und Essos" },
+		{ "id": "casterly-rock", "name": "Casterlystein", "type": "castle", "coordinates": { "x": 238, "y": 560 }, "region_hint": "Westlande (Haus Lannister)" },
+		{ "id": "oldtown", "name": "Altsass", "type": "city", "coordinates": { "x": 372, "y": 950 }, "region_hint": "Die Weite (Haus Hohenturm)" }
+	]
+}

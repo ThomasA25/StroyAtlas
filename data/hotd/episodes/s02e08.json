@@ -1,0 +1,47 @@
+{
+	"source": {
+		"title": "Wikipedia — House of the Dragon S02E08: The Queen Who Ever Was",
+		"url": "https://en.wikipedia.org/wiki/House_of_the_Dragon_season_2",
+		"type": "wiki"
+	},
+	"story": {
+		"series": "House of the Dragon",
+		"season": 2,
+		"episode": 8,
+		"title": "The Queen Who Ever Was",
+		"characters": [
+			{ "id": "tyland-lannister", "name": "Tyland Lannister", "faction": "Greens", "aliases": ["Master of Coin"] },
+			{ "id": "larys-strong", "name": "Larys Strong", "faction": "Greens", "aliases": ["The Clubfoot", "Lord Larys", "Master of Whisperers"] },
+			{ "id": "aegon-ii-targaryen", "name": "Aegon II Targaryen", "faction": "Greens", "aliases": ["Aegon the Elder", "King Aegon II"] },
+			{ "id": "rhaena-targaryen", "name": "Rhaena Targaryen", "faction": "Blacks", "aliases": [] },
+			{ "id": "aemond-targaryen", "name": "Aemond Targaryen", "faction": "Greens", "aliases": ["Aemond One-Eye", "Prince Aemond"] },
+			{ "id": "daemon-targaryen", "name": "Daemon Targaryen", "faction": "Blacks", "aliases": ["The Rogue Prince", "Prince of the City"] },
+			{ "id": "helaena-targaryen", "name": "Helaena Targaryen", "faction": "Greens", "aliases": ["Queen Helaena"] },
+			{ "id": "alicent-hightower", "name": "Alicent Hightower", "faction": "Greens", "aliases": ["Queen Alicent", "The Queen Dowager"] },
+			{ "id": "rhaenyra-targaryen", "name": "Rhaenyra Targaryen", "faction": "Blacks", "aliases": ["The Realm's Delight", "Princess of Dragonstone", "Queen Rhaenyra"] }
+		],
+		"locations": [
+			{ "id": "red-keep", "name": "Red Keep", "type": "castle", "coordinates": { "x": 580, "y": 606 } },
+			{ "id": "the-vale", "name": "The Vale", "type": "region", "coordinates": { "x": 650, "y": 430 } },
+			{ "id": "sharp-point", "name": "Sharp Point", "type": "castle", "coordinates": { "x": 676, "y": 634 } },
+			{ "id": "harrenhal", "name": "Harrenhal", "type": "castle", "coordinates": { "x": 478, "y": 545 } },
+			{ "id": "dragonstone", "name": "Dragonstone", "type": "castle", "coordinates": { "x": 750, "y": 628 } }
+		],
+		"events": [
+			{ "id": "s02e08-ev1", "title": "The Greens secure the Triarchy and a fallback", "location_id": "red-keep", "characters_involved": ["tyland-lannister", "larys-strong", "aegon-ii-targaryen"], "summary": "Tyland clinches the Triarchy as allies; Larys proposes hiding Aegon abroad to later reclaim the throne.", "order_index": 0 },
+			{ "id": "s02e08-ev2", "title": "Rhaena finds a wild dragon", "location_id": "the-vale", "characters_involved": ["rhaena-targaryen"], "summary": "In the Vale, Rhaena tracks the wild dragon Sheepstealer.", "order_index": 1 },
+			{ "id": "s02e08-ev3", "title": "Aemond burns Sharp Point", "location_id": "sharp-point", "characters_involved": ["aemond-targaryen"], "summary": "In a rage, Aemond destroys Sharp Point with Vhagar.", "order_index": 2 },
+			{ "id": "s02e08-ev4", "title": "Daemon swears fealty", "location_id": "harrenhal", "characters_involved": ["daemon-targaryen"], "summary": "After weirwood visions of the realm's future, Daemon finally pledges himself to Rhaenyra's cause.", "order_index": 3 },
+			{ "id": "s02e08-ev5", "title": "Helaena refuses to fly to war", "location_id": "red-keep", "characters_involved": ["helaena-targaryen", "aemond-targaryen"], "summary": "Helaena rejects Aemond's demand that she ride Dreamfyre into battle, foreseeing his death.", "order_index": 4 },
+			{ "id": "s02e08-ev6", "title": "Alicent's secret offer of surrender", "location_id": "dragonstone", "characters_involved": ["alicent-hightower", "rhaenyra-targaryen"], "summary": "Alicent slips to Dragonstone offering surrender for her family's safety, but Rhaenyra insists Aegon must die; both sides ready for war.", "order_index": 5 }
+		],
+		"scenes": [
+			{ "id": "s02e08-sc1", "order_index": 0, "start_hint": "The Greens' contingencies", "end_hint": "Allies and escape plans", "location_id": "red-keep", "characters": ["tyland-lannister", "larys-strong", "aegon-ii-targaryen"], "event_ids": ["s02e08-ev1"], "transition_to_next": "In the Vale, a wild dragon is found." },
+			{ "id": "s02e08-sc2", "order_index": 1, "start_hint": "The Vale", "end_hint": "Rhaena's hunt", "location_id": "the-vale", "characters": ["rhaena-targaryen"], "event_ids": ["s02e08-ev2"], "transition_to_next": "Aemond lashes out." },
+			{ "id": "s02e08-sc3", "order_index": 2, "start_hint": "Sharp Point burns", "end_hint": "A town destroyed", "location_id": "sharp-point", "characters": ["aemond-targaryen"], "event_ids": ["s02e08-ev3"], "transition_to_next": "At Harrenhal, Daemon makes his choice." },
+			{ "id": "s02e08-sc4", "order_index": 3, "start_hint": "Visions at Harrenhal", "end_hint": "Daemon kneels", "location_id": "harrenhal", "characters": ["daemon-targaryen"], "event_ids": ["s02e08-ev4"], "transition_to_next": "Aemond demands his sister fly to war." },
+			{ "id": "s02e08-sc5", "order_index": 4, "start_hint": "A grim prophecy", "end_hint": "Helaena refuses", "location_id": "red-keep", "characters": ["helaena-targaryen", "aemond-targaryen"], "event_ids": ["s02e08-ev5"], "transition_to_next": "Alicent slips away to Dragonstone." },
+			{ "id": "s02e08-sc6", "order_index": 5, "start_hint": "A secret offer", "end_hint": "War is certain", "location_id": "dragonstone", "characters": ["alicent-hightower", "rhaenyra-targaryen"], "event_ids": ["s02e08-ev6"], "transition_to_next": "" }
+		]
+	}
+}

@@ -1,0 +1,41 @@
+{
+	"source": {
+		"title": "Wikipedia — House of the Dragon S02E05: Regent",
+		"url": "https://en.wikipedia.org/wiki/House_of_the_Dragon_season_2",
+		"type": "wiki"
+	},
+	"story": {
+		"series": "House of the Dragon",
+		"season": 2,
+		"episode": 5,
+		"title": "Regent",
+		"characters": [
+			{ "id": "corlys-velaryon", "name": "Corlys Velaryon", "faction": "Blacks", "aliases": ["The Sea Snake", "Lord of the Tides", "Lord of Driftmark"] },
+			{ "id": "rhaenyra-targaryen", "name": "Rhaenyra Targaryen", "faction": "Blacks", "aliases": ["The Realm's Delight", "Princess of Dragonstone", "Queen Rhaenyra"] },
+			{ "id": "baela-targaryen", "name": "Baela Targaryen", "faction": "Blacks", "aliases": [] },
+			{ "id": "aegon-ii-targaryen", "name": "Aegon II Targaryen", "faction": "Greens", "aliases": ["Aegon the Elder", "King Aegon II"] },
+			{ "id": "aemond-targaryen", "name": "Aemond Targaryen", "faction": "Greens", "aliases": ["Aemond One-Eye", "Prince Aemond"] },
+			{ "id": "alicent-hightower", "name": "Alicent Hightower", "faction": "Greens", "aliases": ["Queen Alicent", "The Queen Dowager"] },
+			{ "id": "jacaerys-velaryon", "name": "Jacaerys Velaryon", "faction": "Blacks", "aliases": ["Jace", "Prince Jacaerys"] },
+			{ "id": "daemon-targaryen", "name": "Daemon Targaryen", "faction": "Blacks", "aliases": ["The Rogue Prince", "Prince of the City"] }
+		],
+		"locations": [
+			{ "id": "dragonstone", "name": "Dragonstone", "type": "castle", "coordinates": { "x": 750, "y": 628 } },
+			{ "id": "red-keep", "name": "Red Keep", "type": "castle", "coordinates": { "x": 580, "y": 606 } },
+			{ "id": "the-twins", "name": "The Twins", "type": "castle", "coordinates": { "x": 380, "y": 430 } },
+			{ "id": "the-riverlands", "name": "The Riverlands", "type": "region", "coordinates": { "x": 440, "y": 505 } }
+		],
+		"events": [
+			{ "id": "s02e05-ev1", "title": "Mourning Rhaenys", "location_id": "dragonstone", "characters_involved": ["corlys-velaryon", "rhaenyra-targaryen", "baela-targaryen"], "summary": "Corlys, Rhaenyra and Baela grieve Rhaenys at Dragonstone after Rook's Rest.", "order_index": 0 },
+			{ "id": "s02e05-ev2", "title": "Aemond named regent", "location_id": "red-keep", "characters_involved": ["aegon-ii-targaryen", "aemond-targaryen", "alicent-hightower"], "summary": "With Aegon comatose and badly burned, the council makes Aemond regent over Alicent.", "order_index": 1 },
+			{ "id": "s02e05-ev3", "title": "Jace secures the Freys", "location_id": "the-twins", "characters_involved": ["jacaerys-velaryon"], "summary": "At the Twins, Jacaerys wins House Frey's allegiance by promising them Harrenhal.", "order_index": 2 },
+			{ "id": "s02e05-ev4", "title": "Daemon subdues the Brackens", "location_id": "the-riverlands", "characters_involved": ["daemon-targaryen"], "summary": "Daemon ravages the Brackens into submission and proclaims himself a future king.", "order_index": 3 }
+		],
+		"scenes": [
+			{ "id": "s02e05-sc1", "order_index": 0, "start_hint": "Mourning at Dragonstone", "end_hint": "Grief and resolve", "location_id": "dragonstone", "characters": ["corlys-velaryon", "rhaenyra-targaryen", "baela-targaryen"], "event_ids": ["s02e05-ev1"], "transition_to_next": "In King's Landing, a regent is chosen." },
+			{ "id": "s02e05-sc2", "order_index": 1, "start_hint": "The council names a regent", "end_hint": "Aemond holds power", "location_id": "red-keep", "characters": ["aegon-ii-targaryen", "aemond-targaryen", "alicent-hightower"], "event_ids": ["s02e05-ev2"], "transition_to_next": "Jace bargains at the Twins." },
+			{ "id": "s02e05-sc3", "order_index": 2, "start_hint": "The Twins", "end_hint": "An alliance bought", "location_id": "the-twins", "characters": ["jacaerys-velaryon"], "event_ids": ["s02e05-ev3"], "transition_to_next": "Daemon presses the Riverlands." },
+			{ "id": "s02e05-sc4", "order_index": 3, "start_hint": "The Riverlands", "end_hint": "A self-made king", "location_id": "the-riverlands", "characters": ["daemon-targaryen"], "event_ids": ["s02e05-ev4"], "transition_to_next": "" }
+		]
+	}
+}

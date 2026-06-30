@@ -1,0 +1,45 @@
+{
+	"source": {
+		"title": "Wikipedia — House of the Dragon S01E09: Der Grüne Rat",
+		"url": "https://en.wikipedia.org/wiki/House_of_the_Dragon_season_1",
+		"type": "wiki"
+	},
+	"story": {
+		"series": "House of the Dragon",
+		"season": 1,
+		"episode": 9,
+		"title": "Der Grüne Rat",
+		"characters": [
+			{ "id": "otto-hightower", "name": "Otto Hightower", "faction": "Grüne", "aliases": ["Lord Otto", "Hand des Königs"] },
+			{ "id": "alicent-hightower", "name": "Alicent Hightower", "faction": "Grüne", "aliases": ["Königin Alicent", "Die Königinwitwe"] },
+			{ "id": "larys-strong", "name": "Larys Strong", "faction": "Grüne", "aliases": ["Der Klumpfuß", "Lord Larys", "Meister der Flüsterer"] },
+			{ "id": "criston-cole", "name": "Criston Cole", "faction": "Grüne", "aliases": ["Ser Criston Cole", "Der Königsmacher", "Lord Kommandant der Königsgarde"] },
+			{ "id": "lyman-beesbury", "name": "Lyman Beesbury", "faction": "Schwarze", "aliases": ["Lord Beesbury", "Meister der Münze"] },
+			{ "id": "harrold-westerling", "name": "Harrold Westerling", "faction": "Neutral", "aliases": ["Ser Harrold Westerling", "Lord Kommandant der Königsgarde"] },
+			{ "id": "aemond-targaryen", "name": "Aemond Targaryen", "faction": "Grüne", "aliases": ["Aemond Einauge", "Prinz Aemond"] },
+			{ "id": "aegon-ii-targaryen", "name": "Aegon II Targaryen", "faction": "Grüne", "aliases": ["Aegon der Ältere", "König Aegon II."] },
+			{ "id": "erryk-cargyll", "name": "Erryk Cargyll", "faction": "Schwarze", "aliases": ["Ser Erryk Cargyll"] },
+			{ "id": "arryk-cargyll", "name": "Arryk Cargyll", "faction": "Grüne", "aliases": ["Ser Arryk Cargyll"] },
+			{ "id": "rhaenys-targaryen", "name": "Rhaenys Targaryen", "faction": "Schwarze", "aliases": ["Die Königin, die niemals war", "Prinzessin Rhaenys"] }
+		],
+		"locations": [
+			{ "id": "red-keep", "name": "Roter Bergfried", "type": "castle", "coordinates": { "x": 580, "y": 606 } },
+			{ "id": "kings-landing", "name": "Königsmund", "type": "city", "coordinates": { "x": 560, "y": 620 } },
+			{ "id": "dragonpit", "name": "Drachengrube", "type": "other", "coordinates": { "x": 545, "y": 634 } }
+		],
+		"events": [
+			{ "id": "s01e09-ev1", "title": "Die Grünen verheimlichen den Tod des Königs", "location_id": "red-keep", "characters_involved": ["otto-hightower", "alicent-hightower", "larys-strong"], "summary": "Viserys' Tod wird geheim gehalten, während Otto und die Grünen daran arbeiten, Aegon II. zu krönen.", "order_index": 0 },
+			{ "id": "s01e09-ev2", "title": "Criston tötet Lord Beesbury", "location_id": "red-keep", "characters_involved": ["criston-cole", "lyman-beesbury"], "summary": "Als Lord Beesbury sich gegen den Staatsstreich auflehnt, tötet Criston Cole ihn in der Ratskammer.", "order_index": 1, "deaths": ["lyman-beesbury"] },
+			{ "id": "s01e09-ev3", "title": "Harrold Westerling tritt zurück", "location_id": "red-keep", "characters_involved": ["harrold-westerling", "otto-hightower"], "summary": "Lord Kommandant Harrold Westerling legt seinen weißen Mantel ab, statt der Usurpation zu dienen.", "order_index": 2 },
+			{ "id": "s01e09-ev4", "title": "Die Jagd nach Aegon", "location_id": "kings-landing", "characters_involved": ["criston-cole", "aemond-targaryen", "aegon-ii-targaryen", "erryk-cargyll", "arryk-cargyll"], "summary": "Aegon wird in der Stadt versteckt aufgespürt; Criston und Aemond entreißen ihn den Cargyll-Zwillingen.", "order_index": 3 },
+			{ "id": "s01e09-ev5", "title": "Rhaenys befreit", "location_id": "red-keep", "characters_involved": ["rhaenys-targaryen", "erryk-cargyll"], "summary": "Weil sie sich den Grünen verweigerte, wurde Prinzessin Rhaenys gefangen gehalten und wird heimlich von Ser Erryk befreit.", "order_index": 4 },
+			{ "id": "s01e09-ev6", "title": "Aegon II. gekrönt; Meleys bricht hervor", "location_id": "dragonpit", "characters_involved": ["aegon-ii-targaryen", "alicent-hightower", "otto-hightower", "aemond-targaryen", "rhaenys-targaryen"], "summary": "Aegon wird vor dem einfachen Volk in der Drachengrube gekrönt, als Rhaenys auf ihrem Drachen durch den Boden bricht und entkommt.", "order_index": 5 }
+		],
+		"scenes": [
+			{ "id": "s01e09-sc1", "order_index": 0, "start_hint": "Der Grüne Rat tritt zusammen", "end_hint": "Widerspruch wird zum Schweigen gebracht", "location_id": "red-keep", "characters": ["otto-hightower", "alicent-hightower", "larys-strong", "criston-cole", "lyman-beesbury", "harrold-westerling"], "event_ids": ["s01e09-ev1", "s01e09-ev2", "s01e09-ev3"], "transition_to_next": "Die Verschwörer machen Jagd auf den Prinzen." },
+			{ "id": "s01e09-sc2", "order_index": 1, "start_hint": "Die Suche in der Stadt", "end_hint": "Aegon wird ergriffen", "location_id": "kings-landing", "characters": ["criston-cole", "aemond-targaryen", "aegon-ii-targaryen", "erryk-cargyll", "arryk-cargyll"], "event_ids": ["s01e09-ev4"], "transition_to_next": "Rhaenys wird gefangen genommen und dann befreit." },
+			{ "id": "s01e09-sc3", "order_index": 2, "start_hint": "Rhaenys' Gefangenschaft", "end_hint": "Eine offen gelassene Tür", "location_id": "red-keep", "characters": ["rhaenys-targaryen", "erryk-cargyll"], "event_ids": ["s01e09-ev5"], "transition_to_next": "Die Krönung wird in der Drachengrube inszeniert." },
+			{ "id": "s01e09-sc4", "order_index": 3, "start_hint": "Die Krönung in der Drachengrube", "end_hint": "Ein Drache zerschmettert den Boden", "location_id": "dragonpit", "characters": ["aegon-ii-targaryen", "alicent-hightower", "otto-hightower", "aemond-targaryen", "rhaenys-targaryen"], "event_ids": ["s01e09-ev6"], "transition_to_next": "" }
+		]
+	}
+}

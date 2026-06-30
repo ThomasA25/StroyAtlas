@@ -1,0 +1,206 @@
+/**
+ * StoryAtlas global stylesheet.
+ *
+ * Defines the --sa-* design tokens that every route and component reads, the
+ * base element styles (typography, form controls, buttons), and the shared
+ * utility classes (.sa-card, .sa-muted, .sa-badge). Component-scoped styles in
+ * the .svelte files layer on top of these. Light is the default; the dark
+ * palette kicks in via prefers-color-scheme.
+ */
+
+:root {
+	/* Palette — light */
+	--sa-bg: #faf9fb;
+	--sa-surface: #ffffff;
+	--sa-surface-2: #f3f1f7;
+	--sa-border: #e4e2e9;
+	--sa-text: #1b1830;
+	--sa-text-dim: #6b6375;
+	--sa-accent: #8b2fe0;
+	--sa-accent-contrast: #ffffff;
+	--sa-danger: #c92a2a;
+
+	/* Shape & type */
+	--sa-radius: 8px;
+	--sa-shadow: 0 1px 2px rgba(16, 12, 28, 0.06), 0 4px 12px rgba(16, 12, 28, 0.05);
+	--sa-font-body: system-ui, 'Segoe UI', Roboto, sans-serif;
+	--sa-font-display: 'Segoe UI', system-ui, Roboto, sans-serif;
+	--sa-font-mono: ui-monospace, Consolas, 'SF Mono', monospace;
+
+	color-scheme: light dark;
+	font: 15px/1.5 var(--sa-font-body);
+	color: var(--sa-text);
+	background: var(--sa-bg);
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-rendering: optimizeLegibility;
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--sa-bg: #131318;
+		--sa-surface: #1b1c22;
+		--sa-surface-2: #23242c;
+		--sa-border: #2e303a;
+		--sa-text: #f3f4f6;
+		--sa-text-dim: #9ca3af;
+		--sa-accent: #c084fc;
+		--sa-accent-contrast: #1b1830;
+		--sa-danger: #f97066;
+		--sa-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 4px 12px rgba(0, 0, 0, 0.3);
+	}
+}
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html,
+body {
+	margin: 0;
+	min-height: 100vh;
+}
+
+body {
+	background: var(--sa-bg);
+	color: var(--sa-text);
+}
+
+/* ── Typography ─────────────────────────────────────────────────────────── */
+h1,
+h2,
+h3 {
+	font-family: var(--sa-font-display);
+	color: var(--sa-text);
+	font-weight: 600;
+	line-height: 1.2;
+	margin: 0 0 0.6rem;
+}
+h1 {
+	font-size: 1.6rem;
+	letter-spacing: -0.02em;
+}
+h2 {
+	font-size: 1.25rem;
+}
+h3 {
+	font-size: 1.02rem;
+}
+p {
+	margin: 0 0 0.6rem;
+}
+a {
+	color: var(--sa-accent);
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: underline;
+}
+code,
+pre {
+	font-family: var(--sa-font-mono);
+	font-size: 0.88em;
+	background: var(--sa-surface-2);
+	border-radius: 5px;
+}
+code {
+	padding: 0.1em 0.4em;
+}
+pre {
+	padding: 0.75rem;
+	overflow-x: auto;
+}
+
+/* ── Form controls ──────────────────────────────────────────────────────── */
+input,
+select,
+textarea {
+	width: 100%;
+	font: inherit;
+	color: var(--sa-text);
+	background: var(--sa-surface);
+	border: 1px solid var(--sa-border);
+	border-radius: var(--sa-radius);
+	padding: 0.4rem 0.55rem;
+}
+textarea {
+	resize: vertical;
+}
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+button:focus-visible {
+	outline: 2px solid var(--sa-accent);
+	outline-offset: 1px;
+}
+input::placeholder,
+textarea::placeholder {
+	color: var(--sa-text-dim);
+}
+
+button {
+	font: inherit;
+	font-weight: 500;
+	cursor: pointer;
+	color: var(--sa-text);
+	background: var(--sa-surface-2);
+	border: 1px solid var(--sa-border);
+	border-radius: var(--sa-radius);
+	padding: 0.4rem 0.7rem;
+	transition:
+		background-color 0.15s,
+		border-color 0.15s,
+		color 0.15s;
+}
+button:hover {
+	border-color: var(--sa-accent);
+	color: var(--sa-accent);
+}
+button:disabled {
+	opacity: 0.55;
+	cursor: not-allowed;
+	color: var(--sa-text-dim);
+	border-color: var(--sa-border);
+}
+button.primary {
+	background: var(--sa-accent);
+	border-color: var(--sa-accent);
+	color: var(--sa-accent-contrast);
+}
+button.primary:hover {
+	filter: brightness(1.08);
+	color: var(--sa-accent-contrast);
+}
+button.danger:hover {
+	border-color: var(--sa-danger);
+	color: var(--sa-danger);
+}
+
+/* ── Shared utilities ───────────────────────────────────────────────────── */
+.sa-card {
+	background: var(--sa-surface);
+	border: 1px solid var(--sa-border);
+	border-radius: var(--sa-radius);
+	padding: 1rem;
+	box-shadow: var(--sa-shadow);
+}
+
+.sa-muted {
+	color: var(--sa-text-dim);
+}
+
+.sa-badge {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.25rem;
+	font-size: 0.72rem;
+	font-weight: 500;
+	line-height: 1;
+	padding: 0.2rem 0.45rem;
+	border-radius: 999px;
+	background: var(--sa-surface-2);
+	border: 1px solid var(--sa-border);
+	color: var(--sa-text-dim);
+}

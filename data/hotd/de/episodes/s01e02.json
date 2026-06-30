@@ -1,0 +1,42 @@
+{
+	"source": {
+		"title": "Wikipedia — House of the Dragon S01E02: Der Schurkenprinz",
+		"url": "https://en.wikipedia.org/wiki/House_of_the_Dragon_season_1",
+		"type": "wiki"
+	},
+	"story": {
+		"series": "House of the Dragon",
+		"season": 1,
+		"episode": 2,
+		"title": "Der Schurkenprinz",
+		"characters": [
+			{ "id": "daemon-targaryen", "name": "Daemon Targaryen", "faction": "Schwarze", "aliases": ["Der Schurkenprinz", "Prinz der Stadt"] },
+			{ "id": "mysaria", "name": "Mysaria", "faction": "Schwarze", "aliases": ["Der Weiße Wurm", "Lady Mysaria"] },
+			{ "id": "viserys-i-targaryen", "name": "Viserys I Targaryen", "faction": "Neutral", "aliases": ["König Viserys I.", "Viserys der Friedfertige"] },
+			{ "id": "otto-hightower", "name": "Otto Hightower", "faction": "Grüne", "aliases": ["Lord Otto", "Hand des Königs"] },
+			{ "id": "corlys-velaryon", "name": "Corlys Velaryon", "faction": "Schwarze", "aliases": ["Die Seeschlange", "Herr der Gezeiten", "Lord von Driftmark"] },
+			{ "id": "rhaenys-targaryen", "name": "Rhaenys Targaryen", "faction": "Schwarze", "aliases": ["Die Königin, die niemals war", "Prinzessin Rhaenys"] },
+			{ "id": "laena-velaryon", "name": "Laena Velaryon", "faction": "Schwarze", "aliases": [] },
+			{ "id": "rhaenyra-targaryen", "name": "Rhaenyra Targaryen", "faction": "Schwarze", "aliases": ["Die Freude des Reiches", "Prinzessin von Drachenstein", "Königin Rhaenyra"] },
+			{ "id": "alicent-hightower", "name": "Alicent Hightower", "faction": "Grüne", "aliases": ["Königin Alicent", "Die Königinwitwe"] },
+			{ "id": "criston-cole", "name": "Criston Cole", "faction": "Grüne", "aliases": ["Ser Criston Cole", "Der Königsmacher", "Lord Kommandant der Königsgarde"] }
+		],
+		"locations": [
+			{ "id": "dragonstone", "name": "Drachenstein", "type": "castle", "coordinates": { "x": 750, "y": 628 } },
+			{ "id": "red-keep", "name": "Roter Bergfried", "type": "castle", "coordinates": { "x": 580, "y": 606 } },
+			{ "id": "the-stepstones", "name": "Die Trittsteine", "type": "region", "coordinates": { "x": 820, "y": 895 } }
+		],
+		"events": [
+			{ "id": "s01e02-ev1", "title": "Daemon nimmt Drachenstein ein", "location_id": "dragonstone", "characters_involved": ["daemon-targaryen", "mysaria"], "summary": "Daemon besetzt Drachenstein, erklärt sich selbst zum Erben und stiehlt ein Drachenei, in der Absicht, seine Geliebte Mysaria zu heiraten.", "order_index": 0 },
+			{ "id": "s01e02-ev2", "title": "Der Rat lehnt ein Eingreifen auf den Trittsteinen ab", "location_id": "red-keep", "characters_involved": ["viserys-i-targaryen", "otto-hightower", "corlys-velaryon", "rhaenyra-targaryen"], "summary": "Der krabbenfütternde Kriegsherr Craghas Drahar bedroht die Schifffahrt auf den Trittsteinen; der Rat tut Rhaenyras Forderung nach einem Eingreifen ab.", "order_index": 1 },
+			{ "id": "s01e02-ev3", "title": "Viserys kündigt an, Alicent zu heiraten", "location_id": "red-keep", "characters_involved": ["viserys-i-targaryen", "alicent-hightower", "corlys-velaryon", "rhaenys-targaryen", "laena-velaryon"], "summary": "Viserys gibt bekannt, dass er Alicent Hightower heiraten wird, und brüskiert damit die Velaryons, die ihre Tochter Laena angeboten hatten.", "order_index": 2 },
+			{ "id": "s01e02-ev4", "title": "Rhaenyra zwingt Daemon zum Einlenken", "location_id": "dragonstone", "characters_involved": ["rhaenyra-targaryen", "daemon-targaryen", "criston-cole"], "summary": "Rhaenyra fliegt nach Drachenstein und stellt Daemon zur Rede, der das Ei herausgibt und seinen Anspruch aufgibt.", "order_index": 3 }
+		],
+		"scenes": [
+			{ "id": "s01e02-sc1", "order_index": 0, "start_hint": "Drachenstein, besetzt", "end_hint": "Daemon protzt mit dem gestohlenen Ei", "location_id": "dragonstone", "characters": ["daemon-targaryen", "mysaria"], "event_ids": ["s01e02-ev1"], "transition_to_next": "Am Hof erwägt der Rat einen Krieg auf den Trittsteinen." },
+			{ "id": "s01e02-sc2", "order_index": 1, "start_hint": "Kammer des Kleinen Rats", "end_hint": "Rhaenyra wird überstimmt", "location_id": "red-keep", "characters": ["viserys-i-targaryen", "otto-hightower", "corlys-velaryon", "rhaenyra-targaryen"], "event_ids": ["s01e02-ev2"], "transition_to_next": "Viserys gibt seine Wahl der Braut bekannt." },
+			{ "id": "s01e02-sc3", "order_index": 2, "start_hint": "Verkündung am Hof", "end_hint": "Die Velaryons fühlen sich beleidigt", "location_id": "red-keep", "characters": ["viserys-i-targaryen", "alicent-hightower", "corlys-velaryon", "rhaenys-targaryen", "laena-velaryon"], "event_ids": ["s01e02-ev3"], "transition_to_next": "Rhaenyra fliegt nach Drachenstein, um ihrem Onkel gegenüberzutreten." },
+			{ "id": "s01e02-sc4", "order_index": 3, "start_hint": "Die Brücke von Drachenstein", "end_hint": "Daemon gibt nach", "location_id": "dragonstone", "characters": ["rhaenyra-targaryen", "daemon-targaryen", "criston-cole"], "event_ids": ["s01e02-ev4"], "transition_to_next": "" }
+		]
+	}
+}

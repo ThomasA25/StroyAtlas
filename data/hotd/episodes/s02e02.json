@@ -1,0 +1,40 @@
+{
+	"source": {
+		"title": "Wikipedia — House of the Dragon S02E02: Rhaenyra the Cruel",
+		"url": "https://en.wikipedia.org/wiki/House_of_the_Dragon_season_2",
+		"type": "wiki"
+	},
+	"story": {
+		"series": "House of the Dragon",
+		"season": 2,
+		"episode": 2,
+		"title": "Rhaenyra the Cruel",
+		"characters": [
+			{ "id": "aegon-ii-targaryen", "name": "Aegon II Targaryen", "faction": "Greens", "aliases": ["Aegon the Elder", "King Aegon II"] },
+			{ "id": "otto-hightower", "name": "Otto Hightower", "faction": "Greens", "aliases": ["Lord Otto", "Hand of the King"] },
+			{ "id": "blood", "name": "Blood", "faction": "Neutral", "aliases": [] },
+			{ "id": "criston-cole", "name": "Criston Cole", "faction": "Greens", "aliases": ["Ser Criston Cole", "The Kingmaker", "Lord Commander of the Kingsguard"] },
+			{ "id": "arryk-cargyll", "name": "Arryk Cargyll", "faction": "Greens", "aliases": ["Ser Arryk Cargyll"] },
+			{ "id": "erryk-cargyll", "name": "Erryk Cargyll", "faction": "Blacks", "aliases": ["Ser Erryk Cargyll"] },
+			{ "id": "rhaenyra-targaryen", "name": "Rhaenyra Targaryen", "faction": "Blacks", "aliases": ["The Realm's Delight", "Princess of Dragonstone", "Queen Rhaenyra"] }
+		],
+		"locations": [
+			{ "id": "kings-landing", "name": "King's Landing", "type": "city", "coordinates": { "x": 560, "y": 620 } },
+			{ "id": "red-keep", "name": "Red Keep", "type": "castle", "coordinates": { "x": 580, "y": 606 } },
+			{ "id": "dragonstone", "name": "Dragonstone", "type": "castle", "coordinates": { "x": 750, "y": 628 } }
+		],
+		"events": [
+			{ "id": "s02e02-ev1", "title": "A funeral turned propaganda", "location_id": "kings-landing", "characters_involved": ["aegon-ii-targaryen", "otto-hightower"], "summary": "Otto stages Jaehaerys's public funeral procession to brand the queen 'Rhaenyra the Cruel'.", "order_index": 0 },
+			{ "id": "s02e02-ev2", "title": "Blood confesses", "location_id": "red-keep", "characters_involved": ["blood"], "summary": "The captured assassin Blood confesses that Daemon ordered the killing.", "order_index": 1 },
+			{ "id": "s02e02-ev3", "title": "Criston sends a twin to kill Rhaenyra", "location_id": "red-keep", "characters_involved": ["criston-cole", "arryk-cargyll"], "summary": "Criston orders Ser Arryk to impersonate his twin Erryk and infiltrate Dragonstone to murder Rhaenyra.", "order_index": 2 },
+			{ "id": "s02e02-ev4", "title": "The Cargyll twins kill each other", "location_id": "dragonstone", "characters_involved": ["arryk-cargyll", "erryk-cargyll", "rhaenyra-targaryen"], "summary": "Arryk reaches Rhaenyra but Erryk intervenes; the brothers duel to the death.", "order_index": 3, "deaths": ["arryk-cargyll", "erryk-cargyll"] },
+			{ "id": "s02e02-ev5", "title": "Criston named Hand", "location_id": "red-keep", "characters_involved": ["aegon-ii-targaryen", "criston-cole", "otto-hightower"], "summary": "Aegon dismisses Otto and appoints Criston Cole as Hand of the King.", "order_index": 4 }
+		],
+		"scenes": [
+			{ "id": "s02e02-sc1", "order_index": 0, "start_hint": "The funeral procession", "end_hint": "A cruel epithet spreads", "location_id": "kings-landing", "characters": ["aegon-ii-targaryen", "otto-hightower"], "event_ids": ["s02e02-ev1"], "transition_to_next": "An assassin is caught and talks." },
+			{ "id": "s02e02-sc2", "order_index": 1, "start_hint": "Interrogation and a plan", "end_hint": "A twin is sent", "location_id": "red-keep", "characters": ["blood", "criston-cole", "arryk-cargyll"], "event_ids": ["s02e02-ev2", "s02e02-ev3"], "transition_to_next": "A twin infiltrates Dragonstone." },
+			{ "id": "s02e02-sc3", "order_index": 2, "start_hint": "Brother against brother", "end_hint": "Both Cargylls fall", "location_id": "dragonstone", "characters": ["arryk-cargyll", "erryk-cargyll", "rhaenyra-targaryen"], "event_ids": ["s02e02-ev4"], "transition_to_next": "Aegon reshuffles his council." },
+			{ "id": "s02e02-sc4", "order_index": 3, "start_hint": "A new Hand", "end_hint": "Otto cast out", "location_id": "red-keep", "characters": ["aegon-ii-targaryen", "criston-cole", "otto-hightower"], "event_ids": ["s02e02-ev5"], "transition_to_next": "" }
+		]
+	}
+}

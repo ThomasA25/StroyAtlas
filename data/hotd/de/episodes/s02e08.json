@@ -1,0 +1,47 @@
+{
+	"source": {
+		"title": "Wikipedia — House of the Dragon S02E08: Die Königin, die niemals war",
+		"url": "https://en.wikipedia.org/wiki/House_of_the_Dragon_season_2",
+		"type": "wiki"
+	},
+	"story": {
+		"series": "House of the Dragon",
+		"season": 2,
+		"episode": 8,
+		"title": "Die Königin, die niemals war",
+		"characters": [
+			{ "id": "tyland-lannister", "name": "Tyland Lannister", "faction": "Grüne", "aliases": ["Meister der Münze"] },
+			{ "id": "larys-strong", "name": "Larys Strong", "faction": "Grüne", "aliases": ["Der Klumpfuß", "Lord Larys", "Meister der Flüsterer"] },
+			{ "id": "aegon-ii-targaryen", "name": "Aegon II Targaryen", "faction": "Grüne", "aliases": ["Aegon der Ältere", "König Aegon II."] },
+			{ "id": "rhaena-targaryen", "name": "Rhaena Targaryen", "faction": "Schwarze", "aliases": [] },
+			{ "id": "aemond-targaryen", "name": "Aemond Targaryen", "faction": "Grüne", "aliases": ["Aemond Einauge", "Prinz Aemond"] },
+			{ "id": "daemon-targaryen", "name": "Daemon Targaryen", "faction": "Schwarze", "aliases": ["Der Schurkenprinz", "Prinz der Stadt"] },
+			{ "id": "helaena-targaryen", "name": "Helaena Targaryen", "faction": "Grüne", "aliases": ["Königin Helaena"] },
+			{ "id": "alicent-hightower", "name": "Alicent Hightower", "faction": "Grüne", "aliases": ["Königin Alicent", "Die Königinwitwe"] },
+			{ "id": "rhaenyra-targaryen", "name": "Rhaenyra Targaryen", "faction": "Schwarze", "aliases": ["Die Freude des Reiches", "Prinzessin von Drachenstein", "Königin Rhaenyra"] }
+		],
+		"locations": [
+			{ "id": "red-keep", "name": "Roter Bergfried", "type": "castle", "coordinates": { "x": 580, "y": 606 } },
+			{ "id": "the-vale", "name": "Das Grüne Tal", "type": "region", "coordinates": { "x": 650, "y": 430 } },
+			{ "id": "sharp-point", "name": "Spitzkap", "type": "castle", "coordinates": { "x": 676, "y": 634 } },
+			{ "id": "harrenhal", "name": "Harrenhal", "type": "castle", "coordinates": { "x": 478, "y": 545 } },
+			{ "id": "dragonstone", "name": "Drachenstein", "type": "castle", "coordinates": { "x": 750, "y": 628 } }
+		],
+		"events": [
+			{ "id": "s02e08-ev1", "title": "Die Grünen sichern sich die Triarchie und einen Rückzugsplan", "location_id": "red-keep", "characters_involved": ["tyland-lannister", "larys-strong", "aegon-ii-targaryen"], "summary": "Tyland gewinnt die Triarchie als Verbündete; Larys schlägt vor, Aegon im Ausland zu verstecken, um später den Thron zurückzuerobern.", "order_index": 0 },
+			{ "id": "s02e08-ev2", "title": "Rhaena entdeckt einen wilden Drachen", "location_id": "the-vale", "characters_involved": ["rhaena-targaryen"], "summary": "Im Grünen Tal verfolgt Rhaena die Spur des wilden Drachen Schafsdieb.", "order_index": 1 },
+			{ "id": "s02e08-ev3", "title": "Aemond brennt Spitzkap nieder", "location_id": "sharp-point", "characters_involved": ["aemond-targaryen"], "summary": "In rasender Wut zerstört Aemond Spitzkap mit Vhagar.", "order_index": 2 },
+			{ "id": "s02e08-ev4", "title": "Daemon schwört die Treue", "location_id": "harrenhal", "characters_involved": ["daemon-targaryen"], "summary": "Nach Wehrholz-Visionen von der Zukunft des Reiches verschreibt sich Daemon endlich Rhaenyras Sache.", "order_index": 3 },
+			{ "id": "s02e08-ev5", "title": "Helaena weigert sich, in den Krieg zu fliegen", "location_id": "red-keep", "characters_involved": ["helaena-targaryen", "aemond-targaryen"], "summary": "Helaena weist Aemonds Forderung zurück, auf Traumfeuer in die Schlacht zu reiten, da sie seinen Tod voraussieht.", "order_index": 4 },
+			{ "id": "s02e08-ev6", "title": "Alicents geheimes Kapitulationsangebot", "location_id": "dragonstone", "characters_involved": ["alicent-hightower", "rhaenyra-targaryen"], "summary": "Alicent gelangt heimlich nach Drachenstein und bietet die Kapitulation für die Sicherheit ihrer Familie an, doch Rhaenyra besteht darauf, dass Aegon sterben muss; beide Seiten rüsten sich zum Krieg.", "order_index": 5 }
+		],
+		"scenes": [
+			{ "id": "s02e08-sc1", "order_index": 0, "start_hint": "Die Vorkehrungen der Grünen", "end_hint": "Verbündete und Fluchtpläne", "location_id": "red-keep", "characters": ["tyland-lannister", "larys-strong", "aegon-ii-targaryen"], "event_ids": ["s02e08-ev1"], "transition_to_next": "Im Grünen Tal wird ein wilder Drache gefunden." },
+			{ "id": "s02e08-sc2", "order_index": 1, "start_hint": "Das Grüne Tal", "end_hint": "Rhaenas Jagd", "location_id": "the-vale", "characters": ["rhaena-targaryen"], "event_ids": ["s02e08-ev2"], "transition_to_next": "Aemond schlägt um sich." },
+			{ "id": "s02e08-sc3", "order_index": 2, "start_hint": "Spitzkap brennt", "end_hint": "Eine Stadt zerstört", "location_id": "sharp-point", "characters": ["aemond-targaryen"], "event_ids": ["s02e08-ev3"], "transition_to_next": "In Harrenhal trifft Daemon seine Wahl." },
+			{ "id": "s02e08-sc4", "order_index": 3, "start_hint": "Visionen in Harrenhal", "end_hint": "Daemon kniet nieder", "location_id": "harrenhal", "characters": ["daemon-targaryen"], "event_ids": ["s02e08-ev4"], "transition_to_next": "Aemond fordert von seiner Schwester, in den Krieg zu fliegen." },
+			{ "id": "s02e08-sc5", "order_index": 4, "start_hint": "Eine düstere Prophezeiung", "end_hint": "Helaena weigert sich", "location_id": "red-keep", "characters": ["helaena-targaryen", "aemond-targaryen"], "event_ids": ["s02e08-ev5"], "transition_to_next": "Alicent stiehlt sich heimlich nach Drachenstein." },
+			{ "id": "s02e08-sc6", "order_index": 5, "start_hint": "Ein geheimes Angebot", "end_hint": "Der Krieg ist gewiss", "location_id": "dragonstone", "characters": ["alicent-hightower", "rhaenyra-targaryen"], "event_ids": ["s02e08-ev6"], "transition_to_next": "" }
+		]
+	}
+}

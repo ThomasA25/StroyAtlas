@@ -1,0 +1,55 @@
+{
+	"source": {
+		"title": "Wikipedia — House of the Dragon S03E01: Salz und See, Feuer und Blut",
+		"url": "https://en.wikipedia.org/wiki/House_of_the_Dragon_season_3",
+		"type": "wiki"
+	},
+	"story": {
+		"series": "House of the Dragon",
+		"season": 3,
+		"episode": 1,
+		"title": "Salz und See, Feuer und Blut",
+		"characters": [
+			{ "id": "rhaena-targaryen", "name": "Rhaena Targaryen", "faction": "Schwarze", "aliases": [] },
+			{ "id": "aegon-ii-targaryen", "name": "Aegon II Targaryen", "faction": "Grüne", "aliases": ["Aegon der Ältere", "König Aegon II."] },
+			{ "id": "larys-strong", "name": "Larys Strong", "faction": "Grüne", "aliases": ["Der Klumpfuß", "Lord Larys", "Meister der Flüsterer"] },
+			{ "id": "alicent-hightower", "name": "Alicent Hightower", "faction": "Grüne", "aliases": ["Königin Alicent", "Die Königinwitwe"] },
+			{ "id": "aemond-targaryen", "name": "Aemond Targaryen", "faction": "Grüne", "aliases": ["Aemond Einauge", "Prinz Aemond"] },
+			{ "id": "daemon-targaryen", "name": "Daemon Targaryen", "faction": "Schwarze", "aliases": ["Der Schurkenprinz", "Prinz der Stadt"] },
+			{ "id": "roderick-dustin", "name": "Roderick Dustin", "faction": "Schwarze", "aliases": ["Roddy der Ruin", "Lord Roderick Dustin"] },
+			{ "id": "jason-lannister", "name": "Jason Lannister", "faction": "Grüne", "aliases": ["Lord von Casterlystein"] },
+			{ "id": "corlys-velaryon", "name": "Corlys Velaryon", "faction": "Schwarze", "aliases": ["Die Seeschlange", "Herr der Gezeiten", "Lord von Driftmark"] },
+			{ "id": "jacaerys-velaryon", "name": "Jacaerys Velaryon", "faction": "Schwarze", "aliases": ["Jace", "Prinz Jacaerys"] },
+			{ "id": "baela-targaryen", "name": "Baela Targaryen", "faction": "Schwarze", "aliases": [] },
+			{ "id": "addam-of-hull", "name": "Addam of Hull", "faction": "Schwarze", "aliases": ["Addam Velaryon"] },
+			{ "id": "alyn-of-hull", "name": "Alyn of Hull", "faction": "Schwarze", "aliases": ["Alyn Velaryon"] }
+		],
+		"locations": [
+			{ "id": "the-vale", "name": "Das Grüne Tal", "type": "region", "coordinates": { "x": 650, "y": 430 } },
+			{ "id": "kings-landing", "name": "Königsmund", "type": "city", "coordinates": { "x": 560, "y": 620 } },
+			{ "id": "the-riverlands", "name": "Die Flusslande", "type": "region", "coordinates": { "x": 440, "y": 505 } },
+			{ "id": "red-keep", "name": "Roter Bergfried", "type": "castle", "coordinates": { "x": 580, "y": 606 } },
+			{ "id": "dragonstone", "name": "Drachenstein", "type": "castle", "coordinates": { "x": 750, "y": 628 } },
+			{ "id": "driftmark", "name": "Driftmark", "type": "castle", "coordinates": { "x": 722, "y": 664 } },
+			{ "id": "the-gullet", "name": "Der Schlund", "type": "sea", "coordinates": { "x": 700, "y": 648 } }
+		],
+		"events": [
+			{ "id": "s03e01-ev1", "title": "Rhaena bindet sich an Schafsdieb", "location_id": "the-vale", "characters_involved": ["rhaena-targaryen"], "summary": "Rhaena bindet sich endlich an den wilden Drachen Schafsdieb und wird zur Drachenreiterin.", "order_index": 0 },
+			{ "id": "s03e01-ev6", "title": "Aegon und Larys fliehen aus der Hauptstadt", "location_id": "kings-landing", "characters_involved": ["aegon-ii-targaryen", "larys-strong"], "summary": "Nachdem Aegon den Thron aufgegeben hat, schleicht er sich verkleidet mit Larys aus Königsmund und flieht über Land aus der Hauptstadt.", "order_index": 1 },
+			{ "id": "s03e01-ev2", "title": "Aegon und Larys gefangen genommen", "location_id": "the-riverlands", "characters_involved": ["aegon-ii-targaryen", "larys-strong"], "summary": "Auf der Straße durch die Flusslande werden die beiden von Rhaenyras Truppen gefasst; Larys gibt ihre Identität preis, in der Hoffnung, als wertvolle Geiseln gehalten zu werden.", "order_index": 2 },
+			{ "id": "s03e01-ev3", "title": "Aemond beansprucht den Eisernen Thron", "location_id": "red-keep", "characters_involved": ["alicent-hightower", "aemond-targaryen"], "summary": "Alicent findet Aemond nach Aegons offenkundiger Abdankung auf dem Eisernen Thron sitzend; sie fälscht Briefe, um die Hohenturm-Verstärkungen zu verzögern, und drängt Aemond Richtung Harrenhal.", "order_index": 3 },
+			{ "id": "s03e01-ev4", "title": "Daemon schlägt die Lannisters", "location_id": "the-riverlands", "characters_involved": ["daemon-targaryen", "roderick-dustin", "jason-lannister"], "summary": "Daemon erringt einen Sieg über Jason Lannisters Heer und gewinnt die Winterwölfe; Roderick Dustin präsentiert Jason Lannisters abgeschlagenen Kopf.", "order_index": 4, "deaths": ["jason-lannister"] },
+			{ "id": "s03e01-ev7", "title": "Drachen starten von Drachenstein", "location_id": "dragonstone", "characters_involved": ["jacaerys-velaryon", "baela-targaryen"], "summary": "Als die Nachricht vom Angriff der Triarchie Drachenstein erreicht, besteigt Jacaerys Vermax und Baela Mondtänzerin, um der Velaryon-Flotte zu Hilfe zu fliegen.", "order_index": 5 },
+			{ "id": "s03e01-ev5", "title": "Schlacht am Schlund; Tod des Jacaerys", "location_id": "the-gullet", "characters_involved": ["corlys-velaryon", "jacaerys-velaryon", "baela-targaryen", "addam-of-hull", "alyn-of-hull"], "summary": "Die Triarchie greift die Velaryon-Flotte am Schlund an und plündert Hohe Flut auf Driftmark; Jacaerys und Baela fangen die Angreifer auf Drachen ab, Addam stößt auf Seerauch dazu, und Alyn of Hull erschlägt den feindlichen Admiral. Corlys wird über Bord gerammt, und Jacaerys und sein Drache Vermax werden abgeschossen und getötet.", "order_index": 6, "deaths": ["jacaerys-velaryon"] }
+		],
+		"scenes": [
+			{ "id": "s03e01-sc1", "order_index": 0, "start_hint": "Das Grüne Tal", "end_hint": "Eine neue Drachenreiterin", "location_id": "the-vale", "characters": ["rhaena-targaryen"], "event_ids": ["s03e01-ev1"], "transition_to_next": "Aegon gibt den Thron auf und flieht aus der Hauptstadt." },
+			{ "id": "s03e01-sc6", "order_index": 1, "start_hint": "Flucht aus der Hauptstadt", "end_hint": "Verkleidet auf der Straße", "location_id": "kings-landing", "characters": ["aegon-ii-targaryen", "larys-strong"], "event_ids": ["s03e01-ev6"], "transition_to_next": "Auf der Straße verlässt sie das Glück." },
+			{ "id": "s03e01-sc2", "order_index": 2, "start_hint": "Gefangennahme auf der Straße", "end_hint": "Geiseln enthüllt", "location_id": "the-riverlands", "characters": ["aegon-ii-targaryen", "larys-strong"], "event_ids": ["s03e01-ev2"], "transition_to_next": "In der Hauptstadt besteigt ein neuer Anwärter den Thron." },
+			{ "id": "s03e01-sc3", "order_index": 3, "start_hint": "Aemond auf dem Eisernen Thron", "end_hint": "Alicent intrigiert", "location_id": "red-keep", "characters": ["alicent-hightower", "aemond-targaryen"], "event_ids": ["s03e01-ev3"], "transition_to_next": "Daemon siegt in den Flusslanden." },
+			{ "id": "s03e01-sc4", "order_index": 4, "start_hint": "Sieg in den Flusslanden", "end_hint": "Der Kopf eines Lords überbracht", "location_id": "the-riverlands", "characters": ["daemon-targaryen", "roderick-dustin", "jason-lannister"], "event_ids": ["s03e01-ev4"], "transition_to_next": "Auf Drachenstein ergeht der Velaryon-Ruf zu den Waffen." },
+			{ "id": "s03e01-sc7", "order_index": 5, "start_hint": "Drachenstein antwortet dem Alarm", "end_hint": "Jace und Baela erheben sich", "location_id": "dragonstone", "characters": ["jacaerys-velaryon", "baela-targaryen"], "event_ids": ["s03e01-ev7"], "transition_to_next": "Auf See entbrennt der Schlund." },
+			{ "id": "s03e01-sc5", "order_index": 6, "start_hint": "Die Schlacht am Schlund", "end_hint": "Jacaerys fällt", "location_id": "the-gullet", "characters": ["corlys-velaryon", "jacaerys-velaryon", "baela-targaryen", "addam-of-hull", "alyn-of-hull"], "event_ids": ["s03e01-ev5"], "transition_to_next": "" }
+		]
+	}
+}

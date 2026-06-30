@@ -1,0 +1,47 @@
+{
+	"source": {
+		"title": "Wikipedia — House of the Dragon S02E06: Das einfache Volk",
+		"url": "https://en.wikipedia.org/wiki/House_of_the_Dragon_season_2",
+		"type": "wiki"
+	},
+	"story": {
+		"series": "House of the Dragon",
+		"season": 2,
+		"episode": 6,
+		"title": "Das einfache Volk",
+		"characters": [
+			{ "id": "jason-lannister", "name": "Jason Lannister", "faction": "Grüne", "aliases": ["Lord von Casterlystein"] },
+			{ "id": "aemond-targaryen", "name": "Aemond Targaryen", "faction": "Grüne", "aliases": ["Aemond Einauge", "Prinz Aemond"] },
+			{ "id": "tyland-lannister", "name": "Tyland Lannister", "faction": "Grüne", "aliases": ["Meister der Münze"] },
+			{ "id": "otto-hightower", "name": "Otto Hightower", "faction": "Grüne", "aliases": ["Lord Otto", "Hand des Königs"] },
+			{ "id": "steffon-darklyn", "name": "Steffon Darklyn", "faction": "Schwarze", "aliases": ["Ser Steffon Darklyn"] },
+			{ "id": "corlys-velaryon", "name": "Corlys Velaryon", "faction": "Schwarze", "aliases": ["Die Seeschlange", "Herr der Gezeiten", "Lord von Driftmark"] },
+			{ "id": "alyn-of-hull", "name": "Alyn of Hull", "faction": "Schwarze", "aliases": ["Alyn Velaryon"] },
+			{ "id": "addam-of-hull", "name": "Addam of Hull", "faction": "Schwarze", "aliases": ["Addam Velaryon"] },
+			{ "id": "mysaria", "name": "Mysaria", "faction": "Schwarze", "aliases": ["Der Weiße Wurm", "Lady Mysaria"] },
+			{ "id": "alicent-hightower", "name": "Alicent Hightower", "faction": "Grüne", "aliases": ["Königin Alicent", "Die Königinwitwe"] },
+			{ "id": "helaena-targaryen", "name": "Helaena Targaryen", "faction": "Grüne", "aliases": ["Königin Helaena"] }
+		],
+		"locations": [
+			{ "id": "golden-tooth", "name": "Goldzahn", "type": "castle", "coordinates": { "x": 335, "y": 558 } },
+			{ "id": "red-keep", "name": "Roter Bergfried", "type": "castle", "coordinates": { "x": 580, "y": 606 } },
+			{ "id": "dragonstone", "name": "Drachenstein", "type": "castle", "coordinates": { "x": 750, "y": 628 } },
+			{ "id": "driftmark", "name": "Driftmark", "type": "castle", "coordinates": { "x": 722, "y": 664 } },
+			{ "id": "kings-landing", "name": "Königsmund", "type": "city", "coordinates": { "x": 560, "y": 620 } }
+		],
+		"events": [
+			{ "id": "s02e06-ev1", "title": "Lannister-Heer am Goldzahn", "location_id": "golden-tooth", "characters_involved": ["jason-lannister"], "summary": "Jason Lannister führt sein Heer zum Goldzahn, um für die Grünen in den Krieg zu ziehen.", "order_index": 0 },
+			{ "id": "s02e06-ev2", "title": "Aemond umwirbt die Triarchie und beruft Otto zurück", "location_id": "red-keep", "characters_involved": ["aemond-targaryen", "tyland-lannister", "otto-hightower"], "summary": "Aemond entsendet Tyland Lannister, um mit der Triarchie zu verhandeln, und ruft Otto an den Hof zurück.", "order_index": 1 },
+			{ "id": "s02e06-ev3", "title": "Steffon Darklyn verbrennt bei dem Versuch, einen Drachen zu beanspruchen", "location_id": "dragonstone", "characters_involved": ["steffon-darklyn"], "summary": "Ser Steffon Darklyn wird verbrannt, als er versucht, den Drachen Seerauch zu beanspruchen.", "order_index": 2 },
+			{ "id": "s02e06-ev4", "title": "Die Seeschlange bevorzugt ihre Bastardsöhne", "location_id": "driftmark", "characters_involved": ["corlys-velaryon", "alyn-of-hull", "addam-of-hull"], "summary": "Corlys ernennt seinen Bastard Alyn zum Ersten Maat seines Flaggschiffs; Seerauch verfolgt Alyns Bruder Addam.", "order_index": 3 },
+			{ "id": "s02e06-ev5", "title": "Brotunruhen in der Hauptstadt", "location_id": "kings-landing", "characters_involved": ["mysaria", "alicent-hightower", "helaena-targaryen"], "summary": "Mysarias Gerüchte über königliche Festgelage inmitten der Hungersnot lösen Unruhen aus, die Alicent und Helaena in Gefahr bringen.", "order_index": 4 }
+		],
+		"scenes": [
+			{ "id": "s02e06-sc1", "order_index": 0, "start_hint": "Marsch zum Goldzahn", "end_hint": "Der Westen macht mobil", "location_id": "golden-tooth", "characters": ["jason-lannister"], "event_ids": ["s02e06-ev1"], "transition_to_next": "Aemond lenkt den Krieg aus der Hauptstadt." },
+			{ "id": "s02e06-sc2", "order_index": 1, "start_hint": "Der Rat des Regenten", "end_hint": "Alte Kräfte zurückberufen", "location_id": "red-keep", "characters": ["aemond-targaryen", "tyland-lannister", "otto-hightower"], "event_ids": ["s02e06-ev2"], "transition_to_next": "Ein Anwärter verbrennt auf Drachenstein." },
+			{ "id": "s02e06-sc3", "order_index": 2, "start_hint": "Einen Drachen beanspruchen", "end_hint": "Feuer verschlingt den Anwärter", "location_id": "dragonstone", "characters": ["steffon-darklyn"], "event_ids": ["s02e06-ev3"], "transition_to_next": "Auf Driftmark bevorzugt die Seeschlange einen Bastard." },
+			{ "id": "s02e06-sc4", "order_index": 3, "start_hint": "Driftmark", "end_hint": "Ein Drache zeichnet Addam", "location_id": "driftmark", "characters": ["corlys-velaryon", "alyn-of-hull", "addam-of-hull"], "event_ids": ["s02e06-ev4"], "transition_to_next": "Der Hunger wendet die Stadt gegen die Krone." },
+			{ "id": "s02e06-sc5", "order_index": 4, "start_hint": "Unruhen in Königsmund", "end_hint": "Die Königinnen sind in Gefahr", "location_id": "kings-landing", "characters": ["mysaria", "alicent-hightower", "helaena-targaryen"], "event_ids": ["s02e06-ev5"], "transition_to_next": "" }
+		]
+	}
+}

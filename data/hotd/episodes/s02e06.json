@@ -1,0 +1,47 @@
+{
+	"source": {
+		"title": "Wikipedia — House of the Dragon S02E06: Smallfolk",
+		"url": "https://en.wikipedia.org/wiki/House_of_the_Dragon_season_2",
+		"type": "wiki"
+	},
+	"story": {
+		"series": "House of the Dragon",
+		"season": 2,
+		"episode": 6,
+		"title": "Smallfolk",
+		"characters": [
+			{ "id": "jason-lannister", "name": "Jason Lannister", "faction": "Greens", "aliases": ["Lord of Casterly Rock"] },
+			{ "id": "aemond-targaryen", "name": "Aemond Targaryen", "faction": "Greens", "aliases": ["Aemond One-Eye", "Prince Aemond"] },
+			{ "id": "tyland-lannister", "name": "Tyland Lannister", "faction": "Greens", "aliases": ["Master of Coin"] },
+			{ "id": "otto-hightower", "name": "Otto Hightower", "faction": "Greens", "aliases": ["Lord Otto", "Hand of the King"] },
+			{ "id": "steffon-darklyn", "name": "Steffon Darklyn", "faction": "Blacks", "aliases": ["Ser Steffon Darklyn"] },
+			{ "id": "corlys-velaryon", "name": "Corlys Velaryon", "faction": "Blacks", "aliases": ["The Sea Snake", "Lord of the Tides", "Lord of Driftmark"] },
+			{ "id": "alyn-of-hull", "name": "Alyn of Hull", "faction": "Blacks", "aliases": ["Alyn Velaryon"] },
+			{ "id": "addam-of-hull", "name": "Addam of Hull", "faction": "Blacks", "aliases": ["Addam Velaryon"] },
+			{ "id": "mysaria", "name": "Mysaria", "faction": "Blacks", "aliases": ["The White Worm", "Lady Mysaria"] },
+			{ "id": "alicent-hightower", "name": "Alicent Hightower", "faction": "Greens", "aliases": ["Queen Alicent", "The Queen Dowager"] },
+			{ "id": "helaena-targaryen", "name": "Helaena Targaryen", "faction": "Greens", "aliases": ["Queen Helaena"] }
+		],
+		"locations": [
+			{ "id": "golden-tooth", "name": "Golden Tooth", "type": "castle", "coordinates": { "x": 335, "y": 558 } },
+			{ "id": "red-keep", "name": "Red Keep", "type": "castle", "coordinates": { "x": 580, "y": 606 } },
+			{ "id": "dragonstone", "name": "Dragonstone", "type": "castle", "coordinates": { "x": 750, "y": 628 } },
+			{ "id": "driftmark", "name": "Driftmark", "type": "castle", "coordinates": { "x": 722, "y": 664 } },
+			{ "id": "kings-landing", "name": "King's Landing", "type": "city", "coordinates": { "x": 560, "y": 620 } }
+		],
+		"events": [
+			{ "id": "s02e06-ev1", "title": "Lannister host at the Golden Tooth", "location_id": "golden-tooth", "characters_involved": ["jason-lannister"], "summary": "Jason Lannister leads his army to the Golden Tooth to march for the Greens.", "order_index": 0 },
+			{ "id": "s02e06-ev2", "title": "Aemond courts the Triarchy and recalls Otto", "location_id": "red-keep", "characters_involved": ["aemond-targaryen", "tyland-lannister", "otto-hightower"], "summary": "Aemond sends Tyland Lannister to treat with the Triarchy and summons Otto back to court.", "order_index": 1 },
+			{ "id": "s02e06-ev3", "title": "Steffon Darklyn burns claiming a dragon", "location_id": "dragonstone", "characters_involved": ["steffon-darklyn"], "summary": "Ser Steffon Darklyn is incinerated attempting to claim the dragon Seasmoke.", "order_index": 2 },
+			{ "id": "s02e06-ev4", "title": "The Sea Snake favours his bastard sons", "location_id": "driftmark", "characters_involved": ["corlys-velaryon", "alyn-of-hull", "addam-of-hull"], "summary": "Corlys names his bastard Alyn his flagship's first mate; Seasmoke pursues Alyn's brother Addam.", "order_index": 3 },
+			{ "id": "s02e06-ev5", "title": "Bread riots in the capital", "location_id": "kings-landing", "characters_involved": ["mysaria", "alicent-hightower", "helaena-targaryen"], "summary": "Mysaria's rumours of royal feasting amid famine spark riots that endanger Alicent and Helaena.", "order_index": 4 }
+		],
+		"scenes": [
+			{ "id": "s02e06-sc1", "order_index": 0, "start_hint": "March on the Golden Tooth", "end_hint": "The west mobilises", "location_id": "golden-tooth", "characters": ["jason-lannister"], "event_ids": ["s02e06-ev1"], "transition_to_next": "Aemond steers the war from the capital." },
+			{ "id": "s02e06-sc2", "order_index": 1, "start_hint": "The regent's council", "end_hint": "Old hands recalled", "location_id": "red-keep", "characters": ["aemond-targaryen", "tyland-lannister", "otto-hightower"], "event_ids": ["s02e06-ev2"], "transition_to_next": "A claimant burns at Dragonstone." },
+			{ "id": "s02e06-sc3", "order_index": 2, "start_hint": "Claiming a dragon", "end_hint": "Fire takes the claimant", "location_id": "dragonstone", "characters": ["steffon-darklyn"], "event_ids": ["s02e06-ev3"], "transition_to_next": "On Driftmark, the Sea Snake favours a bastard." },
+			{ "id": "s02e06-sc4", "order_index": 3, "start_hint": "Driftmark", "end_hint": "A dragon marks Addam", "location_id": "driftmark", "characters": ["corlys-velaryon", "alyn-of-hull", "addam-of-hull"], "event_ids": ["s02e06-ev4"], "transition_to_next": "Hunger turns the city against the crown." },
+			{ "id": "s02e06-sc5", "order_index": 4, "start_hint": "Riots in King's Landing", "end_hint": "The queens are imperilled", "location_id": "kings-landing", "characters": ["mysaria", "alicent-hightower", "helaena-targaryen"], "event_ids": ["s02e06-ev5"], "transition_to_next": "" }
+		]
+	}
+}

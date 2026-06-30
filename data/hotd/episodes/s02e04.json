@@ -1,0 +1,38 @@
+{
+	"source": {
+		"title": "Wikipedia — House of the Dragon S02E04: The Red Dragon and the Gold",
+		"url": "https://en.wikipedia.org/wiki/House_of_the_Dragon_season_2",
+		"type": "wiki"
+	},
+	"story": {
+		"series": "House of the Dragon",
+		"season": 2,
+		"episode": 4,
+		"title": "The Red Dragon and the Gold",
+		"characters": [
+			{ "id": "daemon-targaryen", "name": "Daemon Targaryen", "faction": "Blacks", "aliases": ["The Rogue Prince", "Prince of the City"] },
+			{ "id": "alys-rivers", "name": "Alys Rivers", "faction": "Greens", "aliases": ["The Witch of Harrenhal"] },
+			{ "id": "criston-cole", "name": "Criston Cole", "faction": "Greens", "aliases": ["Ser Criston Cole", "The Kingmaker", "Lord Commander of the Kingsguard"] },
+			{ "id": "gunthor-darklyn", "name": "Gunthor Darklyn", "faction": "Neutral", "aliases": ["Lord Gunthor Darklyn"] },
+			{ "id": "aegon-ii-targaryen", "name": "Aegon II Targaryen", "faction": "Greens", "aliases": ["Aegon the Elder", "King Aegon II"] },
+			{ "id": "rhaenys-targaryen", "name": "Rhaenys Targaryen", "faction": "Blacks", "aliases": ["The Queen Who Never Was", "Princess Rhaenys"] },
+			{ "id": "aemond-targaryen", "name": "Aemond Targaryen", "faction": "Greens", "aliases": ["Aemond One-Eye", "Prince Aemond"] }
+		],
+		"locations": [
+			{ "id": "harrenhal", "name": "Harrenhal", "type": "castle", "coordinates": { "x": 478, "y": 545 } },
+			{ "id": "duskendale", "name": "Duskendale", "type": "castle", "coordinates": { "x": 612, "y": 576 } },
+			{ "id": "rooks-rest", "name": "Rook's Rest", "type": "castle", "coordinates": { "x": 656, "y": 650 } }
+		],
+		"events": [
+			{ "id": "s02e04-ev1", "title": "Alys Rivers unsettles Daemon", "location_id": "harrenhal", "characters_involved": ["daemon-targaryen", "alys-rivers"], "summary": "At haunted Harrenhal, Alys Rivers torments Daemon with visions.", "order_index": 0 },
+			{ "id": "s02e04-ev2", "title": "Criston executes Gunthor Darklyn", "location_id": "duskendale", "characters_involved": ["criston-cole", "gunthor-darklyn"], "summary": "Criston takes Duskendale and beheads Lord Gunthor Darklyn for refusing to submit.", "order_index": 1, "deaths": ["gunthor-darklyn"] },
+			{ "id": "s02e04-ev3", "title": "Aegon rides to Rook's Rest", "location_id": "rooks-rest", "characters_involved": ["aegon-ii-targaryen"], "summary": "Against counsel, a drunk Aegon flies his dragon to the fighting at Rook's Rest.", "order_index": 2 },
+			{ "id": "s02e04-ev4", "title": "Battle of Rook's Rest", "location_id": "rooks-rest", "characters_involved": ["rhaenys-targaryen", "aemond-targaryen", "aegon-ii-targaryen"], "summary": "Vhagar kills Rhaenys and her dragon Meleys; Aegon is shot down and gravely burned, with Aemond standing over him.", "order_index": 3, "deaths": ["rhaenys-targaryen"] }
+		],
+		"scenes": [
+			{ "id": "s02e04-sc1", "order_index": 0, "start_hint": "Haunted Harrenhal", "end_hint": "Daemon's visions deepen", "location_id": "harrenhal", "characters": ["daemon-targaryen", "alys-rivers"], "event_ids": ["s02e04-ev1"], "transition_to_next": "At Duskendale, Criston enforces submission." },
+			{ "id": "s02e04-sc2", "order_index": 1, "start_hint": "Duskendale taken", "end_hint": "A lord beheaded", "location_id": "duskendale", "characters": ["criston-cole", "gunthor-darklyn"], "event_ids": ["s02e04-ev2"], "transition_to_next": "A trap is set at Rook's Rest." },
+			{ "id": "s02e04-sc3", "order_index": 2, "start_hint": "The Battle of Rook's Rest", "end_hint": "Rhaenys dies; Aegon burns", "location_id": "rooks-rest", "characters": ["aegon-ii-targaryen", "rhaenys-targaryen", "aemond-targaryen"], "event_ids": ["s02e04-ev3", "s02e04-ev4"], "transition_to_next": "" }
+		]
+	}
+}

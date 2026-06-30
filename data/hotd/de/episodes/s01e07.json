@@ -1,0 +1,44 @@
+{
+	"source": {
+		"title": "Wikipedia — House of the Dragon S01E07: Driftmark",
+		"url": "https://en.wikipedia.org/wiki/House_of_the_Dragon_season_1",
+		"type": "wiki"
+	},
+	"story": {
+		"series": "House of the Dragon",
+		"season": 1,
+		"episode": 7,
+		"title": "Driftmark",
+		"characters": [
+			{ "id": "viserys-i-targaryen", "name": "Viserys I Targaryen", "faction": "Neutral", "aliases": ["König Viserys I.", "Viserys der Friedfertige"] },
+			{ "id": "daemon-targaryen", "name": "Daemon Targaryen", "faction": "Schwarze", "aliases": ["Der Schurkenprinz", "Prinz der Stadt"] },
+			{ "id": "rhaenyra-targaryen", "name": "Rhaenyra Targaryen", "faction": "Schwarze", "aliases": ["Die Freude des Reiches", "Prinzessin von Drachenstein", "Königin Rhaenyra"] },
+			{ "id": "aemond-targaryen", "name": "Aemond Targaryen", "faction": "Grüne", "aliases": ["Aemond Einauge", "Prinz Aemond"] },
+			{ "id": "lucerys-velaryon", "name": "Lucerys Velaryon", "faction": "Schwarze", "aliases": ["Luke"] },
+			{ "id": "jacaerys-velaryon", "name": "Jacaerys Velaryon", "faction": "Schwarze", "aliases": ["Jace", "Prinz Jacaerys"] },
+			{ "id": "baela-targaryen", "name": "Baela Targaryen", "faction": "Schwarze", "aliases": [] },
+			{ "id": "rhaena-targaryen", "name": "Rhaena Targaryen", "faction": "Schwarze", "aliases": [] },
+			{ "id": "alicent-hightower", "name": "Alicent Hightower", "faction": "Grüne", "aliases": ["Königin Alicent", "Die Königinwitwe"] },
+			{ "id": "otto-hightower", "name": "Otto Hightower", "faction": "Grüne", "aliases": ["Lord Otto", "Hand des Königs"] },
+			{ "id": "laenor-velaryon", "name": "Laenor Velaryon", "faction": "Schwarze", "aliases": [] },
+			{ "id": "qarl-correy", "name": "Qarl Correy", "faction": "Neutral", "aliases": ["Ser Qarl Correy"] }
+		],
+		"locations": [
+			{ "id": "driftmark", "name": "Driftmark", "type": "castle", "coordinates": { "x": 722, "y": 664 } },
+			{ "id": "dragonstone", "name": "Drachenstein", "type": "castle", "coordinates": { "x": 750, "y": 628 } }
+		],
+		"events": [
+			{ "id": "s01e07-ev1", "title": "Laenas Beisetzung und ein Wiedersehen", "location_id": "driftmark", "characters_involved": ["viserys-i-targaryen", "daemon-targaryen", "rhaenyra-targaryen"], "summary": "Der Hof versammelt sich auf Driftmark zu Laenas Beisetzung, wo Daemon und Rhaenyra ihre Verbundenheit neu entfachen.", "order_index": 0 },
+			{ "id": "s01e07-ev2", "title": "Aemond beansprucht Vhagar; Luke nimmt ihm ein Auge", "location_id": "driftmark", "characters_involved": ["aemond-targaryen", "lucerys-velaryon", "jacaerys-velaryon", "baela-targaryen", "rhaena-targaryen"], "summary": "Aemond bemächtigt sich des großen Drachen Vhagar; in der darauf folgenden Rauferei unter den Kindern schlägt Lucerys Aemond ein Auge aus.", "order_index": 1 },
+			{ "id": "s01e07-ev3", "title": "Alicent greift mit dem valyrischen Dolch an", "location_id": "driftmark", "characters_involved": ["alicent-hightower", "rhaenyra-targaryen", "lucerys-velaryon", "viserys-i-targaryen", "otto-hightower"], "summary": "Alicent fordert Auge um Auge, schlägt nach Lucerys und verwundet Rhaenyra; Otto wird wieder als Hand eingesetzt.", "order_index": 2 },
+			{ "id": "s01e07-ev4", "title": "Daemon und Rhaenyra heiraten nach valyrischem Ritus", "location_id": "dragonstone", "characters_involved": ["daemon-targaryen", "rhaenyra-targaryen"], "summary": "Daemon und Rhaenyra vermählen sich im Geheimen nach der alten valyrischen Tradition.", "order_index": 3 },
+			{ "id": "s01e07-ev5", "title": "Laenors vorgetäuschter Tod", "location_id": "driftmark", "characters_involved": ["laenor-velaryon", "qarl-correy"], "summary": "Ein verkohlter Leichnam wird als Laenor ausgegeben; in Wahrheit flieht er mit Ser Qarl Correy ins Exil.", "order_index": 4 }
+		],
+		"scenes": [
+			{ "id": "s01e07-sc1", "order_index": 0, "start_hint": "Die Beisetzung auf Driftmark", "end_hint": "Daemon und Rhaenyra finden wieder zueinander", "location_id": "driftmark", "characters": ["viserys-i-targaryen", "daemon-targaryen", "rhaenyra-targaryen"], "event_ids": ["s01e07-ev1"], "transition_to_next": "Die Kinder geraten über einen Drachen aneinander." },
+			{ "id": "s01e07-sc2", "order_index": 1, "start_hint": "Am Strand", "end_hint": "Ein Auge für einen Drachen", "location_id": "driftmark", "characters": ["aemond-targaryen", "lucerys-velaryon", "jacaerys-velaryon", "baela-targaryen", "rhaena-targaryen"], "event_ids": ["s01e07-ev2"], "transition_to_next": "Der Streit bricht vor dem König aus." },
+			{ "id": "s01e07-sc3", "order_index": 2, "start_hint": "Die Halle auf Driftmark", "end_hint": "Blut wird vergossen", "location_id": "driftmark", "characters": ["alicent-hightower", "rhaenyra-targaryen", "lucerys-velaryon", "viserys-i-targaryen", "otto-hightower"], "event_ids": ["s01e07-ev3"], "transition_to_next": "Im Verborgenen werden zwei Schicksale besiegelt." },
+			{ "id": "s01e07-sc4", "order_index": 3, "start_hint": "Eine heimliche Hochzeit", "end_hint": "Laenor verschwindet", "location_id": "dragonstone", "characters": ["daemon-targaryen", "rhaenyra-targaryen", "laenor-velaryon", "qarl-correy"], "event_ids": ["s01e07-ev4", "s01e07-ev5"], "transition_to_next": "" }
+		]
+	}
+}

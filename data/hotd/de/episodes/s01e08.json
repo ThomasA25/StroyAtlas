@@ -1,0 +1,40 @@
+{
+	"source": {
+		"title": "Wikipedia — House of the Dragon S01E08: Der Herr der Gezeiten",
+		"url": "https://en.wikipedia.org/wiki/House_of_the_Dragon_season_1",
+		"type": "wiki"
+	},
+	"story": {
+		"series": "House of the Dragon",
+		"season": 1,
+		"episode": 8,
+		"title": "Der Herr der Gezeiten",
+		"characters": [
+			{ "id": "vaemond-velaryon", "name": "Vaemond Velaryon", "faction": "Grüne", "aliases": ["Ser Vaemond Velaryon"] },
+			{ "id": "rhaenys-targaryen", "name": "Rhaenys Targaryen", "faction": "Schwarze", "aliases": ["Die Königin, die niemals war", "Prinzessin Rhaenys"] },
+			{ "id": "rhaenyra-targaryen", "name": "Rhaenyra Targaryen", "faction": "Schwarze", "aliases": ["Die Freude des Reiches", "Prinzessin von Drachenstein", "Königin Rhaenyra"] },
+			{ "id": "daemon-targaryen", "name": "Daemon Targaryen", "faction": "Schwarze", "aliases": ["Der Schurkenprinz", "Prinz der Stadt"] },
+			{ "id": "viserys-i-targaryen", "name": "Viserys I Targaryen", "faction": "Neutral", "aliases": ["König Viserys I.", "Viserys der Friedfertige"] },
+			{ "id": "lucerys-velaryon", "name": "Lucerys Velaryon", "faction": "Schwarze", "aliases": ["Luke"] },
+			{ "id": "alicent-hightower", "name": "Alicent Hightower", "faction": "Grüne", "aliases": ["Königin Alicent", "Die Königinwitwe"] },
+			{ "id": "aemond-targaryen", "name": "Aemond Targaryen", "faction": "Grüne", "aliases": ["Aemond Einauge", "Prinz Aemond"] }
+		],
+		"locations": [
+			{ "id": "red-keep", "name": "Roter Bergfried", "type": "castle", "coordinates": { "x": 580, "y": 606 } }
+		],
+		"events": [
+			{ "id": "s01e08-ev1", "title": "Vaemond erhebt Anspruch auf Driftmark", "location_id": "red-keep", "characters_involved": ["vaemond-velaryon", "rhaenys-targaryen"], "summary": "Da Corlys in den Trittsteinen schwer verwundet ist, beansprucht sein Bruder Vaemond Driftmark und brandmarkt Rhaenyras Söhne als Bastarde.", "order_index": 0 },
+			{ "id": "s01e08-ev2", "title": "Rhaenyra und Daemon kehren an den Hof zurück", "location_id": "red-keep", "characters_involved": ["rhaenyra-targaryen", "daemon-targaryen"], "summary": "Rhaenyra und Daemon kehren nach Königsmund zurück, um Lucerys' Anspruch zu verteidigen.", "order_index": 1 },
+			{ "id": "s01e08-ev3", "title": "Viserys bestätigt Lucerys als Erben von Driftmark", "location_id": "red-keep", "characters_involved": ["viserys-i-targaryen", "rhaenyra-targaryen", "lucerys-velaryon", "alicent-hightower"], "summary": "Der kranke König besteigt ein letztes Mal den Thron und bestätigt Lucerys als Erben von Driftmark.", "order_index": 2 },
+			{ "id": "s01e08-ev4", "title": "Daemon enthauptet Vaemond", "location_id": "red-keep", "characters_involved": ["daemon-targaryen", "vaemond-velaryon"], "summary": "Als Vaemond Rhaenyra vor dem Hof verleumdet, schlägt Daemon ihm den Kopf ab.", "order_index": 3, "deaths": ["vaemond-velaryon"] },
+			{ "id": "s01e08-ev5", "title": "Ein zerbrechliches Familienfest", "location_id": "red-keep", "characters_involved": ["viserys-i-targaryen", "alicent-hightower", "aemond-targaryen", "rhaenyra-targaryen", "daemon-targaryen"], "summary": "Ein Fest versöhnt die Familien kurzzeitig, bevor Aemonds Sticheleien alte Wunden wieder aufreißen.", "order_index": 4 },
+			{ "id": "s01e08-ev6", "title": "Viserys' letzte, missverstandene Worte", "location_id": "red-keep", "characters_involved": ["viserys-i-targaryen", "alicent-hightower"], "summary": "Im Sterben verwechselt Viserys Alicent mit Rhaenyra und murmelt die Prophezeiung; Alicent deutet sie als Wunsch auf dem Sterbebett zugunsten Aegons.", "order_index": 5, "deaths": ["viserys-i-targaryen"] }
+		],
+		"scenes": [
+			{ "id": "s01e08-sc1", "order_index": 0, "start_hint": "Das Erbfolgegesuch um Driftmark", "end_hint": "Vaemond drängt auf seinen Anspruch", "location_id": "red-keep", "characters": ["vaemond-velaryon", "rhaenys-targaryen"], "event_ids": ["s01e08-ev1"], "transition_to_next": "Rhaenyra und Daemon treffen ein, um darauf zu antworten." },
+			{ "id": "s01e08-sc2", "order_index": 1, "start_hint": "Der Thronsaal", "end_hint": "Ein Urteil und eine Enthauptung", "location_id": "red-keep", "characters": ["viserys-i-targaryen", "rhaenyra-targaryen", "daemon-targaryen", "lucerys-velaryon", "alicent-hightower", "vaemond-velaryon"], "event_ids": ["s01e08-ev2", "s01e08-ev3", "s01e08-ev4"], "transition_to_next": "Ein Fest versucht vergeblich, die Familie zu kitten." },
+			{ "id": "s01e08-sc3", "order_index": 2, "start_hint": "Das Versöhnungsfest", "end_hint": "Aemond reißt den Riss wieder auf", "location_id": "red-keep", "characters": ["viserys-i-targaryen", "alicent-hightower", "aemond-targaryen", "rhaenyra-targaryen", "daemon-targaryen"], "event_ids": ["s01e08-ev5"], "transition_to_next": "Allein mit dem König am Ende." },
+			{ "id": "s01e08-sc4", "order_index": 3, "start_hint": "Das Schlafgemach des Königs", "end_hint": "Ein verhängnisvolles Missverständnis", "location_id": "red-keep", "characters": ["viserys-i-targaryen", "alicent-hightower"], "event_ids": ["s01e08-ev6"], "transition_to_next": "" }
+		]
+	}
+}

@@ -1,0 +1,40 @@
+{
+	"source": {
+		"title": "Wikipedia — House of the Dragon S01E03: Zweiter seines Namens",
+		"url": "https://en.wikipedia.org/wiki/House_of_the_Dragon_season_1",
+		"type": "wiki"
+	},
+	"story": {
+		"series": "House of the Dragon",
+		"season": 1,
+		"episode": 3,
+		"title": "Zweiter seines Namens",
+		"characters": [
+			{ "id": "viserys-i-targaryen", "name": "Viserys I Targaryen", "faction": "Neutral", "aliases": ["König Viserys I.", "Viserys der Friedfertige"] },
+			{ "id": "rhaenyra-targaryen", "name": "Rhaenyra Targaryen", "faction": "Schwarze", "aliases": ["Die Freude des Reiches", "Prinzessin von Drachenstein", "Königin Rhaenyra"] },
+			{ "id": "otto-hightower", "name": "Otto Hightower", "faction": "Grüne", "aliases": ["Lord Otto", "Hand des Königs"] },
+			{ "id": "aegon-ii-targaryen", "name": "Aegon II Targaryen", "faction": "Grüne", "aliases": ["Aegon der Ältere", "König Aegon II."] },
+			{ "id": "lyonel-strong", "name": "Lyonel Strong", "faction": "Neutral", "aliases": ["Lord Lyonel Strong", "Hand des Königs"] },
+			{ "id": "hobert-hightower", "name": "Hobert Hightower", "faction": "Grüne", "aliases": ["Lord Hobert Hightower"] },
+			{ "id": "daemon-targaryen", "name": "Daemon Targaryen", "faction": "Schwarze", "aliases": ["Der Schurkenprinz", "Prinz der Stadt"] },
+			{ "id": "corlys-velaryon", "name": "Corlys Velaryon", "faction": "Schwarze", "aliases": ["Die Seeschlange", "Herr der Gezeiten", "Lord von Driftmark"] },
+			{ "id": "craghas-drahar", "name": "Craghas Drahar", "faction": "Neutral", "aliases": ["Der Krabbenfütterer", "Prinz-Admiral"] }
+		],
+		"locations": [
+			{ "id": "the-kingswood", "name": "Der Königswald", "type": "region", "coordinates": { "x": 548, "y": 690 } },
+			{ "id": "red-keep", "name": "Roter Bergfried", "type": "castle", "coordinates": { "x": 580, "y": 606 } },
+			{ "id": "the-stepstones", "name": "Die Trittsteine", "type": "region", "coordinates": { "x": 820, "y": 895 } }
+		],
+		"events": [
+			{ "id": "s01e03-ev1", "title": "Königliche Jagd zu Aegons zweitem Namenstag", "location_id": "the-kingswood", "characters_involved": ["viserys-i-targaryen", "rhaenyra-targaryen", "otto-hightower", "aegon-ii-targaryen"], "summary": "Eine prächtige Jagd markiert Prinz Aegons zweiten Geburtstag; Viserys drängt Rhaenyra, sich einen Gemahl zu nehmen.", "order_index": 0 },
+			{ "id": "s01e03-ev2", "title": "Laenor wird als Rhaenyras Partie vorgeschlagen", "location_id": "the-kingswood", "characters_involved": ["viserys-i-targaryen", "lyonel-strong", "rhaenyra-targaryen"], "summary": "Lord Lyonel Strong rät Viserys, dass Ser Laenor Velaryon eine gute Partie für Rhaenyra wäre.", "order_index": 1 },
+			{ "id": "s01e03-ev3", "title": "Die Hohenturms schmieden Pläne für Aegon", "location_id": "red-keep", "characters_involved": ["otto-hightower", "hobert-hightower"], "summary": "Otto und Hobert Hightower arbeiten heimlich daran, den jungen Aegon als Nachfolger des Reiches in Stellung zu bringen.", "order_index": 2 },
+			{ "id": "s01e03-ev4", "title": "Daemon erschlägt den Krabbenfütterer", "location_id": "the-stepstones", "characters_involved": ["daemon-targaryen", "corlys-velaryon", "craghas-drahar"], "summary": "Als endlich königliche Hilfe geschickt wird, zerschlagen Daemon und Corlys die Triarchie; Daemon tötet Craghas Drahar.", "order_index": 3, "deaths": ["craghas-drahar"] }
+		],
+		"scenes": [
+			{ "id": "s01e03-sc1", "order_index": 0, "start_hint": "Das Jagdlager", "end_hint": "Druck auf Rhaenyra zu heiraten", "location_id": "the-kingswood", "characters": ["viserys-i-targaryen", "rhaenyra-targaryen", "otto-hightower", "aegon-ii-targaryen", "lyonel-strong"], "event_ids": ["s01e03-ev1", "s01e03-ev2"], "transition_to_next": "In der Hauptstadt spinnen die Hohenturms ihre Ränke." },
+			{ "id": "s01e03-sc2", "order_index": 1, "start_hint": "Korridore des Roten Bergfrieds", "end_hint": "Eine stille Verschwörung", "location_id": "red-keep", "characters": ["otto-hightower", "hobert-hightower"], "event_ids": ["s01e03-ev3"], "transition_to_next": "Auf den Trittsteinen erreicht der Krieg seinen Höhepunkt." },
+			{ "id": "s01e03-sc3", "order_index": 2, "start_hint": "Angriff auf die Trittsteine", "end_hint": "Der Krabbenfütterer fällt", "location_id": "the-stepstones", "characters": ["daemon-targaryen", "corlys-velaryon", "craghas-drahar"], "event_ids": ["s01e03-ev4"], "transition_to_next": "" }
+		]
+	}
+}

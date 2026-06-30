@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1100" viewBox="0 0 1000 1100">
+  <defs>
+    <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#cde0e6"/>
+      <stop offset="1" stop-color="#b6cdd6"/>
+    </linearGradient>
+    <radialGradient id="vignette" cx="0.5" cy="0.45" r="0.75">
+      <stop offset="0.7" stop-color="#000000" stop-opacity="0"/>
+      <stop offset="1" stop-color="#1d2a33" stop-opacity="0.28"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Ocean -->
+  <rect width="1000" height="1100" fill="url(#sea)"/>
+
+  <!-- Faint graticule -->
+  <g stroke="#8fb0bd" stroke-width="0.6" opacity="0.35">
+    <path d="M0 220H1000M0 440H1000M0 660H1000M0 880H1000"/>
+    <path d="M200 0V1100M400 0V1100M600 0V1100M800 0V1100"/>
+  </g>
+
+  <!-- Essos (eastern continent, right edge) -->
+  <path d="M1000 30 C928 140 952 300 936 420 C922 520 902 600 930 700 C952 820 980 940 1000 1040 L1000 1100 L1000 0 Z"
+        fill="#e6dab9" stroke="#9c8e6a" stroke-width="2"/>
+
+  <!-- Westeros (main continent) -->
+  <path d="M300 70
+           C360 55 470 55 520 80
+           C560 150 600 260 632 360
+           C700 380 762 410 742 452
+           C700 500 660 520 648 560
+           C690 585 702 610 674 650
+           C662 720 650 770 632 820
+           C600 910 560 980 500 1035
+           C440 1010 400 1000 372 965
+           C330 940 312 900 305 855
+           C250 760 230 690 214 605
+           C232 545 250 520 262 495
+           C300 470 320 430 312 380
+           C300 300 296 200 300 150
+           C298 120 296 90 300 70 Z"
+        fill="#e7dcc1" stroke="#9c8e6a" stroke-width="2.5"/>
+
+  <!-- Mountain spine of the Vale / central ranges -->
+  <g stroke="#8a7d5c" stroke-width="1.6" fill="none" opacity="0.55" stroke-linejoin="round">
+    <path d="M600 400l10-12 10 12 10-12 10 12"/>
+    <path d="M470 470l10-12 10 12 10-12 10 12"/>
+    <path d="M300 720l10-12 10 12 10-12 10 12"/>
+  </g>
+
+  <!-- Forest hint (the Kingswood) -->
+  <g fill="#9bb083" opacity="0.5">
+    <circle cx="540" cy="700" r="9"/><circle cx="556" cy="708" r="8"/><circle cx="528" cy="712" r="7"/>
+  </g>
+
+  <!-- Islands off the Crownlands coast: Dragonstone & Driftmark -->
+  <ellipse cx="750" cy="628" rx="18" ry="13" fill="#e7dcc1" stroke="#9c8e6a" stroke-width="2"/>
+  <ellipse cx="722" cy="664" rx="14" ry="10" fill="#e7dcc1" stroke="#9c8e6a" stroke-width="2"/>
+
+  <!-- The Stepstones (island chain, southern Narrow Sea) -->
+  <g fill="#e7dcc1" stroke="#9c8e6a" stroke-width="1.5">
+    <circle cx="800" cy="884" r="6"/><circle cx="820" cy="898" r="7"/>
+    <circle cx="842" cy="888" r="5"/><circle cx="836" cy="912" r="5"/><circle cx="812" cy="916" r="4"/>
+  </g>
+
+  <!-- Labels -->
+  <g fill="#7c8a6e" font-family="Georgia, 'Times New Roman', serif" opacity="0.5" font-style="italic">
+    <text x="360" y="200" font-size="30" letter-spacing="6">WESTEROS</text>
+    <text x="946" y="520" font-size="26" letter-spacing="5" text-anchor="end" fill="#9a8d63">ESSOS</text>
+  </g>
+  <g fill="#5f7a86" font-family="Georgia, serif" opacity="0.45" font-size="15" font-style="italic">
+    <text x="858" y="545" text-anchor="middle">Die Meerenge</text>
+    <text x="690" y="600" text-anchor="middle">Schwarz-</text>
+    <text x="690" y="616" text-anchor="middle">wasserbucht</text>
+  </g>
+
+  <!-- Compass rose -->
+  <g transform="translate(915 110)" opacity="0.7">
+    <circle r="34" fill="none" stroke="#8a7d5c" stroke-width="1.5"/>
+    <path d="M0 -32 L7 0 L0 32 L-7 0 Z" fill="#9c8e6a"/>
+    <path d="M-32 0 L0 7 L32 0 L0 -7 Z" fill="#c9bd97"/>
+    <text x="0" y="-38" text-anchor="middle" font-family="Georgia, serif" font-size="13" fill="#7c715299">N</text>
+  </g>
+
+  <!-- Soft edge vignette -->
+  <rect width="1000" height="1100" fill="url(#vignette)"/>
+  <rect x="6" y="6" width="988" height="1088" fill="none" stroke="#9c8e6a" stroke-width="2" opacity="0.6"/>
+</svg>
