@@ -354,9 +354,9 @@
 		}
 	});
 
-	// Death paths + place markers: once the clock reaches a death, draw the
-	// character's route up to that point as a red dashed trail ending in a skull
-	// at the death location.
+	// Death paths + tallies: once the clock reaches a death, draw the character's
+	// route up to that point as a red dashed trail. Skulls are not stacked on the
+	// spot — instead one badge beside each place shows how many fell there.
 	$effect(() => {
 		if (!ready || !L || !map || !deathLayer) return;
 		const cfg = store.project.map;
@@ -366,6 +366,7 @@
 		deathLayer.clearLayers();
 		if (!cfg) return;
 		const h = cfg.height;
+		const deathsByLoc = new Map<string, { x: number; y: number; names: string[] }>();
 		for (const death of deaths.values()) {
 			if (!isVisible(death.characterId)) continue;
 			if (!kindAllowed(death.characterId as string)) continue;
@@ -392,9 +393,28 @@
 				}).addTo(deathLayer);
 			}
 
-			const icon = L.divIcon({ className: 'sa-death-dot', html: '💀', iconSize: [20, 20] });
-			L.marker(end, { icon })
-				.bindTooltip('† ' + name, { direction: 'top', offset: [0, -6] })
+			// Tally the dead per location so skulls don't stack on one spot.
+			const group: { x: number; y: number; names: string[] } = deathsByLoc.get(
+				death.locationId
+			) ?? { x: loc.coordinates.x, y: loc.coordinates.y, names: [] };
+			group.names.push(name);
+			deathsByLoc.set(death.locationId, group);
+		}
+
+		// One badge per location, offset beside the place marker, showing how many
+		// fell there; its tooltip lists them.
+		for (const g of deathsByLoc.values()) {
+			const icon = L.divIcon({
+				className: 'sa-death-badge',
+				html: `💀<span class="n">${g.names.length}</span>`,
+				iconSize: [34, 20],
+				iconAnchor: [-10, 10]
+			});
+			L.marker(toLatLng(g.x, g.y, h), { icon })
+				.bindTooltip(g.names.map((n) => '† ' + escapeHtml(n)).join('<br>'), {
+					direction: 'top',
+					className: 'sa-people-tip'
+				})
 				.addTo(deathLayer);
 		}
 	});
@@ -809,11 +829,21 @@
 		border: 2px solid #000;
 		border-radius: 50%;
 	}
-	:global(.sa-death-dot) {
-		font-size: 16px;
+	:global(.sa-death-badge) {
+		display: flex;
+		align-items: center;
+		gap: 2px;
+		font-size: 15px;
 		line-height: 1;
-		text-align: center;
+		white-space: nowrap;
 		filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.6));
+	}
+	:global(.sa-death-badge .n) {
+		font: 600 11px/1 var(--sa-font-body);
+		color: #fff;
+		background: #d23b3b;
+		border-radius: 8px;
+		padding: 1px 5px;
 	}
 	:global(.sa-cluster) {
 		display: flex;
