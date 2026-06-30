@@ -135,6 +135,7 @@ function addDragons(project: Project, locale: Locale): void {
 			name: locale === 'de' ? d.de : d.en,
 			faction: factionLabel(d.faction),
 			aliases: [],
+			kind: 'dragon',
 			origin: 'extracted'
 		};
 	}

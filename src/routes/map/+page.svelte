@@ -8,7 +8,6 @@
 	import { characterPlacementsAt, characterWaypoints } from '$lib/core/playback';
 	import { movementEdges, characterDeaths, episodeKeyOf } from '$lib/core/derive';
 	import { episodeRange } from '$lib/core/episode-filter.svelte';
-	import { DRAGON_IDS } from '$lib/core/hotd-default';
 	import type { Project } from '$lib/core/model';
 	import type { LocationId } from '$lib/core/ids';
 	import { t } from '$lib/i18n/i18n.svelte';
@@ -34,7 +33,17 @@
 	// Visibility of person categories on the map.
 	let showStationary = $state(true);
 	let showDead = $state(true);
-	let showDragons = $state(true);
+	// Who to map: everyone, only people, or only dragons. Dragons are characters
+	// flagged kind:'dragon' (they ride along with their rider), so this mode scopes
+	// every people/dragon overlay — markers, movement lines and deaths alike.
+	let personMode = $state<'all' | 'people' | 'dragons'>('all');
+	const isDragon = (id: string) =>
+		store.project.characters[id as keyof typeof store.project.characters]?.kind === 'dragon';
+	function kindAllowed(id: string): boolean {
+		if (personMode === 'people') return !isDragon(id);
+		if (personMode === 'dragons') return isDragon(id);
+		return true;
+	}
 	// Hidden factions / houses (a member is hidden when its group is unchecked).
 	const hiddenFactions = new SvelteSet<string>();
 	const hiddenHouses = new SvelteSet<string>();
@@ -117,7 +126,7 @@
 			for (const c of e.charactersInvolved) ids.add(c as string);
 		return [...ids]
 			.map((id) => store.project.characters[id as keyof typeof store.project.characters])
-			.filter((c) => !!c)
+			.filter((c) => !!c && kindAllowed(c.id as string))
 			.sort((a, b) => a.name.localeCompare(b.name));
 	});
 	// While a range is selected, only its locations stay on the map (null = all).
@@ -195,7 +204,9 @@
 		const cfg = store.project.map;
 		const locations = Object.values(store.project.locations);
 		const locFilter = episodeLocationIds;
-		const edges = movementEdges(view).filter((e) => isVisible(e.characterId));
+		const edges = movementEdges(view).filter(
+			(e) => isVisible(e.characterId) && kindAllowed(e.characterId as string)
+		);
 		locationLayer.clearLayers();
 		movementLayer.clearLayers();
 		if (!cfg) return;
@@ -257,7 +268,7 @@
 		const clusters = new Map<string, Cluster>();
 		for (const p of characterPlacementsAt(view, tNow)) {
 			if (!isVisible(p.characterId)) continue;
-			if (!showDragons && DRAGON_IDS.has(p.characterId as string)) continue;
+			if (!kindAllowed(p.characterId as string)) continue;
 			const ch = store.project.characters[p.characterId];
 			const name = ch?.name ?? (p.characterId as string);
 			const faction = ch?.faction ?? '';
@@ -342,6 +353,7 @@
 		const h = cfg.height;
 		for (const death of deaths.values()) {
 			if (!isVisible(death.characterId)) continue;
+			if (!kindAllowed(death.characterId as string)) continue;
 			if (ti < death.orderIndex || !death.locationId) continue;
 			const loc = store.project.locations[death.locationId];
 			if (!loc || loc.coordinates.x == null || loc.coordinates.y == null) continue;
@@ -406,7 +418,7 @@
 	// Flat, ordered list of deaths for the overview panel beside the map.
 	const deaths = $derived(
 		[...characterDeaths(view).values()]
-			.filter((d) => isVisible(d.characterId))
+			.filter((d) => isVisible(d.characterId) && kindAllowed(d.characterId as string))
 			.sort((a, b) => a.orderIndex - b.orderIndex)
 			.map((d) => ({
 				characterId: d.characterId,
@@ -457,7 +469,16 @@
 			<span class="ov-title sa-muted">{t('map.show')}</span>
 			<label><input type="checkbox" bind:checked={showStationary} />{t('map.stationary')}</label>
 			<label><input type="checkbox" bind:checked={showDead} />{t('map.dead')}</label>
-			<label><input type="checkbox" bind:checked={showDragons} />{t('map.dragons')}</label>
+		</div>
+		<div class="ov-sec">
+			<span class="ov-title sa-muted">{t('map.who')}</span>
+			<label><input type="radio" name="kind" value="all" bind:group={personMode} />{t('map.everyone')}</label>
+			<label
+				><input type="radio" name="kind" value="people" bind:group={personMode} />{t('map.people')}</label
+			>
+			<label
+				><input type="radio" name="kind" value="dragons" bind:group={personMode} />{t('map.dragons')}</label
+			>
 		</div>
 		{#if factionsList.length}
 			<div class="ov-sec">

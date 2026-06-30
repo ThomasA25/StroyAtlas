@@ -17,6 +17,14 @@ import type { SourceType, LocationType } from './contract';
 
 export type Origin = 'extracted' | 'manual';
 
+/**
+ * What a character *is*. Dragons ride along with their rider (they share the
+ * rider's scenes, so their movement/position/death are inherited) but are
+ * flagged here so the map and other views can isolate them. Absent/undefined
+ * reads as a person, so data predating this field stays valid.
+ */
+export type CharacterKind = 'person' | 'dragon';
+
 export interface Coordinates {
 	/** Fictional map coordinates. Null until placed (e.g. via the map editor). */
 	x: number | null;
@@ -35,6 +43,8 @@ export interface Character {
 	name: string;
 	faction: string | null;
 	aliases: string[];
+	/** Person vs dragon; defaults to a person when omitted. See CharacterKind. */
+	kind?: CharacterKind;
 	origin: Origin;
 }
 
