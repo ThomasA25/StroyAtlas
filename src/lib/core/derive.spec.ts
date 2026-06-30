@@ -10,11 +10,13 @@ import {
 	movementEdges,
 	timelineScenes,
 	factionConflicts,
+	factionAt,
 	keyEvents,
 	concurrentStorylines,
 	episodeGroups,
 	episodeKeyOf
 } from './derive';
+import type { Character } from './model';
 
 const ned = asCharacterId('ned');
 const cersei = asCharacterId('cersei');
@@ -120,6 +122,37 @@ describe('movementEdges', () => {
 describe('timelineScenes', () => {
 	it('orders scenes by order_index, ties broken by id', () => {
 		expect(timelineScenes(fixture()).map((s) => s.id)).toEqual([s0, s1, s2]);
+	});
+});
+
+describe('factionAt', () => {
+	const turncloak: Character = {
+		id: asCharacterId('turncloak'),
+		name: 'Turncloak',
+		faction: 'Greens',
+		allegiances: [
+			{ orderIndex: 10, faction: 'Blacks' },
+			{ orderIndex: 5, faction: 'Neutral' }
+		],
+		aliases: [],
+		origin: 'manual'
+	};
+
+	it('returns the base faction before any switch', () => {
+		expect(factionAt(turncloak, 0)).toBe('Greens');
+		expect(factionAt(turncloak, 4)).toBe('Greens');
+	});
+
+	it('returns the latest switch whose orderIndex <= t (boundary inclusive)', () => {
+		expect(factionAt(turncloak, 5)).toBe('Neutral');
+		expect(factionAt(turncloak, 9)).toBe('Neutral');
+		expect(factionAt(turncloak, 10)).toBe('Blacks');
+		expect(factionAt(turncloak, 99)).toBe('Blacks');
+	});
+
+	it('falls back to the base faction when there are no switches', () => {
+		const loyal: Character = { ...turncloak, allegiances: [] };
+		expect(factionAt(loyal, 50)).toBe('Greens');
 	});
 });
 

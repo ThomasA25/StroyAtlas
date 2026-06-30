@@ -6,7 +6,7 @@
 	import { store } from '$lib/core/store.svelte';
 	import { clock } from '$lib/core/clock.svelte';
 	import { characterPlacementsAt, characterWaypoints } from '$lib/core/playback';
-	import { movementEdges, characterDeaths, episodeKeyOf } from '$lib/core/derive';
+	import { movementEdges, characterDeaths, episodeKeyOf, factionAt } from '$lib/core/derive';
 	import { episodeRange } from '$lib/core/episode-filter.svelte';
 	import type { Project } from '$lib/core/model';
 	import type { LocationId } from '$lib/core/ids';
@@ -51,19 +51,29 @@
 		if (set.has(v)) set.delete(v);
 		else set.add(v);
 	}
-	// House = surname: the trailing "of X", else the last name token (single-name
-	// characters like "Mysaria" have no house).
+	// House fallback when a character has no explicit `house`: the surname — the
+	// trailing "of X", else the last name token (single-name characters like
+	// "Mysaria" have no house).
 	function houseOf(name: string): string {
 		const of = name.match(/\bof\s+(.+)$/i);
 		if (of) return of[1].trim();
 		const parts = name.trim().split(/\s+/);
 		return parts.length > 1 ? parts[parts.length - 1] : '';
 	}
+	const houseFor = (c: { name: string; house?: string | null }) => c.house ?? houseOf(c.name);
+	// All party values that ever appear — base factions plus any reached via an
+	// allegiance switch — so the filter lists every side, not just the current ones.
 	const factionsList = $derived(
-		[...new Set(Object.values(store.project.characters).map((c) => c.faction).filter((f): f is string => !!f))].sort()
+		[
+			...new Set(
+				Object.values(store.project.characters)
+					.flatMap((c) => [c.faction, ...(c.allegiances?.map((a) => a.faction) ?? [])])
+					.filter((f): f is string => !!f)
+			)
+		].sort()
 	);
 	const housesList = $derived(
-		[...new Set(Object.values(store.project.characters).map((c) => houseOf(c.name)).filter(Boolean))].sort()
+		[...new Set(Object.values(store.project.characters).map(houseFor).filter(Boolean))].sort()
 	);
 
 	// Map config form
@@ -271,8 +281,10 @@
 			if (!kindAllowed(p.characterId as string)) continue;
 			const ch = store.project.characters[p.characterId];
 			const name = ch?.name ?? (p.characterId as string);
-			const faction = ch?.faction ?? '';
-			const house = houseOf(name);
+			// Party is resolved at the current timeline position, so allegiance
+			// switches change which faction filter a character obeys over time.
+			const faction = (ch ? factionAt(ch, tNow) : null) ?? '';
+			const house = ch ? houseFor(ch) : houseOf(name);
 			if (faction && hiddenFactions.has(faction)) continue;
 			if (house && hiddenHouses.has(house)) continue;
 			const death = deaths.get(p.characterId);

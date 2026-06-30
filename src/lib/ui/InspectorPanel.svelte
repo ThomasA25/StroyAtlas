@@ -2,7 +2,7 @@
 	import { store } from '$lib/core/store.svelte';
 	import type { LocationId } from '$lib/core/ids';
 	import { t } from '$lib/i18n/i18n.svelte';
-	import type { Origin } from '$lib/core/model';
+	import type { Character, Origin } from '$lib/core/model';
 	import type { LocationType } from '$lib/core/contract';
 
 	const originLabel = (o: Origin) => t(`origin.${o}`);
@@ -21,6 +21,13 @@
 	}
 	function pickLocation(target: { locationId: LocationId | null }, value: string) {
 		target.locationId = (value || null) as LocationId | null;
+	}
+	function addAllegiance(c: Character) {
+		if (!c.allegiances) c.allegiances = [];
+		c.allegiances.push({ orderIndex: 0, faction: c.faction ?? '' });
+	}
+	function removeAllegiance(c: Character, i: number) {
+		c.allegiances?.splice(i, 1);
 	}
 
 	const characters = $derived(Object.values(store.project.characters));
@@ -45,8 +52,14 @@
 	{#each characters as c (c.id)}
 		{@const death = store.characterDeaths.get(c.id)}
 		<div class="entity">
-			<div class="grid3">
+			<div class="grid4">
 				<label>{t('inspector.name')}<input bind:value={c.name} /></label>
+				<label
+					>{t('inspector.house')}<input
+						value={c.house ?? ''}
+						oninput={(e) => (c.house = e.currentTarget.value || null)}
+					/></label
+				>
 				<label
 					>{t('inspector.faction')}<input
 						value={c.faction ?? ''}
@@ -59,6 +72,19 @@
 						oninput={(e) => (c.aliases = parseAliases(e.currentTarget.value))}
 					/></label
 				>
+			</div>
+			<div class="allegiances">
+				<span class="sa-muted">{t('inspector.allegiances')}</span>
+				{#each c.allegiances ?? [] as a, i (i)}
+					<div class="alleg-row">
+						<label>{t('inspector.fromOrder')}<input type="number" bind:value={a.orderIndex} /></label>
+						<label>{t('inspector.faction')}<input bind:value={a.faction} /></label>
+						<button class="danger" onclick={() => removeAllegiance(c, i)} aria-label={t('common.delete')}
+							>✕</button
+						>
+					</div>
+				{/each}
+				<button class="add-alleg" onclick={() => addAllegiance(c)}>{t('inspector.addAllegiance')}</button>
 			</div>
 			<div class="rowend">
 				{#if death}
@@ -261,6 +287,27 @@
 		justify-content: flex-end;
 		align-items: center;
 		gap: 0.5rem;
+	}
+	.allegiances {
+		display: flex;
+		flex-direction: column;
+		gap: 0.3rem;
+		margin: 0.4rem 0;
+	}
+	.alleg-row {
+		display: grid;
+		grid-template-columns: 1fr 2fr auto;
+		gap: 0.5rem;
+		align-items: end;
+	}
+	.alleg-row .danger {
+		align-self: end;
+		padding: 0.25rem 0.5rem;
+	}
+	.add-alleg {
+		align-self: flex-start;
+		font-size: 0.8rem;
+		padding: 0.2rem 0.5rem;
 	}
 	.sa-badge.death {
 		color: var(--sa-danger);

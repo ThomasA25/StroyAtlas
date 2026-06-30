@@ -25,6 +25,17 @@ export type Origin = 'extracted' | 'manual';
  */
 export type CharacterKind = 'person' | 'dragon';
 
+/**
+ * A switch of party/allegiance at a point on the timeline. From `orderIndex`
+ * onward (until the next switch) the character belongs to `faction`. Together
+ * with the character's base `faction` (the starting allegiance) this models an
+ * allegiance that changes over time — see derive.factionAt().
+ */
+export interface AllegianceChange {
+	orderIndex: number;
+	faction: string;
+}
+
 export interface Coordinates {
 	/** Fictional map coordinates. Null until placed (e.g. via the map editor). */
 	x: number | null;
@@ -41,7 +52,14 @@ export interface SourceRef {
 export interface Character {
 	id: CharacterId;
 	name: string;
+	/** Base/starting party or allegiance (e.g. "Blacks"). May change over time
+	 * via `allegiances`; resolve the party at a timeline position with factionAt(). */
 	faction: string | null;
+	/** Fixed identity/house (e.g. "Targaryen") — distinct from the changeable
+	 * party above. Optional; views fall back to a house parsed from the name. */
+	house?: string | null;
+	/** Party switches over the timeline, applied on top of the base `faction`. */
+	allegiances?: AllegianceChange[];
 	aliases: string[];
 	/** Person vs dragon; defaults to a person when omitted. See CharacterKind. */
 	kind?: CharacterKind;

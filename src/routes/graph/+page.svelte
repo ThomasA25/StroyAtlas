@@ -4,6 +4,7 @@
 	import { store } from '$lib/core/store.svelte';
 	import { clock } from '$lib/core/clock.svelte';
 	import { characterRelationships } from '$lib/core/relationships';
+	import { factionAt } from '$lib/core/derive';
 	import { activeCharactersAt } from '$lib/core/playback';
 	import type { CharacterId } from '$lib/core/ids';
 	import { t } from '$lib/i18n/i18n.svelte';
@@ -46,7 +47,12 @@
 		Math.max(1, ...characterRelationships(store.project).map((l) => l.weight))
 	);
 	const factions = $derived([
-		...new Set(Object.values(store.project.characters).map((c) => c.faction || 'Neutral'))
+		...new Set(
+			Object.values(store.project.characters).flatMap((c) => [
+				c.faction || 'Neutral',
+				...(c.allegiances?.map((a) => a.faction) ?? [])
+			])
+		)
 	]);
 
 	function buildElements(): cytoscape.ElementDefinition[] {
@@ -128,6 +134,19 @@
 		cy.batch(() => {
 			cy!.nodes().removeClass('active');
 			for (const id of active) cy!.getElementById(id as string).addClass('active');
+		});
+	}
+
+	// Node colour follows each character's party AT the current timeline position,
+	// so allegiance switches recolour nodes as the clock moves. Dead nodes keep
+	// their grey .dead style (it overrides the data(color) mapping).
+	function applyFactionColors(): void {
+		if (!cy) return;
+		cy.batch(() => {
+			cy!.nodes().forEach((n) => {
+				const c = store.project.characters[n.id() as CharacterId];
+				if (c) n.data('color', colorFor(factionAt(c, clock.current)));
+			});
 		});
 	}
 
@@ -223,6 +242,7 @@
 			applyActive();
 			applyFocus();
 			applyDeaths();
+			applyFactionColors();
 		});
 	});
 
@@ -244,6 +264,10 @@
 		void clock.current;
 		void store.characterDeaths;
 		if (ready && cy) applyDeaths();
+	});
+	$effect(() => {
+		void clock.current;
+		if (ready && cy) applyFactionColors();
 	});
 
 	const empty = $derived(Object.keys(store.project.characters).length === 0);
