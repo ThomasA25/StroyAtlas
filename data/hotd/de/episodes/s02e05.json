@@ -21,7 +21,7 @@
 		],
 		"locations": [
 			{ "id": "dragonstone", "name": "Drachenstein", "type": "castle", "coordinates": { "x": 750, "y": 628 } },
-			{ "id": "red-keep", "name": "Roter Bergfried", "type": "castle", "coordinates": { "x": 580, "y": 606 } },
+			{ "id": "red-keep", "name": "Roter Bergfried", "type": "castle", "coordinates": { "x": 640, "y": 606 } },
 			{ "id": "the-twins", "name": "Die Zwillinge", "type": "castle", "coordinates": { "x": 380, "y": 430 } },
 			{ "id": "the-riverlands", "name": "Die Flusslande", "type": "region", "coordinates": { "x": 440, "y": 505 } }
 		],

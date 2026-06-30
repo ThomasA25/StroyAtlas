@@ -23,8 +23,8 @@
 			{ "id": "the-riverlands", "name": "The Riverlands", "type": "region", "coordinates": { "x": 440, "y": 505 } },
 			{ "id": "harrenhal", "name": "Harrenhal", "type": "castle", "coordinates": { "x": 478, "y": 545 } },
 			{ "id": "dragonstone", "name": "Dragonstone", "type": "castle", "coordinates": { "x": 750, "y": 628 } },
-			{ "id": "red-keep", "name": "Red Keep", "type": "castle", "coordinates": { "x": 580, "y": 606 } },
-			{ "id": "kings-landing", "name": "King's Landing", "type": "city", "coordinates": { "x": 560, "y": 620 } }
+			{ "id": "red-keep", "name": "Red Keep", "type": "castle", "coordinates": { "x": 640, "y": 606 } },
+			{ "id": "kings-landing", "name": "King's Landing", "type": "city", "coordinates": { "x": 620, "y": 620 } }
 		],
 		"events": [
 			{ "id": "s02e03-ev1", "title": "Brackens and Blackwoods clash", "location_id": "the-riverlands", "characters_involved": ["willem-blackwood"], "summary": "The feud between Houses Bracken and Blackwood flares into open fighting in the Riverlands.", "order_index": 0 },

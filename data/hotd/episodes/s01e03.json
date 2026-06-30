@@ -22,7 +22,7 @@
 		],
 		"locations": [
 			{ "id": "the-kingswood", "name": "The Kingswood", "type": "region", "coordinates": { "x": 548, "y": 690 } },
-			{ "id": "red-keep", "name": "Red Keep", "type": "castle", "coordinates": { "x": 580, "y": 606 } },
+			{ "id": "red-keep", "name": "Red Keep", "type": "castle", "coordinates": { "x": 640, "y": 606 } },
 			{ "id": "the-stepstones", "name": "The Stepstones", "type": "region", "coordinates": { "x": 820, "y": 895 } }
 		],
 		"events": [

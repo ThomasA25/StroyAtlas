@@ -72,7 +72,7 @@ describe('House of the Dragon — German dataset', () => {
 			Object.values(de.locations).every((l) => l.coordinates.x != null && l.coordinates.y != null)
 		).toBe(true);
 		const koenigsmund = Object.values(de.locations).find((l) => l.name === 'Königsmund');
-		expect(koenigsmund?.coordinates).toEqual({ x: 560, y: 620 });
+		expect(koenigsmund?.coordinates).toEqual({ x: 620, y: 620 });
 	});
 
 	it('records the same character deaths as the English dataset, at German locations', () => {

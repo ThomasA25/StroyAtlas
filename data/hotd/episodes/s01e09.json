@@ -23,9 +23,9 @@
 			{ "id": "rhaenys-targaryen", "name": "Rhaenys Targaryen", "faction": "Blacks", "aliases": ["The Queen Who Never Was", "Princess Rhaenys"] }
 		],
 		"locations": [
-			{ "id": "red-keep", "name": "Red Keep", "type": "castle", "coordinates": { "x": 580, "y": 606 } },
-			{ "id": "kings-landing", "name": "King's Landing", "type": "city", "coordinates": { "x": 560, "y": 620 } },
-			{ "id": "dragonpit", "name": "Dragonpit", "type": "other", "coordinates": { "x": 545, "y": 634 } }
+			{ "id": "red-keep", "name": "Red Keep", "type": "castle", "coordinates": { "x": 640, "y": 606 } },
+			{ "id": "kings-landing", "name": "King's Landing", "type": "city", "coordinates": { "x": 620, "y": 620 } },
+			{ "id": "dragonpit", "name": "Dragonpit", "type": "other", "coordinates": { "x": 605, "y": 634 } }
 		],
 		"events": [
 			{ "id": "s01e09-ev1", "title": "The Greens conceal the king's death", "location_id": "red-keep", "characters_involved": ["otto-hightower", "alicent-hightower", "larys-strong"], "summary": "Viserys's death is kept secret as Otto and the Greens move to crown Aegon II.", "order_index": 0 },

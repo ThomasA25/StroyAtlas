@@ -24,7 +24,7 @@
 			{ "id": "dragonstone", "name": "Drachenstein", "type": "castle", "coordinates": { "x": 750, "y": 628 } },
 			{ "id": "the-kingswood", "name": "Der Königswald", "type": "region", "coordinates": { "x": 548, "y": 690 } },
 			{ "id": "the-riverlands", "name": "Die Flusslande", "type": "region", "coordinates": { "x": 440, "y": 505 } },
-			{ "id": "kings-landing", "name": "Königsmund", "type": "city", "coordinates": { "x": 560, "y": 620 } }
+			{ "id": "kings-landing", "name": "Königsmund", "type": "city", "coordinates": { "x": 620, "y": 620 } }
 		],
 		"events": [
 			{ "id": "s02e07-ev1", "title": "Addam schwört Rhaenyra die Treue", "location_id": "dragonstone", "characters_involved": ["rhaenyra-targaryen", "addam-of-hull"], "summary": "Addam of Hull, der neue Reiter von Seerauch, schwört Rhaenyra die Treue.", "order_index": 0 },

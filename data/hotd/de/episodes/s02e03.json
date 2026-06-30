@@ -23,8 +23,8 @@
 			{ "id": "the-riverlands", "name": "Die Flusslande", "type": "region", "coordinates": { "x": 440, "y": 505 } },
 			{ "id": "harrenhal", "name": "Harrenhal", "type": "castle", "coordinates": { "x": 478, "y": 545 } },
 			{ "id": "dragonstone", "name": "Drachenstein", "type": "castle", "coordinates": { "x": 750, "y": 628 } },
-			{ "id": "red-keep", "name": "Roter Bergfried", "type": "castle", "coordinates": { "x": 580, "y": 606 } },
-			{ "id": "kings-landing", "name": "Königsmund", "type": "city", "coordinates": { "x": 560, "y": 620 } }
+			{ "id": "red-keep", "name": "Roter Bergfried", "type": "castle", "coordinates": { "x": 640, "y": 606 } },
+			{ "id": "kings-landing", "name": "Königsmund", "type": "city", "coordinates": { "x": 620, "y": 620 } }
 		],
 		"events": [
 			{ "id": "s02e03-ev1", "title": "Brackens und Blackwoods geraten aneinander", "location_id": "the-riverlands", "characters_involved": ["willem-blackwood"], "summary": "Die Fehde zwischen den Häusern Bracken und Blackwood entflammt zu offenen Kämpfen in den Flusslanden.", "order_index": 0 },

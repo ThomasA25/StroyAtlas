@@ -3,9 +3,9 @@
 	"series": "House of the Dragon",
 	"note": "Shared canonical location registry with stable ids. coordinates.x/y are in image-pixel space of the (not-yet-fixed) base map and are left null until a base map is chosen and locations are placed manually. `region_hint` is an auxiliary, non-contract field describing rough placement in Westeros/Essos.",
 	"locations": [
-		{ "id": "kings-landing", "name": "King's Landing", "type": "city", "coordinates": { "x": 560, "y": 620 }, "region_hint": "Crownlands, east coast" },
-		{ "id": "red-keep", "name": "Red Keep", "type": "castle", "coordinates": { "x": 580, "y": 606 }, "region_hint": "King's Landing" },
-		{ "id": "dragonpit", "name": "Dragonpit", "type": "other", "coordinates": { "x": 545, "y": 634 }, "region_hint": "King's Landing (Rhaenys's Hill)" },
+		{ "id": "kings-landing", "name": "King's Landing", "type": "city", "coordinates": { "x": 620, "y": 620 }, "region_hint": "Crownlands, east coast" },
+		{ "id": "red-keep", "name": "Red Keep", "type": "castle", "coordinates": { "x": 640, "y": 606 }, "region_hint": "King's Landing" },
+		{ "id": "dragonpit", "name": "Dragonpit", "type": "other", "coordinates": { "x": 605, "y": 634 }, "region_hint": "King's Landing (Rhaenys's Hill)" },
 		{ "id": "dragonstone", "name": "Dragonstone", "type": "castle", "coordinates": { "x": 750, "y": 628 }, "region_hint": "Island in Blackwater Bay / Narrow Sea" },
 		{ "id": "driftmark", "name": "Driftmark", "type": "castle", "coordinates": { "x": 722, "y": 664 }, "region_hint": "Island seat of House Velaryon (High Tide), Blackwater Bay" },
 		{ "id": "the-stepstones", "name": "The Stepstones", "type": "region", "coordinates": { "x": 820, "y": 895 }, "region_hint": "Island chain between Westeros and Essos" },

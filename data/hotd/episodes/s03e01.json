@@ -26,9 +26,9 @@
 		],
 		"locations": [
 			{ "id": "the-vale", "name": "The Vale", "type": "region", "coordinates": { "x": 650, "y": 430 } },
-			{ "id": "kings-landing", "name": "King's Landing", "type": "city", "coordinates": { "x": 560, "y": 620 } },
+			{ "id": "kings-landing", "name": "King's Landing", "type": "city", "coordinates": { "x": 620, "y": 620 } },
 			{ "id": "the-riverlands", "name": "The Riverlands", "type": "region", "coordinates": { "x": 440, "y": 505 } },
-			{ "id": "red-keep", "name": "Red Keep", "type": "castle", "coordinates": { "x": 580, "y": 606 } },
+			{ "id": "red-keep", "name": "Red Keep", "type": "castle", "coordinates": { "x": 640, "y": 606 } },
 			{ "id": "dragonstone", "name": "Dragonstone", "type": "castle", "coordinates": { "x": 750, "y": 628 } },
 			{ "id": "driftmark", "name": "Driftmark", "type": "castle", "coordinates": { "x": 722, "y": 664 } },
 			{ "id": "the-gullet", "name": "The Gullet", "type": "sea", "coordinates": { "x": 700, "y": 648 } }

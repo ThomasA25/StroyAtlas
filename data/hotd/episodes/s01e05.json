@@ -22,7 +22,7 @@
 		],
 		"locations": [
 			{ "id": "runestone", "name": "Runestone", "type": "castle", "coordinates": { "x": 712, "y": 448 } },
-			{ "id": "red-keep", "name": "Red Keep", "type": "castle", "coordinates": { "x": 580, "y": 606 } }
+			{ "id": "red-keep", "name": "Red Keep", "type": "castle", "coordinates": { "x": 640, "y": 606 } }
 		],
 		"events": [
 			{ "id": "s01e05-ev1", "title": "Daemon kills Rhea Royce", "location_id": "runestone", "characters_involved": ["daemon-targaryen", "rhea-royce"], "summary": "In the Vale, Daemon murders his estranged wife, Lady Rhea Royce of Runestone.", "order_index": 0, "deaths": ["rhea-royce"] },

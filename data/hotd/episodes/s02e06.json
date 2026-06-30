@@ -24,10 +24,10 @@
 		],
 		"locations": [
 			{ "id": "golden-tooth", "name": "Golden Tooth", "type": "castle", "coordinates": { "x": 335, "y": 558 } },
-			{ "id": "red-keep", "name": "Red Keep", "type": "castle", "coordinates": { "x": 580, "y": 606 } },
+			{ "id": "red-keep", "name": "Red Keep", "type": "castle", "coordinates": { "x": 640, "y": 606 } },
 			{ "id": "dragonstone", "name": "Dragonstone", "type": "castle", "coordinates": { "x": 750, "y": 628 } },
 			{ "id": "driftmark", "name": "Driftmark", "type": "castle", "coordinates": { "x": 722, "y": 664 } },
-			{ "id": "kings-landing", "name": "King's Landing", "type": "city", "coordinates": { "x": 560, "y": 620 } }
+			{ "id": "kings-landing", "name": "King's Landing", "type": "city", "coordinates": { "x": 620, "y": 620 } }
 		],
 		"events": [
 			{ "id": "s02e06-ev1", "title": "Lannister host at the Golden Tooth", "location_id": "golden-tooth", "characters_involved": ["jason-lannister"], "summary": "Jason Lannister leads his army to the Golden Tooth to march for the Greens.", "order_index": 0 },

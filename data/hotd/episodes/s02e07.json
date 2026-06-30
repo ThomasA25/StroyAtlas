@@ -24,7 +24,7 @@
 			{ "id": "dragonstone", "name": "Dragonstone", "type": "castle", "coordinates": { "x": 750, "y": 628 } },
 			{ "id": "the-kingswood", "name": "The Kingswood", "type": "region", "coordinates": { "x": 548, "y": 690 } },
 			{ "id": "the-riverlands", "name": "The Riverlands", "type": "region", "coordinates": { "x": 440, "y": 505 } },
-			{ "id": "kings-landing", "name": "King's Landing", "type": "city", "coordinates": { "x": 560, "y": 620 } }
+			{ "id": "kings-landing", "name": "King's Landing", "type": "city", "coordinates": { "x": 620, "y": 620 } }
 		],
 		"events": [
 			{ "id": "s02e07-ev1", "title": "Addam pledges to Rhaenyra", "location_id": "dragonstone", "characters_involved": ["rhaenyra-targaryen", "addam-of-hull"], "summary": "Addam of Hull, the new rider of Seasmoke, swears fealty to Rhaenyra.", "order_index": 0 },

@@ -23,8 +23,8 @@
 		],
 		"locations": [
 			{ "id": "harrenhal", "name": "Harrenhal", "type": "castle", "coordinates": { "x": 478, "y": 545 } },
-			{ "id": "kings-landing", "name": "King's Landing", "type": "city", "coordinates": { "x": 560, "y": 620 } },
-			{ "id": "red-keep", "name": "Red Keep", "type": "castle", "coordinates": { "x": 580, "y": 606 } }
+			{ "id": "kings-landing", "name": "King's Landing", "type": "city", "coordinates": { "x": 620, "y": 620 } },
+			{ "id": "red-keep", "name": "Red Keep", "type": "castle", "coordinates": { "x": 640, "y": 606 } }
 		],
 		"events": [
 			{ "id": "s01e01-ev1", "title": "Great Council names Viserys heir", "location_id": "harrenhal", "characters_involved": ["jaehaerys-i-targaryen", "viserys-i-targaryen", "rhaenys-targaryen", "corlys-velaryon"], "summary": "At a Great Council, the lords of the realm choose Viserys over Rhaenys as King Jaehaerys I's successor.", "order_index": 0 },

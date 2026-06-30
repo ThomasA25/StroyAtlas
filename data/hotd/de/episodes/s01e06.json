@@ -23,7 +23,7 @@
 			{ "id": "harwin-strong", "name": "Harwin Strong", "faction": "Schwarze", "aliases": ["Knochenbrecher", "Ser Harwin Strong"] }
 		],
 		"locations": [
-			{ "id": "kings-landing", "name": "Königsmund", "type": "city", "coordinates": { "x": 560, "y": 620 } },
+			{ "id": "kings-landing", "name": "Königsmund", "type": "city", "coordinates": { "x": 620, "y": 620 } },
 			{ "id": "pentos", "name": "Pentos", "type": "city", "coordinates": { "x": 945, "y": 642 } },
 			{ "id": "harrenhal", "name": "Harrenhal", "type": "castle", "coordinates": { "x": 478, "y": 545 } },
 			{ "id": "dragonstone", "name": "Drachenstein", "type": "castle", "coordinates": { "x": 750, "y": 628 } }

@@ -76,7 +76,7 @@ describe('House of the Dragon dataset — load via the app pipeline', () => {
 		expect(locs.length).toBeGreaterThan(0);
 		expect(locs.every((l) => l.coordinates.x != null && l.coordinates.y != null)).toBe(true);
 		expect(project.locations['kings-landing' as keyof typeof project.locations]?.coordinates).toEqual({
-			x: 560,
+			x: 620,
 			y: 620
 		});
 	});

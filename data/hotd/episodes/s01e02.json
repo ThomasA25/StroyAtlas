@@ -23,7 +23,7 @@
 		],
 		"locations": [
 			{ "id": "dragonstone", "name": "Dragonstone", "type": "castle", "coordinates": { "x": 750, "y": 628 } },
-			{ "id": "red-keep", "name": "Red Keep", "type": "castle", "coordinates": { "x": 580, "y": 606 } },
+			{ "id": "red-keep", "name": "Red Keep", "type": "castle", "coordinates": { "x": 640, "y": 606 } },
 			{ "id": "the-stepstones", "name": "The Stepstones", "type": "region", "coordinates": { "x": 820, "y": 895 } }
 		],
 		"events": [

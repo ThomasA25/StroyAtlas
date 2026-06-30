@@ -24,10 +24,10 @@
 		],
 		"locations": [
 			{ "id": "golden-tooth", "name": "Goldzahn", "type": "castle", "coordinates": { "x": 335, "y": 558 } },
-			{ "id": "red-keep", "name": "Roter Bergfried", "type": "castle", "coordinates": { "x": 580, "y": 606 } },
+			{ "id": "red-keep", "name": "Roter Bergfried", "type": "castle", "coordinates": { "x": 640, "y": 606 } },
 			{ "id": "dragonstone", "name": "Drachenstein", "type": "castle", "coordinates": { "x": 750, "y": 628 } },
 			{ "id": "driftmark", "name": "Driftmark", "type": "castle", "coordinates": { "x": 722, "y": 664 } },
-			{ "id": "kings-landing", "name": "Königsmund", "type": "city", "coordinates": { "x": 560, "y": 620 } }
+			{ "id": "kings-landing", "name": "Königsmund", "type": "city", "coordinates": { "x": 620, "y": 620 } }
 		],
 		"events": [
 			{ "id": "s02e06-ev1", "title": "Lannister-Heer am Goldzahn", "location_id": "golden-tooth", "characters_involved": ["jason-lannister"], "summary": "Jason Lannister führt sein Heer zum Goldzahn, um für die Grünen in den Krieg zu ziehen.", "order_index": 0 },

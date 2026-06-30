@@ -26,3 +26,4 @@ dist-ssr
 # SvelteKit / build output
 .svelte-kit
 build
+static/Westeros_Origin.jpg

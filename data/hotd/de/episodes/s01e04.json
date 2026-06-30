@@ -19,8 +19,8 @@
 			{ "id": "mysaria", "name": "Mysaria", "faction": "Schwarze", "aliases": ["Der Weiße Wurm", "Lady Mysaria"] }
 		],
 		"locations": [
-			{ "id": "red-keep", "name": "Roter Bergfried", "type": "castle", "coordinates": { "x": 580, "y": 606 } },
-			{ "id": "kings-landing", "name": "Königsmund", "type": "city", "coordinates": { "x": 560, "y": 620 } }
+			{ "id": "red-keep", "name": "Roter Bergfried", "type": "castle", "coordinates": { "x": 640, "y": 606 } },
+			{ "id": "kings-landing", "name": "Königsmund", "type": "city", "coordinates": { "x": 620, "y": 620 } }
 		],
 		"events": [
 			{ "id": "s01e04-ev1", "title": "Daemon kehrt zurück und beugt das Knie", "location_id": "red-keep", "characters_involved": ["daemon-targaryen", "viserys-i-targaryen"], "summary": "Daemon kehrt an den Hof zurück, nennt sich 'König der Meerenge' und schwört Viserys die Treue.", "order_index": 0 },

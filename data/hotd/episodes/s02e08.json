@@ -21,7 +21,7 @@
 			{ "id": "rhaenyra-targaryen", "name": "Rhaenyra Targaryen", "faction": "Blacks", "aliases": ["The Realm's Delight", "Princess of Dragonstone", "Queen Rhaenyra"] }
 		],
 		"locations": [
-			{ "id": "red-keep", "name": "Red Keep", "type": "castle", "coordinates": { "x": 580, "y": 606 } },
+			{ "id": "red-keep", "name": "Red Keep", "type": "castle", "coordinates": { "x": 640, "y": 606 } },
 			{ "id": "the-vale", "name": "The Vale", "type": "region", "coordinates": { "x": 650, "y": 430 } },
 			{ "id": "sharp-point", "name": "Sharp Point", "type": "castle", "coordinates": { "x": 676, "y": 634 } },
 			{ "id": "harrenhal", "name": "Harrenhal", "type": "castle", "coordinates": { "x": 478, "y": 545 } },

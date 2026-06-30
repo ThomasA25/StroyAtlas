@@ -21,7 +21,7 @@
 			{ "id": "rhaenyra-targaryen", "name": "Rhaenyra Targaryen", "faction": "Schwarze", "aliases": ["Die Freude des Reiches", "Prinzessin von Drachenstein", "Königin Rhaenyra"] }
 		],
 		"locations": [
-			{ "id": "red-keep", "name": "Roter Bergfried", "type": "castle", "coordinates": { "x": 580, "y": 606 } },
+			{ "id": "red-keep", "name": "Roter Bergfried", "type": "castle", "coordinates": { "x": 640, "y": 606 } },
 			{ "id": "the-vale", "name": "Das Grüne Tal", "type": "region", "coordinates": { "x": 650, "y": 430 } },
 			{ "id": "sharp-point", "name": "Spitzkap", "type": "castle", "coordinates": { "x": 676, "y": 634 } },
 			{ "id": "harrenhal", "name": "Harrenhal", "type": "castle", "coordinates": { "x": 478, "y": 545 } },

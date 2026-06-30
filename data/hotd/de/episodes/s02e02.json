@@ -19,8 +19,8 @@
 			{ "id": "rhaenyra-targaryen", "name": "Rhaenyra Targaryen", "faction": "Schwarze", "aliases": ["Die Freude des Reiches", "Prinzessin von Drachenstein", "Königin Rhaenyra"] }
 		],
 		"locations": [
-			{ "id": "kings-landing", "name": "Königsmund", "type": "city", "coordinates": { "x": 560, "y": 620 } },
-			{ "id": "red-keep", "name": "Roter Bergfried", "type": "castle", "coordinates": { "x": 580, "y": 606 } },
+			{ "id": "kings-landing", "name": "Königsmund", "type": "city", "coordinates": { "x": 620, "y": 620 } },
+			{ "id": "red-keep", "name": "Roter Bergfried", "type": "castle", "coordinates": { "x": 640, "y": 606 } },
 			{ "id": "dragonstone", "name": "Drachenstein", "type": "castle", "coordinates": { "x": 750, "y": 628 } }
 		],
 		"events": [

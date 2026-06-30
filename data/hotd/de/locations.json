@@ -3,9 +3,9 @@
 	"series": "House of the Dragon",
 	"note": "Deutsche Variante des kanonischen Ortsregisters. Ids bleiben stabil und identisch zur englischen Registry (data/hotd/locations.json); name und region_hint sind eingedeutscht. type/coordinates bleiben unverändert (Vertragsfelder).",
 	"locations": [
-		{ "id": "kings-landing", "name": "Königsmund", "type": "city", "coordinates": { "x": 560, "y": 620 }, "region_hint": "Kronland, Ostküste" },
-		{ "id": "red-keep", "name": "Roter Bergfried", "type": "castle", "coordinates": { "x": 580, "y": 606 }, "region_hint": "Königsmund" },
-		{ "id": "dragonpit", "name": "Drachengrube", "type": "other", "coordinates": { "x": 545, "y": 634 }, "region_hint": "Königsmund (Rhaenys' Hügel)" },
+		{ "id": "kings-landing", "name": "Königsmund", "type": "city", "coordinates": { "x": 620, "y": 620 }, "region_hint": "Kronland, Ostküste" },
+		{ "id": "red-keep", "name": "Roter Bergfried", "type": "castle", "coordinates": { "x": 640, "y": 606 }, "region_hint": "Königsmund" },
+		{ "id": "dragonpit", "name": "Drachengrube", "type": "other", "coordinates": { "x": 605, "y": 634 }, "region_hint": "Königsmund (Rhaenys' Hügel)" },
 		{ "id": "dragonstone", "name": "Drachenstein", "type": "castle", "coordinates": { "x": 750, "y": 628 }, "region_hint": "Insel in der Schwarzwasserbucht / Meerenge" },
 		{ "id": "driftmark", "name": "Driftmark", "type": "castle", "coordinates": { "x": 722, "y": 664 }, "region_hint": "Inselsitz des Hauses Velaryon (Hohe Flut), Schwarzwasserbucht" },
 		{ "id": "the-stepstones", "name": "Die Trittsteine", "type": "region", "coordinates": { "x": 820, "y": 895 }, "region_hint": "Inselkette zwischen Westeros und Essos" },

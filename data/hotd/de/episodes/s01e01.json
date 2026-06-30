@@ -23,8 +23,8 @@
 		],
 		"locations": [
 			{ "id": "harrenhal", "name": "Harrenhal", "type": "castle", "coordinates": { "x": 478, "y": 545 } },
-			{ "id": "kings-landing", "name": "Königsmund", "type": "city", "coordinates": { "x": 560, "y": 620 } },
-			{ "id": "red-keep", "name": "Roter Bergfried", "type": "castle", "coordinates": { "x": 580, "y": 606 } }
+			{ "id": "kings-landing", "name": "Königsmund", "type": "city", "coordinates": { "x": 620, "y": 620 } },
+			{ "id": "red-keep", "name": "Roter Bergfried", "type": "castle", "coordinates": { "x": 640, "y": 606 } }
 		],
 		"events": [
 			{ "id": "s01e01-ev1", "title": "Der Große Rat ernennt Viserys zum Erben", "location_id": "harrenhal", "characters_involved": ["jaehaerys-i-targaryen", "viserys-i-targaryen", "rhaenys-targaryen", "corlys-velaryon"], "summary": "Auf einem Großen Rat wählen die Lords des Reiches Viserys anstelle von Rhaenys zum Nachfolger von König Jaehaerys I.", "order_index": 0 },

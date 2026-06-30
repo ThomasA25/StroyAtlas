@@ -20,7 +20,7 @@
 			{ "id": "aemond-targaryen", "name": "Aemond Targaryen", "faction": "Greens", "aliases": ["Aemond One-Eye", "Prince Aemond"] }
 		],
 		"locations": [
-			{ "id": "red-keep", "name": "Red Keep", "type": "castle", "coordinates": { "x": 580, "y": 606 } }
+			{ "id": "red-keep", "name": "Red Keep", "type": "castle", "coordinates": { "x": 640, "y": 606 } }
 		],
 		"events": [
 			{ "id": "s01e08-ev1", "title": "Vaemond petitions for Driftmark", "location_id": "red-keep", "characters_involved": ["vaemond-velaryon", "rhaenys-targaryen"], "summary": "With Corlys gravely wounded in the Stepstones, his brother Vaemond claims Driftmark, branding Rhaenyra's sons bastards.", "order_index": 0 },

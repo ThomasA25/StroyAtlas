@@ -20,7 +20,7 @@
 			{ "id": "aemond-targaryen", "name": "Aemond Targaryen", "faction": "Grüne", "aliases": ["Aemond Einauge", "Prinz Aemond"] }
 		],
 		"locations": [
-			{ "id": "red-keep", "name": "Roter Bergfried", "type": "castle", "coordinates": { "x": 580, "y": 606 } }
+			{ "id": "red-keep", "name": "Roter Bergfried", "type": "castle", "coordinates": { "x": 640, "y": 606 } }
 		],
 		"events": [
 			{ "id": "s01e08-ev1", "title": "Vaemond erhebt Anspruch auf Driftmark", "location_id": "red-keep", "characters_involved": ["vaemond-velaryon", "rhaenys-targaryen"], "summary": "Da Corlys in den Trittsteinen schwer verwundet ist, beansprucht sein Bruder Vaemond Driftmark und brandmarkt Rhaenyras Söhne als Bastarde.", "order_index": 0 },

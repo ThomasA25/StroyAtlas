@@ -23,8 +23,8 @@
 		"locations": [
 			{ "id": "the-wall", "name": "Die Mauer", "type": "other", "coordinates": { "x": 410, "y": 95 } },
 			{ "id": "dragonstone", "name": "Drachenstein", "type": "castle", "coordinates": { "x": 750, "y": 628 } },
-			{ "id": "kings-landing", "name": "Königsmund", "type": "city", "coordinates": { "x": 560, "y": 620 } },
-			{ "id": "red-keep", "name": "Roter Bergfried", "type": "castle", "coordinates": { "x": 580, "y": 606 } }
+			{ "id": "kings-landing", "name": "Königsmund", "type": "city", "coordinates": { "x": 620, "y": 620 } },
+			{ "id": "red-keep", "name": "Roter Bergfried", "type": "castle", "coordinates": { "x": 640, "y": 606 } }
 		],
 		"events": [
 			{ "id": "s02e01-ev1", "title": "Cregan Stark sagt Männer zu", "location_id": "the-wall", "characters_involved": ["cregan-stark", "jacaerys-velaryon"], "summary": "An der Mauer verspricht Lord Cregan Stark Jacaerys Truppen für Rhaenyras Sache.", "order_index": 0 },
