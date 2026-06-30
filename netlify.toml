@@ -1,0 +1,19 @@
+# StoryAtlas is a static SvelteKit SPA (adapter-static, fallback: index.html).
+# These settings tell Netlify what to build, where the output lives, and how to
+# serve client-side routes.
+
+[build]
+  command = "npm run build"
+  publish = "build"
+
+[build.environment]
+  # Vite 8 / Svelte 5 need a modern Node.
+  NODE_VERSION = "20"
+
+# Client-side routing: any path that isn't a real file (e.g. /map, /graph)
+# is served the SPA shell so the SvelteKit router can take over. Real assets
+# (/_app/*, /westeros.svg, …) are served directly before this rule applies.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
