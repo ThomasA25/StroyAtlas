@@ -63,6 +63,9 @@ export interface Character {
 	aliases: string[];
 	/** Person vs dragon; defaults to a person when omitted. See CharacterKind. */
 	kind?: CharacterKind;
+	/** For a dragon, the canonical id(s) of its rider(s) — lets views pair a
+	 * dragon with its rider(s) (e.g. the map's "dragons + riders" mode). */
+	riderIds?: CharacterId[];
 	origin: Origin;
 }
 

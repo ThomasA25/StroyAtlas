@@ -171,3 +171,15 @@ describe('hotdDefaultProject death details', () => {
 		expect(luke?.cause).toContain('Sturmkap');
 	});
 });
+
+describe('hotdDefaultProject dragon riders', () => {
+	it('links each seeded dragon to its rider(s)', () => {
+		const project = hotdDefaultProject('en');
+		const caraxes = project.characters['caraxes' as keyof typeof project.characters];
+		expect(caraxes?.kind).toBe('dragon');
+		expect(caraxes?.riderIds).toContain('daemon-targaryen');
+		// Vhagar carried more than one rider over the timeline.
+		const vhagar = project.characters['vhagar' as keyof typeof project.characters];
+		expect(vhagar?.riderIds).toEqual(expect.arrayContaining(['aemond-targaryen', 'laena-velaryon']));
+	});
+});

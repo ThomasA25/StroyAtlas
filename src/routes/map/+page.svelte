@@ -37,12 +37,18 @@
 	// Who to map: everyone, only people, or only dragons. Dragons are characters
 	// flagged kind:'dragon' (they ride along with their rider), so this mode scopes
 	// every people/dragon overlay — markers, movement lines and deaths alike.
-	let personMode = $state<'all' | 'people' | 'dragons'>('all');
+	let personMode = $state<'all' | 'people' | 'dragons' | 'dragonRiders'>('all');
 	const isDragon = (id: string) =>
 		store.project.characters[id as keyof typeof store.project.characters]?.kind === 'dragon';
+	// Every character who rides a dragon (union of all dragons' riderIds) — drives
+	// the "dragons + riders" view.
+	const riderIds = $derived(
+		new Set(Object.values(store.project.characters).flatMap((c) => (c.riderIds ?? []) as string[]))
+	);
 	function kindAllowed(id: string): boolean {
 		if (personMode === 'people') return !isDragon(id);
 		if (personMode === 'dragons') return isDragon(id);
+		if (personMode === 'dragonRiders') return isDragon(id) || riderIds.has(id);
 		return true;
 	}
 	// Hidden factions / houses (a member is hidden when its group is unchecked).
@@ -535,6 +541,11 @@
 			>
 			<label
 				><input type="radio" name="kind" value="dragons" bind:group={personMode} />{t('map.dragons')}</label
+			>
+			<label
+				><input type="radio" name="kind" value="dragonRiders" bind:group={personMode} />{t(
+					'map.dragonRiders'
+				)}</label
 			>
 		</div>
 		{#if factionsList.length}

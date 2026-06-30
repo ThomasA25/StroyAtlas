@@ -136,6 +136,7 @@ function addDragons(project: Project, locale: Locale): void {
 			faction: factionLabel(d.faction),
 			aliases: [],
 			kind: 'dragon',
+			riderIds: d.riders.map((r) => r as CharacterId),
 			origin: 'extracted'
 		};
 	}
