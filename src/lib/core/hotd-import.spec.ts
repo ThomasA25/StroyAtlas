@@ -9,10 +9,12 @@ import {
 	movementEdges,
 	timelineScenes,
 	factionConflicts,
+	factionAt,
 	keyEvents,
 	concurrentStorylines,
 	characterDeaths
 } from './derive';
+import { hotdDefaultProject } from './hotd-default';
 
 /**
  * Test-load the House of the Dragon dataset through the REAL app pipeline:
@@ -118,5 +120,28 @@ describe('House of the Dragon dataset — load via the app pipeline', () => {
 			const out = path.join(DATA_DIR, 'hotd.project.json');
 			writeFileSync(out, exportProjectToJson(project), 'utf8');
 		}
+	});
+});
+
+describe('hotdDefaultProject coronation split', () => {
+	// Rhaenyra is a partisan present both before and after the coronation, so her
+	// party should flip from Neutral to Blacks as the timeline crosses S1E9.
+	it('keeps partisans Neutral until the coronation, then their party', () => {
+		const project = hotdDefaultProject('en');
+		const rhaenyra = project.characters['rhaenyra-targaryen' as keyof typeof project.characters];
+		expect(rhaenyra).toBeDefined();
+		expect(rhaenyra!.faction).toBe('Neutral'); // base = before the split
+		expect(rhaenyra!.allegiances?.length).toBeGreaterThan(0);
+
+		const switchOrder = rhaenyra!.allegiances![0]!.orderIndex;
+		expect(factionAt(rhaenyra!, switchOrder - 1)).toBe('Neutral');
+		expect(factionAt(rhaenyra!, switchOrder)).toBe('Blacks');
+	});
+
+	it('localizes the post-coronation party (German dataset)', () => {
+		const project = hotdDefaultProject('de');
+		const rhaenyra = project.characters['rhaenyra-targaryen' as keyof typeof project.characters];
+		const switchOrder = rhaenyra!.allegiances![0]!.orderIndex;
+		expect(factionAt(rhaenyra!, switchOrder)).toBe('Schwarze');
 	});
 });

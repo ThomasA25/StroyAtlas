@@ -152,6 +152,31 @@ function addDragons(project: Project, locale: Locale): void {
 }
 
 /**
+ * The two war parties (Blacks/Greens) only crystallize at Aegon II's coronation
+ * in the Green Council (S1E9) — the start of the Dance of the Dragons. Before
+ * then every partisan stands at the royal court (Neutral); from the coronation
+ * onward they take the side the dataset records. Modelled as a per-character
+ * allegiance switch (see model.AllegianceChange) so the map and graph recolour
+ * as the timeline crosses the coronation. Characters the dataset already marks
+ * Neutral (and those with no faction) are left untouched.
+ */
+const NEUTRAL_FACTION = 'Neutral'; // same label in both the en and de datasets
+function applyCoronationSplit(project: Project): void {
+	let coronationOrder = Infinity;
+	for (const scene of Object.values(project.scenes)) {
+		if (scene.season === 1 && scene.episode === 9) {
+			coronationOrder = Math.min(coronationOrder, scene.orderIndex);
+		}
+	}
+	if (!Number.isFinite(coronationOrder)) return; // dataset without S1E9
+	for (const character of Object.values(project.characters)) {
+		if (!character.faction || character.faction === NEUTRAL_FACTION) continue;
+		character.allegiances = [{ orderIndex: coronationOrder, faction: character.faction }];
+		character.faction = NEUTRAL_FACTION;
+	}
+}
+
+/**
  * Build the default House of the Dragon project for a locale by running every
  * episode file through the real extraction pipeline (Zod contract gate ->
  * mergeExtractionInto with stacked order offsets), exactly as the hotd-import
@@ -174,6 +199,7 @@ export function hotdDefaultProject(locale: Locale): Project {
 		mergeExtractionInto(project, result, { orderOffset: nextOrderOffset(project) });
 	}
 	addDragons(project, locale);
+	applyCoronationSplit(project);
 	return project;
 }
 
