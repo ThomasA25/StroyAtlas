@@ -715,6 +715,7 @@
 <style>
     .map-wrap {
         position: relative;
+        margin-bottom: 1rem;
         border: 1px solid var(--sa-border);
         border-radius: var(--sa-radius);
         overflow: hidden;
