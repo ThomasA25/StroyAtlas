@@ -6,7 +6,7 @@
 	import { store } from '$lib/core/store.svelte';
 	import { clock } from '$lib/core/clock.svelte';
 	import { characterPlacementsAt, characterWaypoints } from '$lib/core/playback';
-	import { movementEdges, characterDeaths, episodeKeyOf, factionAt } from '$lib/core/derive';
+	import { characterDeaths, episodeKeyOf, factionAt, movementEdges } from '$lib/core/derive';
 	import { episodeRange } from '$lib/core/episode-filter.svelte';
 	import type { Project } from '$lib/core/model';
 	import type { LocationId } from '$lib/core/ids';
@@ -45,19 +45,23 @@
 	const riderIds = $derived(
 		new Set(Object.values(store.project.characters).flatMap((c) => (c.riderIds ?? []) as string[]))
 	);
+
 	function kindAllowed(id: string): boolean {
 		if (personMode === 'people') return !isDragon(id);
 		if (personMode === 'dragons') return isDragon(id);
 		if (personMode === 'dragonRiders') return isDragon(id) || riderIds.has(id);
 		return true;
 	}
+
 	// Hidden factions / houses (a member is hidden when its group is unchecked).
 	const hiddenFactions = new SvelteSet<string>();
 	const hiddenHouses = new SvelteSet<string>();
+
 	function toggleSet(set: SvelteSet<string>, v: string): void {
 		if (set.has(v)) set.delete(v);
 		else set.add(v);
 	}
+
 	// House fallback when a character has no explicit `house`: the surname — the
 	// trailing "of X", else the last name token (single-name characters like
 	// "Mysaria" have no house).
@@ -67,6 +71,7 @@
 		const parts = name.trim().split(/\s+/);
 		return parts.length > 1 ? parts[parts.length - 1] : '';
 	}
+
 	const houseFor = (c: { name: string; house?: string | null }) => c.house ?? houseOf(c.name);
 	// All party values that ever appear — base factions plus any reached via an
 	// allegiance switch — so the filter lists every side, not just the current ones.
@@ -93,13 +98,16 @@
 	// The per-character show/hide below is Map-only.
 	const hidden = new SvelteSet<string>(); // hidden character ids
 	const isVisible = (id: string) => !hidden.has(id);
+
 	function toggleChar(id: string): void {
 		if (hidden.has(id)) hidden.delete(id);
 		else hidden.add(id);
 	}
+
 	function showAllChars(): void {
 		for (const c of viewCharacters) hidden.delete(c.id);
 	}
+
 	function hideAllChars(): void {
 		for (const c of viewCharacters) hidden.add(c.id);
 	}
@@ -115,9 +123,11 @@
 	function setFrom(key: string): void {
 		episodeRange.setFrom(key, episodes);
 	}
+
 	function setTo(key: string): void {
 		episodeRange.setTo(key, episodes);
 	}
+
 	function showAllEpisodes(): void {
 		episodeRange.reset();
 	}
@@ -470,11 +480,13 @@
 	);
 
 	const currentIndex = $derived(Math.round(clock.current));
+
 	function epLabel(ev?: { season?: number | null; episode?: number | null }): string {
 		if (!ev || ev.season == null || ev.episode == null) return '';
 		const p = (n: number) => String(n).padStart(2, '0');
 		return `S${p(ev.season)}E${p(ev.episode)}`;
 	}
+
 	// Flat, ordered list of deaths for the overview panel beside the map.
 	const deaths = $derived(
 		[...characterDeaths(view).values()]
@@ -501,12 +513,12 @@
 		{ id: 'filter', label: t('map.filter'), rows: 6 },
 		...(EDIT_MODE
 			? [
-					{
-						id: 'mapSetup',
-						label: store.project.map ? t('map.placeLocations') : t('map.setBaseMap'),
-						rows: 4
-					}
-				]
+				{
+					id: 'mapSetup',
+					label: store.project.map ? t('map.placeLocations') : t('map.setBaseMap'),
+					rows: 4
+				}
+			]
 			: []),
 		{ id: 'deaths', label: t('map.deaths'), rows: 4 },
 		{ id: 'timeline', label: t('timeline.title'), rows: 7 }
@@ -522,10 +534,10 @@
 		<div class="ov-sec">
 			<span class="ov-title sa-muted">{t('map.labels')}</span>
 			<label
-				><input type="checkbox" bind:checked={showLocationNames} />{t('map.locationNames')}</label
+			><input type="checkbox" bind:checked={showLocationNames} />{t('map.locationNames')}</label
 			>
 			<label
-				><input type="checkbox" bind:checked={showCharacterNames} />{t('map.characterNames')}</label
+			><input type="checkbox" bind:checked={showCharacterNames} />{t('map.characterNames')}</label
 			>
 		</div>
 		<div class="ov-sec">
@@ -537,15 +549,15 @@
 			<span class="ov-title sa-muted">{t('map.who')}</span>
 			<label><input type="radio" name="kind" value="all" bind:group={personMode} />{t('map.everyone')}</label>
 			<label
-				><input type="radio" name="kind" value="people" bind:group={personMode} />{t('map.people')}</label
+			><input type="radio" name="kind" value="people" bind:group={personMode} />{t('map.people')}</label
 			>
 			<label
-				><input type="radio" name="kind" value="dragons" bind:group={personMode} />{t('map.dragons')}</label
+			><input type="radio" name="kind" value="dragons" bind:group={personMode} />{t('map.dragons')}</label
 			>
 			<label
-				><input type="radio" name="kind" value="dragonRiders" bind:group={personMode} />{t(
-					'map.dragonRiders'
-				)}</label
+			><input type="radio" name="kind" value="dragonRiders" bind:group={personMode} />{t(
+				'map.dragonRiders'
+			)}</label
 			>
 		</div>
 		{#if factionsList.length}
@@ -553,11 +565,11 @@
 				<span class="ov-title sa-muted">{t('map.factions')}</span>
 				{#each factionsList as f (f)}
 					<label
-						><input
-							type="checkbox"
-							checked={!hiddenFactions.has(f)}
-							onchange={() => toggleSet(hiddenFactions, f)}
-						/>{f}</label
+					><input
+						type="checkbox"
+						checked={!hiddenFactions.has(f)}
+						onchange={() => toggleSet(hiddenFactions, f)}
+					/>{f}</label
 					>
 				{/each}
 			</div>
@@ -567,11 +579,11 @@
 				<span class="ov-title sa-muted">{t('map.houses')}</span>
 				{#each housesList as ho (ho)}
 					<label
-						><input
-							type="checkbox"
-							checked={!hiddenHouses.has(ho)}
-							onchange={() => toggleSet(hiddenHouses, ho)}
-						/>{ho}</label
+					><input
+						type="checkbox"
+						checked={!hiddenHouses.has(ho)}
+						onchange={() => toggleSet(hiddenHouses, ho)}
+					/>{ho}</label
 					>
 				{/each}
 			</div>
@@ -589,13 +601,17 @@
 						<label>
 							<span>{t('timeline.from')}</span>
 							<select value={keys[lo]} onchange={(e) => setFrom(e.currentTarget.value)}>
-								{#each episodes as ep (ep.key)}<option value={ep.key}>{ep.label}</option>{/each}
+								{#each episodes as ep (ep.key)}
+									<option value={ep.key}>{ep.label}</option>
+								{/each}
 							</select>
 						</label>
 						<label>
 							<span>{t('timeline.to')}</span>
 							<select value={keys[hi]} onchange={(e) => setTo(e.currentTarget.value)}>
-								{#each episodes as ep (ep.key)}<option value={ep.key}>{ep.label}</option>{/each}
+								{#each episodes as ep (ep.key)}
+									<option value={ep.key}>{ep.label}</option>
+								{/each}
 							</select>
 						</label>
 						{#if !isFullRange}
@@ -628,7 +644,7 @@
 					<h3>{t('map.setBaseMap')}</h3>
 					<p class="sa-muted">{t('map.setBaseMapHint')}</p>
 					<label class="up"
-						>{t('map.uploadImage')}<input type="file" accept="image/*" onchange={onUpload} /></label
+					>{t('map.uploadImage')}<input type="file" accept="image/*" onchange={onUpload} /></label
 					>
 					<hr />
 					<label>{t('map.imageUrl')}<input bind:value={imageUrl} placeholder="https://…" /></label>
@@ -675,7 +691,9 @@
 								<span class="at sa-muted">@ {d.place}{d.ep ? ` · ${d.ep}` : ''}</span>
 								{#if d.killer || d.cause || d.weapon}
 									<span class="detail sa-muted">
-										{#if d.killer}<span class="killer">† {t('death.by')} {d.killer}</span>{/if}{#if d.cause}<span class="cause">{d.cause}</span>{/if}{#if d.weapon}<span class="weapon">⚔ {d.weapon}</span>{/if}
+										{#if d.killer}<span class="killer">† {t('death.by')} {d.killer}</span>{/if}
+										{#if d.cause}<span class="cause">{d.cause}</span>{/if}
+										{#if d.weapon}<span class="weapon">⚔ {d.weapon}</span>{/if}
 									</span>
 								{/if}
 							</li>
@@ -695,230 +713,290 @@
 </DragBoard>
 
 <style>
-	.map-wrap {
-		position: relative;
-		border: 1px solid var(--sa-border);
-		border-radius: var(--sa-radius);
-		overflow: hidden;
-	}
-	.map {
-		height: 62vh;
-		background: #0c0c12;
-	}
-	.map-overlay {
-		position: absolute;
-		top: 0.5rem;
-		right: 0.5rem;
-		z-index: 1000;
-		display: flex;
-		flex-direction: column;
-		gap: 0.55rem;
-		max-height: calc(62vh - 1rem);
-		overflow-y: auto;
-		padding: 0.5rem 0.6rem;
-		background: color-mix(in srgb, var(--sa-surface) 90%, transparent);
-		border: 1px solid var(--sa-border);
-		border-radius: var(--sa-radius);
-		box-shadow: var(--sa-shadow);
-		font-size: 0.8rem;
-	}
-	.ov-sec {
-		display: flex;
-		flex-direction: column;
-		gap: 0.2rem;
-	}
-	.map-overlay .ov-title {
-		font-size: 0.7rem;
-		text-transform: uppercase;
-		letter-spacing: 0.06em;
-	}
-	.map-overlay label {
-		display: flex;
-		align-items: center;
-		gap: 0.4rem;
-		cursor: pointer;
-	}
-	.map-overlay input {
-		width: auto;
-	}
-	.deaths-panel h3 {
-		margin-bottom: 0.5rem;
-	}
-	.death-list {
-		list-style: none;
-		margin: 0;
-		padding: 0;
-		display: flex;
-		flex-direction: column;
-		gap: 0.1rem;
-		max-height: 46vh;
-		overflow-y: auto;
-	}
-	.death-list li {
-		display: flex;
-		flex-wrap: wrap;
-		align-items: baseline;
-		gap: 0.2rem 0.4rem;
-		padding: 0.25rem 0;
-		font-size: 0.85rem;
-		opacity: 0.45;
-		border-bottom: 1px solid var(--sa-border);
-	}
-	.death-list li.occurred {
-		opacity: 1;
-	}
-	.death-list .detail {
-		flex-basis: 100%;
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.15rem 0.6rem;
-		font-size: 0.74rem;
-		line-height: 1.35;
-	}
-	.death-list .detail .killer {
-		color: var(--sa-danger);
-	}
-	.death-list .detail .weapon {
-		white-space: nowrap;
-	}
-	.death-list .seek {
-		font-variant-numeric: tabular-nums;
-		padding: 0.1rem 0.35rem;
-		font-size: 0.78rem;
-	}
-	.death-list .who {
-		font-weight: 500;
-	}
-	.death-list .at {
-		margin-left: auto;
-		font-size: 0.78rem;
-		white-space: nowrap;
-	}
-	.ep-range {
-		display: flex;
-		flex-direction: column;
-		gap: 0.4rem;
-		margin-bottom: 0.7rem;
-	}
-	.ep-range label {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		gap: 0.5rem;
-		font-size: 0.85rem;
-		color: var(--sa-text-dim);
-	}
-	.ep-range select {
-		width: auto;
-		font-variant-numeric: tabular-nums;
-	}
-	.ep-range .clear {
-		align-self: flex-start;
-		font-size: 0.8rem;
-		padding: 0.15rem 0.5rem;
-	}
-	.char-head {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		gap: 0.5rem;
-		margin-bottom: 0.3rem;
-		font-size: 0.8rem;
-	}
-	.char-head .bulk {
-		display: flex;
-		gap: 0.3rem;
-	}
-	.char-head .bulk button {
-		font-size: 0.75rem;
-		padding: 0.15rem 0.45rem;
-	}
-	.char-list {
-		display: flex;
-		flex-direction: column;
-		gap: 0.1rem;
-		max-height: 38vh;
-		overflow-y: auto;
-	}
-	.char-list .chip {
-		display: flex;
-		align-items: center;
-		gap: 0.4rem;
-		font-size: 0.85rem;
-		cursor: pointer;
-	}
-	.char-list .chip input {
-		width: auto;
-	}
-	aside ul {
-		list-style: none;
-		padding: 0;
-		margin: 0 0 0.75rem;
-	}
-	aside li {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		gap: 0.5rem;
-		padding: 0.25rem 0;
-	}
-	.up,
-	.dims label {
-		display: block;
-		font-size: 0.85rem;
-		color: var(--sa-text-dim);
-	}
-	.dims {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: 0.5rem;
-		margin: 0.5rem 0;
-	}
-	button.active {
-		border-color: var(--sa-accent);
-		color: var(--sa-accent);
-	}
-	:global(.sa-loc-dot) {
-		background: var(--sa-accent);
-		border: 2px solid #000;
-		border-radius: 50%;
-	}
-	:global(.sa-death-badge) {
-		display: flex;
-		align-items: center;
-		gap: 2px;
-		font-size: 15px;
-		line-height: 1;
-		white-space: nowrap;
-		filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.6));
-	}
-	:global(.sa-death-badge .n) {
-		font: 600 11px/1 var(--sa-font-body);
-		color: #fff;
-		background: #d23b3b;
-		border-radius: 8px;
-		padding: 1px 5px;
-	}
-	:global(.sa-cluster) {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: 22px;
-		height: 22px;
-		border-radius: 50%;
-		background: #5aa9e6;
-		color: #08121a;
-		font: 600 11px/1 var(--sa-font-body);
-		border: 2px solid #0d0d13;
-		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-	}
-	:global(.sa-cluster.travel) {
-		background: #e0a23a;
-	}
-	:global(.sa-cluster.dead) {
-		background: #8a8a93;
-	}
-	:global(.sa-people-tip) {
-		line-height: 1.35;
-	}
+    .map-wrap {
+        position: relative;
+        border: 1px solid var(--sa-border);
+        border-radius: var(--sa-radius);
+        overflow: hidden;
+    }
+
+    .map {
+        height: 62vh;
+        background: #0c0c12;
+    }
+
+    .map-overlay {
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        gap: 0.55rem;
+        max-height: calc(62vh - 1rem);
+        overflow-y: auto;
+        padding: 0.5rem 0.6rem;
+        background: color-mix(in srgb, var(--sa-surface) 90%, transparent);
+        border: 1px solid var(--sa-border);
+        border-radius: var(--sa-radius);
+        box-shadow: var(--sa-shadow);
+        font-size: 0.8rem;
+    }
+
+    .ov-sec {
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
+    }
+
+    .map-overlay .ov-title {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+    }
+
+    .map-overlay label {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        cursor: pointer;
+    }
+
+    .map-overlay input {
+        width: auto;
+    }
+
+    @media (max-width: 640px) {
+        .map-overlay {
+            position: static;
+            top: auto;
+            right: auto;
+            width: 100%;
+            max-height: none;
+            flex-direction: row;
+            flex-wrap: wrap;
+            margin-top: 0.5rem;
+        }
+
+        .map-overlay .ov-sec {
+            flex: 1 1 45%;
+            min-width: 140px;
+        }
+
+        .map-overlay label {
+            width: 100%;
+        }
+    }
+
+    .deaths-panel h3 {
+        margin-bottom: 0.5rem;
+    }
+
+    .death-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.1rem;
+        max-height: 46vh;
+        overflow-y: auto;
+    }
+
+    .death-list li {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: 0.2rem 0.4rem;
+        padding: 0.25rem 0;
+        font-size: 0.85rem;
+        opacity: 0.45;
+        border-bottom: 1px solid var(--sa-border);
+    }
+
+    .death-list li.occurred {
+        opacity: 1;
+    }
+
+    .death-list .detail {
+        flex-basis: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.15rem 0.6rem;
+        font-size: 0.74rem;
+        line-height: 1.35;
+    }
+
+    .death-list .detail .killer {
+        color: var(--sa-danger);
+    }
+
+    .death-list .detail .weapon {
+        white-space: nowrap;
+    }
+
+    .death-list .seek {
+        font-variant-numeric: tabular-nums;
+        padding: 0.1rem 0.35rem;
+        font-size: 0.78rem;
+    }
+
+    .death-list .who {
+        font-weight: 500;
+    }
+
+    .death-list .at {
+        margin-left: auto;
+        font-size: 0.78rem;
+        white-space: nowrap;
+    }
+
+    .ep-range {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+        margin-bottom: 0.7rem;
+    }
+
+    .ep-range label {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.5rem;
+        font-size: 0.85rem;
+        color: var(--sa-text-dim);
+    }
+
+    .ep-range select {
+        width: auto;
+        font-variant-numeric: tabular-nums;
+    }
+
+    .ep-range .clear {
+        align-self: flex-start;
+        font-size: 0.8rem;
+        padding: 0.15rem 0.5rem;
+    }
+
+    .char-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 0.3rem;
+        font-size: 0.8rem;
+    }
+
+    .char-head .bulk {
+        display: flex;
+        gap: 0.3rem;
+    }
+
+    .char-head .bulk button {
+        font-size: 0.75rem;
+        padding: 0.15rem 0.45rem;
+    }
+
+    .char-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.1rem;
+        max-height: 38vh;
+        overflow-y: auto;
+    }
+
+    .char-list .chip {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.85rem;
+        cursor: pointer;
+    }
+
+    .char-list .chip input {
+        width: auto;
+    }
+
+    aside ul {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 0.75rem;
+    }
+
+    aside li {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.25rem 0;
+    }
+
+    .up,
+    .dims label {
+        display: block;
+        font-size: 0.85rem;
+        color: var(--sa-text-dim);
+    }
+
+    .dims {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem;
+        margin: 0.5rem 0;
+    }
+
+    button.active {
+        border-color: var(--sa-accent);
+        color: var(--sa-accent);
+    }
+
+    :global(.sa-loc-dot) {
+        background: var(--sa-accent);
+        border: 2px solid #000;
+        border-radius: 50%;
+    }
+
+    :global(.sa-death-badge) {
+        display: flex;
+        align-items: center;
+        gap: 2px;
+        font-size: 15px;
+        line-height: 1;
+        white-space: nowrap;
+        filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.6));
+    }
+
+    :global(.sa-death-badge .n) {
+        font: 600 11px/1 var(--sa-font-body);
+        color: #fff;
+        background: #d23b3b;
+        border-radius: 8px;
+        padding: 1px 5px;
+    }
+
+    :global(.sa-cluster) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background: #5aa9e6;
+        color: #08121a;
+        font: 600 11px/1 var(--sa-font-body);
+        border: 2px solid #0d0d13;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    }
+
+    :global(.sa-cluster.travel) {
+        background: #e0a23a;
+    }
+
+    :global(.sa-cluster.dead) {
+        background: #8a8a93;
+    }
+
+    :global(.sa-people-tip) {
+        line-height: 1.35;
+    }
 </style>

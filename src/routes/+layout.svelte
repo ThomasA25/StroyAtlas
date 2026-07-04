@@ -54,21 +54,23 @@
 
 <div class="shell">
 	<header>
-		<span class="brand">🗺️ StoryAtlas</span>
+		<div class="row-top">
+			<span class="brand">🗺️ StoryAtlas</span>
+			<span class="meta sa-muted">{store.project.meta.title || store.project.meta.series || ''}</span>
+			<select
+				class="lang"
+				aria-label={t('language.label')}
+				value={i18n.locale}
+				onchange={(e) => changeLocale(e.currentTarget.value as Locale)}
+			>
+				{#each LOCALES as l (l.code)}<option value={l.code}>{l.label}</option>{/each}
+			</select>
+		</div>
 		<nav>
 			{#each nav as item (item.href)}
 				<a href={item.href} class:active={page.url.pathname === item.href}>{item.label}</a>
 			{/each}
 		</nav>
-		<span class="meta sa-muted">{store.project.meta.title || store.project.meta.series || ''}</span>
-		<select
-			class="lang"
-			aria-label={t('language.label')}
-			value={i18n.locale}
-			onchange={(e) => changeLocale(e.currentTarget.value as Locale)}
-		>
-			{#each LOCALES as l (l.code)}<option value={l.code}>{l.label}</option>{/each}
-		</select>
 	</header>
 	<main>
 		{@render children()}
@@ -83,8 +85,8 @@
 	}
 	header {
 		display: flex;
-		align-items: center;
-		gap: 1.5rem;
+		flex-direction: column;
+		gap: 0.5rem;
 		padding: 0.6rem 1rem;
 		background: var(--sa-surface);
 		border-bottom: 1px solid var(--sa-border);
@@ -92,33 +94,53 @@
 		top: 0;
 		z-index: 10;
 	}
+	.row-top {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+	}
 	.brand {
 		font-family: var(--sa-font-display);
 		font-size: 1.15rem;
 		font-weight: 600;
+		white-space: nowrap;
+	}
+	.meta {
+		margin-left: auto;
+		font-style: italic;
+		font-size: 0.85rem;
+		min-width: 0;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+	.lang {
+		width: auto;
+		flex-shrink: 0;
+		padding: 0.3rem 0.5rem;
+		font-size: 0.85rem;
 	}
 	nav {
 		display: flex;
 		gap: 0.25rem;
+		overflow-x: auto;
+		scrollbar-width: none;
+	}
+	nav::-webkit-scrollbar {
+		display: none;
 	}
 	nav a {
-		padding: 0.3rem 0.7rem;
+		flex: 1 1 auto;
+		padding: 0.35rem 0.7rem;
 		border-radius: var(--sa-radius);
 		text-decoration: none;
+		text-align: center;
+		white-space: nowrap;
 		color: var(--sa-text-dim);
 	}
 	nav a.active {
 		background: var(--sa-surface-2);
 		color: var(--sa-text);
-	}
-	.meta {
-		margin-left: auto;
-		font-style: italic;
-	}
-	.lang {
-		width: auto;
-		padding: 0.3rem 0.5rem;
-		font-size: 0.85rem;
 	}
 	main {
 		flex: 1;
@@ -126,5 +148,11 @@
 		max-width: 1100px;
 		width: 100%;
 		margin: 0 auto;
+	}
+
+	@media (max-width: 480px) {
+		.meta {
+			display: none;
+		}
 	}
 </style>
