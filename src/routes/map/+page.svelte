@@ -575,7 +575,7 @@
 			</div>
 		{/if}
 		{#if housesList.length}
-			<div class="ov-sec">
+			<div class="ov-sec houses">
 				<span class="ov-title sa-muted">{t('map.houses')}</span>
 				{#each housesList as ho (ho)}
 					<label
@@ -785,6 +785,17 @@
 
         .map-overlay label {
             width: 100%;
+        }
+
+        .map-overlay .ov-sec.houses {
+            flex-basis: 100%;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.15rem 1rem;
+        }
+
+        .map-overlay .ov-sec.houses .ov-title {
+            grid-column: 1 / -1;
         }
     }
 
