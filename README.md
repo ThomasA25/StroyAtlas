@@ -1,47 +1,84 @@
-# Svelte + TS + Vite
+# StoryAtlas
 
-This template should help get you started developing with Svelte and TypeScript in Vite.
+StoryAtlas verwandelt serialisierte Fiction — aktuell *House of the Dragon* — in einen erkundbaren
+Atlas: eine animierte Karte mit Figurenbewegung, eine synchronisierte Zeitleiste und einen
+Beziehungsgraphen der Figuren. Die Story-Daten (Figuren, Orte, Ereignisse, Szenen) können manuell
+gepflegt oder per LLM-Extraktion aus Quelltexten (Wiki, Transkript, Zusammenfassung) gewonnen
+werden.
 
-## Recommended IDE Setup
+Die App ist ein reines Frontend (SvelteKit-SPA, kein Backend). Alle Daten liegen im Browser
+(IndexedDB); für die Extraktion nutzt man den eigenen Anthropic-API-Key (lokal im Browser
+gespeichert, nie an einen eigenen Server gesendet).
 
-[VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode).
+## Zwei Modi
 
-## Need an official Svelte framework?
+- **Editor** (`/`, nur im Dev-Modus verfügbar): Quelltext einfügen, Extraktion laufen lassen und das
+  Ergebnis von Hand nachbearbeiten (Figuren, Orte, Ereignisse, Szenen, Quellen).
+- **Viewer** (`/map`, `/graph`): die veröffentlichte, read-only Ansicht — Karte mit Zeitleisten-
+  Wiedergabe und Beziehungsgraph. Dies ist es, was der Produktions-Build (Netlify) ausliefert.
 
-Check out [SvelteKit](https://github.com/sveltejs/kit#readme), which is also powered by Vite. Deploy anywhere with its serverless-first approach and adapt to various platforms, with out of the box support for TypeScript, SCSS, and Less, and easily-added support for mdsvex, GraphQL, PostCSS, Tailwind CSS, and more.
+## Setup
 
-## Technical considerations
-
-**Why use this over SvelteKit?**
-
-- It brings its own routing solution which might not be preferable for some users.
-- It is first and foremost a framework that just happens to use Vite under the hood, not a Vite app.
-
-This template contains as little as possible to get started with Vite + TypeScript + Svelte, while taking into account the developer experience with regards to HMR and intellisense. It demonstrates capabilities on par with the other `create-vite` templates and is a good starting point for beginners dipping their toes into a Vite + Svelte project.
-
-Should you later need the extended capabilities and extensibility provided by SvelteKit, the template has been structured similarly to SvelteKit so that it is easy to migrate.
-
-**Why `global.d.ts` instead of `compilerOptions.types` inside `jsconfig.json` or `tsconfig.json`?**
-
-Setting `compilerOptions.types` shuts out all other types not explicitly listed in the configuration. Using triple-slash references keeps the default TypeScript setting of accepting type information from the entire workspace, while also adding `svelte` and `vite/client` type information.
-
-**Why include `.vscode/extensions.json`?**
-
-Other templates indirectly recommend extensions via the README, but this file allows VS Code to prompt the user to install the recommended extension upon opening the project.
-
-**Why enable `allowJs` in the TS template?**
-
-While `allowJs: false` would indeed prevent the use of `.js` files in the project, it does not prevent the use of JavaScript syntax in `.svelte` files. In addition, it would force `checkJs: false`, bringing the worst of both worlds: not being able to guarantee the entire codebase is TypeScript, and also having worse typechecking for the existing JavaScript. In addition, there are valid use cases in which a mixed codebase may be relevant.
-
-**Why is HMR not preserving my local component state?**
-
-HMR state preservation comes with a number of gotchas! It has been disabled by default in both `svelte-hmr` and `@sveltejs/vite-plugin-svelte` due to its often surprising behavior. You can read the details [here](https://github.com/rixo/svelte-hmr#svelte-hmr).
-
-If you have state that's important to retain within a component, consider creating an external store which would not be replaced by HMR.
-
-```ts
-// store.ts
-// An extremely simple external store
-import { writable } from 'svelte/store'
-export default writable(0)
+```bash
+npm install
+npm run dev
 ```
+
+Öffnet den Editor lokal unter `http://localhost:5173`. Für die LLM-Extraktion wird im Editor der
+eigene Anthropic-API-Key hinterlegt (Panel "API-Schlüssel").
+
+## Befehle
+
+| Befehl                | Zweck                                                        |
+| ---------------------- | ------------------------------------------------------------- |
+| `npm run dev`           | Dev-Server (Editor + Viewer, mit HMR)                          |
+| `npm run build`         | Produktions-Build (`adapter-static` → `build/`)                |
+| `npm run preview`       | Produktions-Build lokal servieren (read-only, wie Netlify)     |
+| `npm run check`         | Typprüfung (`svelte-kit sync` + `svelte-check`)                |
+| `npm run check:watch`   | Typprüfung im Watch-Modus                                      |
+| `npm run test`          | Alle Tests (`vitest run`)                                      |
+| `npm run test:watch`    | Tests im Watch-Modus                                           |
+
+Einzelne Testdatei: `npx vitest run src/lib/core/derive.spec.ts`
+Einzelner Test nach Name: `npx vitest run -t "teil des testnamens"`
+
+## Datenfluss
+
+```
+Quelltext ──(LLM-Extraktion)──► Contract (Zod, snake_case) ──► Model (camelCase, branded IDs)
+                                                                        │
+                                                    ┌───────────────────┼───────────────────┐
+                                                    ▼                   ▼                   ▼
+                                                 Store            Persistence          Ableitungen
+                                            (Svelte $state)     (IndexedDB/Dexie)   (Timeline, Karten-
+                                                    │             + JSON-Export/       Bewegung, Faktions-
+                                                    ▼                Import              konflikte, …)
+                                                   UI
+```
+
+- **Contract** ([src/lib/core/contract.ts](src/lib/core/contract.ts)): das Zod-Schema an der
+  LLM-Grenze — die einzige Stelle, an der die Form der Daten als nicht vertrauenswürdig gilt.
+- **Model** ([src/lib/core/model.ts](src/lib/core/model.ts)): das kanonische Datenmodell (`Project`)
+  mit branded IDs ([src/lib/core/ids.ts](src/lib/core/ids.ts)) — Single Source of Truth.
+- **Store** ([src/lib/core/store.svelte.ts](src/lib/core/store.svelte.ts)): reaktiver
+  Svelte-5-Zustand plus abgeleitete Ansichten (Bewegungen, Zeitleiste, Faktionskonflikte, Tode, …).
+- **Persistence** ([src/lib/core/persistence.ts](src/lib/core/persistence.ts)): IndexedDB via
+  Dexie; [src/lib/core/serialization.ts](src/lib/core/serialization.ts) für JSON-Export/Import inkl.
+  Schema-Migration.
+
+Details zu Architektur und Konventionen für die Weiterentwicklung: siehe [CLAUDE.md](CLAUDE.md).
+
+## Datensatz
+
+Der mitgelieferte Standarddatensatz (*House of the Dragon*, Staffel 1 bis S3E1) liegt unter
+[data/hotd](data/hotd) — Episoden, Figuren- und Ortsregister, Beziehungen, zweisprachig (Englisch,
+Deutsch unter `data/hotd/de/`). Herkunft, Abdeckung und bekannte Lücken sind in
+[data/hotd/_manifest.json](data/hotd/_manifest.json) dokumentiert. Die Basiskarte (fiktives
+Westeros) liegt unter `static/westeros.svg`; siehe [data/hotd/assets/README.md](data/hotd/assets/README.md)
+zur Quelle.
+
+## Tech-Stack
+
+SvelteKit (`adapter-static`, SPA-Fallback) + TypeScript + Vite · Zod (Contract/Validierung) ·
+Dexie (IndexedDB) · Leaflet (Karte) · Cytoscape (Beziehungsgraph) · Anthropic SDK (Extraktion) ·
+Vitest (Tests). Deployment über Netlify ([netlify.toml](netlify.toml)).
