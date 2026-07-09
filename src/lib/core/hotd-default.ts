@@ -1,9 +1,10 @@
 import { emptyProject, type Project } from './model';
 import { extractionContract } from './contract';
 import { characterDeaths } from './derive';
-import type { CharacterId } from './ids';
+import type { CharacterId, LocationId } from './ids';
 import { mergeExtractionInto, nextOrderOffset } from '$lib/extraction/from-extraction';
 import type { Locale } from '$lib/i18n/messages';
+import locationCoordinatesJson from '../../../data/hotd/location-coordinates.json';
 
 /**
  * Locale-specific House of the Dragon episode files. They live under /data
@@ -161,6 +162,28 @@ function addDragons(project: Project, locale: Locale): void {
  * as the timeline crosses the coronation. Characters the dataset already marks
  * Neutral (and those with no faction) are left untouched.
  */
+/**
+ * Location coordinates, keyed by (locale-independent) location id, exported from
+ * the /editor map tool and checked into the repo — see
+ * data/hotd/location-coordinates.json. This is the *exclusive* source of truth
+ * for where a place sits on the current base map: every location is first reset
+ * to unplaced, then only the ids this file knows about are placed. Some episode
+ * source JSON still carries coordinates from a since-retired base map; without
+ * this reset those stale values would render as if already placed and never
+ * show up as "unplaced" in /editor.
+ */
+const LOCATION_COORDINATES = locationCoordinatesJson as Record<string, { x: number; y: number }>;
+
+function applyLocationCoordinates(project: Project): void {
+	for (const loc of Object.values(project.locations)) {
+		loc.coordinates = { x: null, y: null };
+	}
+	for (const [id, coords] of Object.entries(LOCATION_COORDINATES)) {
+		const loc = project.locations[id as LocationId];
+		if (loc) loc.coordinates = { x: coords.x, y: coords.y };
+	}
+}
+
 const NEUTRAL_FACTION = 'Neutral'; // same label in both the en and de datasets
 function applyCoronationSplit(project: Project): void {
 	let coronationOrder = Infinity;
@@ -332,8 +355,8 @@ export function hotdDefaultProject(locale: Locale): Project {
 		title: TITLES[locale]
 	};
 	// Fictional Westeros base map (static asset). Location pixel coordinates in
-	// the dataset live in this image's 1000×1100 space, so markers land in place.
-	project.map = { imageUrl: '/westeros.svg', width: 1000, height: 1100 };
+	// the dataset live in this image's 848×1264 space, so markers land in place.
+	project.map = { imageUrl: '/westeros_dark_ger.png', width: 848, height: 1264 };
 	const modules = episodeModules[locale];
 	for (const path of Object.keys(modules).sort()) {
 		const result = extractionContract.parse(modules[path]);
@@ -342,6 +365,7 @@ export function hotdDefaultProject(locale: Locale): Project {
 	addDragons(project, locale);
 	applyDeathDetails(project, locale);
 	applyCoronationSplit(project);
+	applyLocationCoordinates(project);
 	return project;
 }
 

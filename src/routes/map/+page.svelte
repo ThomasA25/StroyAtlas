@@ -1,32 +1,23 @@
 <script lang="ts">
-	import 'leaflet/dist/leaflet.css';
-	import type * as LeafletTypes from 'leaflet';
-	import { onMount } from 'svelte';
+	import { Canvas } from '@threlte/core';
 	import { SvelteSet } from 'svelte/reactivity';
 	import { store } from '$lib/core/store.svelte';
 	import { clock } from '$lib/core/clock.svelte';
-	import { characterPlacementsAt, characterWaypoints } from '$lib/core/playback';
-	import { characterDeaths, episodeKeyOf, factionAt, movementEdges } from '$lib/core/derive';
+	import { characterWaypoints } from '$lib/core/playback';
+	import { characterDeaths, episodeKeyOf, factionAt } from '$lib/core/derive';
 	import { episodeRange } from '$lib/core/episode-filter.svelte';
-	import type { Project } from '$lib/core/model';
-	import type { LocationId } from '$lib/core/ids';
+	import type { Character, Project } from '$lib/core/model';
 	import { t } from '$lib/i18n/i18n.svelte';
-	import { EDIT_MODE } from '$lib/core/env';
 	import { factionColor } from '$lib/ui/faction-color';
+	import { buildLocationMarkers, buildMovementLines } from '$lib/map3d/location-view';
+	import { buildCharacterClusters, type ClusterFilters } from '$lib/map3d/character-clusters';
+	import { buildDeathTrails, buildDeathBadges } from '$lib/map3d/death-view';
+	import MapScene from '$lib/map3d/MapScene.svelte';
 	import PlayerControls from '$lib/ui/PlayerControls.svelte';
 	import SceneTimeline from '$lib/ui/SceneTimeline.svelte';
-	import DragBoard from '$lib/ui/DragBoard.svelte';
 
-	let mapEl: HTMLDivElement;
-	let L: typeof import('leaflet') | null = null;
-	let map: LeafletTypes.Map | null = null;
-	let overlay: LeafletTypes.ImageOverlay | null = null;
-	let locationLayer: LeafletTypes.LayerGroup | null = null;
-	let movementLayer: LeafletTypes.LayerGroup | null = null;
-	let characterLayer: LeafletTypes.LayerGroup | null = null;
-	let deathLayer: LeafletTypes.LayerGroup | null = null;
-	let ready = $state(false);
-	let placingId = $state<LocationId | null>(null);
+	// Read-only viewer: locations/base map are authored in /editor. This page
+	// never mutates coordinates.
 
 	// Map label overlays: toggle always-on names for locations and characters.
 	let showLocationNames = $state(true);
@@ -34,6 +25,8 @@
 	// Visibility of person categories on the map.
 	let showStationary = $state(true);
 	let showDead = $state(true);
+	// Travel lines between locations are visual clutter at a glance; off by default.
+	let showMovementLines = $state(false);
 	// Who to map: everyone, only people, or only dragons. Dragons are characters
 	// flagged kind:'dragon' (they ride along with their rider), so this mode scopes
 	// every people/dragon overlay — markers, movement lines and deaths alike.
@@ -72,7 +65,7 @@
 		return parts.length > 1 ? parts[parts.length - 1] : '';
 	}
 
-	const houseFor = (c: { name: string; house?: string | null }) => c.house ?? houseOf(c.name);
+	const houseFor = (c: Character) => c.house ?? houseOf(c.name);
 	// All party values that ever appear — base factions plus any reached via an
 	// allegiance switch — so the filter lists every side, not just the current ones.
 	const factionsList = $derived(
@@ -87,11 +80,6 @@
 	const housesList = $derived(
 		[...new Set(Object.values(store.project.characters).map(houseFor).filter(Boolean))].sort()
 	);
-
-	// Map config form
-	let imageUrl = $state('');
-	let width = $state(1000);
-	let height = $state(1000);
 
 	// ── Filters ───────────────────────────────────────────────────────────────
 	// Episode range is shared with the Timeline via the episodeRange singleton.
@@ -165,318 +153,50 @@
 		return ids;
 	});
 
-	// pixel (x,y) with top-left origin <-> Leaflet CRS.Simple latLng
-	const toLatLng = (x: number, y: number, h: number): [number, number] => [h - y, x];
-
-	// Names are project data; escape before injecting into Leaflet tooltip HTML.
-	function escapeHtml(s: string): string {
-		return s.replace(/[&<>"]/g, (c) =>
-			c === '&' ? '&amp;' : c === '<' ? '&lt;' : c === '>' ? '&gt;' : '&quot;'
-		);
-	}
-
-	onMount(() => {
-		let destroyed = false;
-		void (async () => {
-			const lib = await import('leaflet');
-			if (destroyed) return;
-			L = lib;
-			map = lib.map(mapEl, {
-				crs: lib.CRS.Simple,
-				minZoom: -6,
-				maxZoom: 6,
-				attributionControl: false
-			});
-			locationLayer = lib.layerGroup().addTo(map);
-			movementLayer = lib.layerGroup().addTo(map);
-			deathLayer = lib.layerGroup().addTo(map);
-			characterLayer = lib.layerGroup().addTo(map);
-			map.on('click', (ev: LeafletTypes.LeafletMouseEvent) => {
-				const cfg = store.project.map;
-				if (!placingId || !cfg) return;
-				const loc = store.project.locations[placingId];
-				if (loc) {
-					loc.coordinates.x = Math.round(ev.latlng.lng);
-					loc.coordinates.y = Math.round(cfg.height - ev.latlng.lat);
-				}
-				placingId = null;
-			});
-			ready = true;
-		})();
-		return () => {
-			destroyed = true;
-			map?.remove();
-			map = null;
-		};
+	// ── Map3D view models ────────────────────────────────────────────────────
+	// Pure builder functions (src/lib/map3d) turn the current filter state +
+	// clock position into plain render data for the Threlte scene.
+	const clusterFilters = $derived<ClusterFilters>({
+		isVisible,
+		kindAllowed,
+		hiddenFactions,
+		hiddenHouses,
+		houseFor,
+		showStationary,
+		showDead
 	});
-
-	// (Re)build the base image overlay when the map config changes.
-	$effect(() => {
-		const cfg = store.project.map;
-		if (!ready || !L || !map) return;
-		overlay?.remove();
-		overlay = null;
-		if (!cfg) return;
-		const bounds: LeafletTypes.LatLngBoundsLiteral = [
-			[0, 0],
-			[cfg.height, cfg.width]
-		];
-		overlay = L.imageOverlay(cfg.imageUrl, bounds).addTo(map);
-		map.fitBounds(bounds);
+	const clusterLabels = $derived({
+		travelers: t('map.travelers'),
+		stationary: t('map.stationary'),
+		dead: t('map.dead')
 	});
+	const viewDeaths = $derived(characterDeaths(view));
+	const viewWaypoints = $derived(characterWaypoints(view));
 
-	// Location markers (draggable) + movement paths — scoped by the active filters.
-	$effect(() => {
-		if (!ready || !L || !map || !locationLayer || !movementLayer) return;
-		const cfg = store.project.map;
-		const locations = Object.values(store.project.locations);
-		const locFilter = episodeLocationIds;
-		const edges = movementEdges(view).filter(
-			(e) => isVisible(e.characterId) && kindAllowed(e.characterId as string)
-		);
-		locationLayer.clearLayers();
-		movementLayer.clearLayers();
-		if (!cfg) return;
-		const h = cfg.height;
-		const icon = L.divIcon({ className: 'sa-loc-dot', html: '', iconSize: [14, 14] });
-
-		for (const loc of locations) {
-			if (loc.coordinates.x == null || loc.coordinates.y == null) continue;
-			if (locFilter && !locFilter.has(loc.id)) continue;
-			const marker = L.marker(toLatLng(loc.coordinates.x, loc.coordinates.y, h), {
-				draggable: EDIT_MODE,
-				icon
-			});
-			marker.bindTooltip(loc.name, {
-				permanent: showLocationNames,
-				direction: 'top',
-				offset: [0, -8]
-			});
-			marker.on('dragend', () => {
-				const ll = marker.getLatLng();
-				loc.coordinates.x = Math.round(ll.lng);
-				loc.coordinates.y = Math.round(h - ll.lat);
-			});
-			marker.addTo(locationLayer);
-		}
-
-		for (const edge of edges) {
-			const a = store.project.locations[edge.fromLocationId];
-			const b = store.project.locations[edge.toLocationId];
-			if (!a || !b) continue;
-			if (a.coordinates.x == null || a.coordinates.y == null) continue;
-			if (b.coordinates.x == null || b.coordinates.y == null) continue;
-			L.polyline(
-				[
-					toLatLng(a.coordinates.x, a.coordinates.y, h),
-					toLatLng(b.coordinates.x, b.coordinates.y, h)
-				],
-				{ color: 'var(--sa-accent)', weight: 1, opacity: 0.35 }
-			).addTo(movementLayer);
-		}
-	});
-
-	// Clock-driven character markers — the dead turn grey and stop moving.
-	// Characters sharing a spot are merged into one marker; its tooltip lists them
-	// (a count badge when more than one) so names never stack on top of each other.
-	$effect(() => {
-		if (!ready || !L || !map || !characterLayer) return;
-		const cfg = store.project.map;
-		const tNow = clock.current;
-		const ti = Math.round(tNow);
-		const deaths = characterDeaths(view);
-		characterLayer.clearLayers();
-		if (!cfg) return;
-		const h = cfg.height;
-
-		// Group everyone at the same spot (rounded pixel position).
-		type Person = { name: string; dead: boolean; moving: boolean; faction: string };
-		type Cluster = { x: number; y: number; people: Person[] };
-		const clusters = new Map<string, Cluster>();
-		for (const p of characterPlacementsAt(view, tNow)) {
-			if (!isVisible(p.characterId)) continue;
-			if (!kindAllowed(p.characterId as string)) continue;
-			const ch = store.project.characters[p.characterId];
-			const name = ch?.name ?? (p.characterId as string);
-			// Party is resolved at the current timeline position, so allegiance
-			// switches change which faction filter a character obeys over time.
-			const faction = (ch ? factionAt(ch, tNow) : null) ?? '';
-			const house = ch ? houseFor(ch) : houseOf(name);
-			if (faction && hiddenFactions.has(faction)) continue;
-			if (house && hiddenHouses.has(house)) continue;
-			const death = deaths.get(p.characterId);
-			const dead = !!death && ti >= death.orderIndex;
-			const moving = p.moving && !dead;
-			const stationary = !moving && !dead;
-			if (dead && !showDead) continue;
-			if (stationary && !showStationary) continue;
-			const key = `${Math.round(p.x)},${Math.round(p.y)}`;
-			const cluster = clusters.get(key) ?? { x: p.x, y: p.y, people: [] };
-			cluster.people.push({ name, dead, moving, faction });
-			clusters.set(key, cluster);
-		}
-
-		for (const c of clusters.values()) {
-			// Each name is tinted with its faction colour (resolved at the current
-			// time) so allegiance is readable at a glance straight off the map.
-			const named = (p: Person, prefix = '') =>
-				`<span style="color:${factionColor(p.faction)}">${prefix}${escapeHtml(p.name)}</span>`;
-			// Split into the three categories.
-			const travelers = c.people.filter((p) => p.moving).map((p) => named(p));
-			const stationary = c.people.filter((p) => !p.moving && !p.dead).map((p) => named(p));
-			const dead = c.people.filter((p) => p.dead).map((p) => named(p, '† '));
-
-			const sections: string[] = [];
-			const onlyOne = [travelers, stationary, dead].filter((g) => g.length).length === 1;
-			const section = (label: string, names: string[]) => {
-				if (!names.length) return;
-				// Heading shown only when more than one category is present.
-				sections.push((onlyOne ? '' : `<strong>${label}</strong><br>`) + names.join('<br>'));
-			};
-			section(t('map.travelers'), travelers);
-			section(t('map.stationary'), stationary);
-			section(t('map.dead'), dead);
-			const list = sections.join('<br>');
-
-			// Marker colour by dominant category: dead > travelling > stationary.
-			const allDead = c.people.every((p) => p.dead);
-			const anyTravel = c.people.some((p) => p.moving);
-			const cls = allDead ? 'dead' : anyTravel ? 'travel' : '';
-			const color = allDead ? '#8a8a93' : anyTravel ? '#e0a23a' : '#5aa9e6';
-			const latlng = toLatLng(c.x, c.y, h);
-			let marker: LeafletTypes.Layer;
-			if (c.people.length === 1) {
-				marker = L.circleMarker(latlng, {
-					radius: 6,
-					color,
-					fillColor: color,
-					fillOpacity: allDead ? 0.6 : 0.9,
-					weight: 1
-				});
-			} else {
-				const icon = L.divIcon({
-					className: `sa-cluster${cls ? ' ' + cls : ''}`,
-					html: String(c.people.length),
-					iconSize: [22, 22]
-				});
-				marker = L.marker(latlng, { icon });
-			}
-			marker.bindTooltip(list, {
-				direction: 'right',
-				permanent: showCharacterNames,
-				className: 'sa-people-tip'
-			});
-			marker.addTo(characterLayer);
-		}
-	});
-
-	// Death paths + tallies: once the clock reaches a death, draw the character's
-	// route up to that point as a red dashed trail. Skulls are not stacked on the
-	// spot — instead one badge beside each place shows how many fell there.
-	$effect(() => {
-		if (!ready || !L || !map || !deathLayer) return;
-		const cfg = store.project.map;
-		const ti = Math.round(clock.current);
-		const deaths = characterDeaths(view);
-		const wpByChar = characterWaypoints(view);
-		deathLayer.clearLayers();
-		if (!cfg) return;
-		const h = cfg.height;
-		const deathsByLoc = new Map<
-			string,
-			{ x: number; y: number; entries: { name: string; killer: string | null }[] }
-		>();
-		for (const death of deaths.values()) {
-			if (!isVisible(death.characterId)) continue;
-			if (!kindAllowed(death.characterId as string)) continue;
-			if (ti < death.orderIndex || !death.locationId) continue;
-			const loc = store.project.locations[death.locationId];
-			if (!loc || loc.coordinates.x == null || loc.coordinates.y == null) continue;
-			const name =
-				store.project.characters[death.characterId]?.name ?? (death.characterId as string);
-			const end = toLatLng(loc.coordinates.x, loc.coordinates.y, h);
-
-			// Trail: the character's waypoints up to (and including) the death point.
-			const wps = (wpByChar.get(death.characterId) ?? []).filter(
-				(w) => w.orderIndex <= death.orderIndex
-			);
-			const pts = wps.map((w) => toLatLng(w.x, w.y, h));
-			const last = pts[pts.length - 1];
-			if (!last || last[0] !== end[0] || last[1] !== end[1]) pts.push(end);
-			if (pts.length >= 2) {
-				L.polyline(pts, {
-					color: '#d23b3b',
-					weight: 2,
-					opacity: 0.75,
-					dashArray: '5 5'
-				}).addTo(deathLayer);
-			}
-
-			// Tally the dead per location so skulls don't stack on one spot.
-			const killer = death.killerId
-				? (store.project.characters[death.killerId]?.name ?? null)
-				: null;
-			const group: {
-				x: number;
-				y: number;
-				entries: { name: string; killer: string | null }[];
-			} = deathsByLoc.get(death.locationId) ?? {
-				x: loc.coordinates.x,
-				y: loc.coordinates.y,
-				entries: []
-			};
-			group.entries.push({ name, killer });
-			deathsByLoc.set(death.locationId, group);
-		}
-
-		// One badge per location, offset beside the place marker, showing how many
-		// fell there; its tooltip lists them.
-		for (const g of deathsByLoc.values()) {
-			const icon = L.divIcon({
-				className: 'sa-death-badge',
-				html: `💀<span class="n">${g.entries.length}</span>`,
-				iconSize: [34, 20],
-				iconAnchor: [-10, 10]
-			});
-			L.marker(toLatLng(g.x, g.y, h), { icon })
-				.bindTooltip(
-					g.entries
-						.map(
-							(e) =>
-								'† ' +
-								escapeHtml(e.name) +
-								(e.killer ? ` — ${t('death.by')} ${escapeHtml(e.killer)}` : '')
-						)
-						.join('<br>'),
-					{ direction: 'top', className: 'sa-people-tip' }
-				)
-				.addTo(deathLayer);
-		}
-	});
-
-	function setMap() {
-		if (!imageUrl.trim()) return;
-		store.project.map = { imageUrl: imageUrl.trim(), width, height };
-	}
-
-	function onUpload(event: Event) {
-		const file = (event.currentTarget as HTMLInputElement).files?.[0];
-		if (!file) return;
-		const reader = new FileReader();
-		reader.onload = () => {
-			const url = reader.result as string;
-			const img = new Image();
-			img.onload = () =>
-				(store.project.map = { imageUrl: url, width: img.naturalWidth, height: img.naturalHeight });
-			img.src = url;
-		};
-		reader.readAsDataURL(file);
-	}
-
-	const unplaced = $derived(
-		Object.values(store.project.locations).filter(
-			(l) => l.coordinates.x == null || l.coordinates.y == null
+	const locationMarkers = $derived(buildLocationMarkers(store.project, episodeLocationIds));
+	const movementLines = $derived(buildMovementLines(view, store.project, isVisible, kindAllowed));
+	const characterClusters = $derived(
+		buildCharacterClusters(
+			view,
+			store.project,
+			clock.current,
+			viewDeaths,
+			clusterFilters,
+			clusterLabels
 		)
+	);
+	const deathTrails = $derived(
+		buildDeathTrails(
+			store.project,
+			clock.current,
+			viewDeaths,
+			viewWaypoints,
+			isVisible,
+			kindAllowed
+		)
+	);
+	const deathBadges = $derived(
+		buildDeathBadges(store.project, clock.current, viewDeaths, isVisible, kindAllowed, t('death.by'))
 	);
 
 	const currentIndex = $derived(Math.round(clock.current));
@@ -505,31 +225,28 @@
 				weapon: d.weapon ?? null
 			}))
 	);
-
-	// Reorderable panels of the Map & Timeline dashboard (the map stays fixed).
-	// The base-map/place-locations panel is authoring-only, so it is shown only
-	// when running locally; the published build is a read-only viewer.
-	const panels = $derived([
-		{ id: 'filter', label: t('map.filter'), rows: 6 },
-		...(EDIT_MODE
-			? [
-				{
-					id: 'mapSetup',
-					label: store.project.map ? t('map.placeLocations') : t('map.setBaseMap'),
-					rows: 4
-				}
-			]
-			: []),
-		{ id: 'deaths', label: t('map.deaths'), rows: 4 },
-		{ id: 'timeline', label: t('timeline.title'), rows: 7 }
-	]);
 </script>
 
 <h1>{t('nav.mapTimeline')}</h1>
 <PlayerControls />
 
 <div class="map-wrap">
-	<div class="map" bind:this={mapEl}></div>
+	<div class="map">
+		{#if store.project.map}
+			<Canvas>
+				<MapScene
+					mapConfig={store.project.map}
+					{locationMarkers}
+					movementLines={showMovementLines ? movementLines : []}
+					{characterClusters}
+					{deathTrails}
+					{deathBadges}
+					{showLocationNames}
+					{showCharacterNames}
+				/>
+			</Canvas>
+		{/if}
+	</div>
 	<div class="map-overlay">
 		<div class="ov-sec">
 			<span class="ov-title sa-muted">{t('map.labels')}</span>
@@ -544,6 +261,9 @@
 			<span class="ov-title sa-muted">{t('map.show')}</span>
 			<label><input type="checkbox" bind:checked={showStationary} />{t('map.stationary')}</label>
 			<label><input type="checkbox" bind:checked={showDead} />{t('map.dead')}</label>
+			<label
+			><input type="checkbox" bind:checked={showMovementLines} />{t('map.movementLines')}</label
+			>
 		</div>
 		<div class="ov-sec">
 			<span class="ov-title sa-muted">{t('map.who')}</span>
@@ -591,126 +311,85 @@
 	</div>
 </div>
 
-<DragBoard board="mapTimeline" items={panels}>
-	{#snippet widget(id)}
-		{#if id === 'filter'}
-			<aside class="sa-card filters">
-				<h3>{t('map.filter')}</h3>
-				{#if episodes.length > 1}
-					<div class="ep-range">
-						<label>
-							<span>{t('timeline.from')}</span>
-							<select value={keys[lo]} onchange={(e) => setFrom(e.currentTarget.value)}>
-								{#each episodes as ep (ep.key)}
-									<option value={ep.key}>{ep.label}</option>
-								{/each}
-							</select>
-						</label>
-						<label>
-							<span>{t('timeline.to')}</span>
-							<select value={keys[hi]} onchange={(e) => setTo(e.currentTarget.value)}>
-								{#each episodes as ep (ep.key)}
-									<option value={ep.key}>{ep.label}</option>
-								{/each}
-							</select>
-						</label>
-						{#if !isFullRange}
-							<button class="clear" onclick={showAllEpisodes}>{t('timeline.showAll')}</button>
-						{/if}
-					</div>
-				{/if}
-				<div class="char-head">
-					<span class="sa-muted">{t('map.characters')} ({viewCharacters.length})</span>
-					<span class="bulk">
-						<button onclick={showAllChars}>{t('map.all')}</button>
-						<button onclick={hideAllChars}>{t('map.none')}</button>
-					</span>
-				</div>
-				<div class="char-list">
-					{#each viewCharacters as c (c.id)}
-						<label class="chip">
-							<input
-								type="checkbox"
-								checked={!hidden.has(c.id)}
-								onchange={() => toggleChar(c.id)}
-							/><span style:color={factionColor(factionAt(c, clock.current))}>{c.name}</span>
-						</label>
-					{/each}
-				</div>
-			</aside>
-		{:else if id === 'mapSetup'}
-			<aside class="sa-card">
-				{#if !store.project.map}
-					<h3>{t('map.setBaseMap')}</h3>
-					<p class="sa-muted">{t('map.setBaseMapHint')}</p>
-					<label class="up"
-					>{t('map.uploadImage')}<input type="file" accept="image/*" onchange={onUpload} /></label
-					>
-					<hr />
-					<label>{t('map.imageUrl')}<input bind:value={imageUrl} placeholder="https://…" /></label>
-					<div class="dims">
-						<label>{t('map.width')}<input type="number" bind:value={width} /></label>
-						<label>{t('map.height')}<input type="number" bind:value={height} /></label>
-					</div>
-					<button class="primary" onclick={setMap}>{t('map.setMap')}</button>
-				{:else}
-					<h3>{t('map.placeLocations')}</h3>
-					<p class="sa-muted">{t('map.placeHint')}</p>
-					{#if unplaced.length}
-						<ul>
-							{#each unplaced as l (l.id)}
-								<li>
-									<span>{l.name}</span>
-									<button class:active={placingId === l.id} onclick={() => (placingId = l.id)}>
-										{placingId === l.id ? t('map.clickMap') : t('map.place')}
-									</button>
-								</li>
-							{/each}
-						</ul>
-					{:else}
-						<p class="sa-muted">{t('map.allPlaced')}</p>
-					{/if}
-					<button class="danger" onclick={() => (store.project.map = null)}>
-						{t('map.changeMapImage')}
-					</button>
-				{/if}
-			</aside>
-		{:else if id === 'deaths'}
-			<aside class="sa-card deaths-panel">
-				<h3>💀 {t('map.deaths')} ({deaths.length})</h3>
-				{#if deaths.length}
-					<ol class="death-list">
-						{#each deaths as d (d.characterId)}
-							<li class:occurred={currentIndex >= d.orderIndex}>
-								<button
-									class="seek"
-									onclick={() => clock.seek(d.orderIndex)}
-									title={t('timeline.jumpHere')}>#{d.orderIndex}</button
-								>
-								<span class="who">{d.name}</span>
-								<span class="at sa-muted">@ {d.place}{d.ep ? ` · ${d.ep}` : ''}</span>
-								{#if d.killer || d.cause || d.weapon}
-									<span class="detail sa-muted">
-										{#if d.killer}<span class="killer">† {t('death.by')} {d.killer}</span>{/if}
-										{#if d.cause}<span class="cause">{d.cause}</span>{/if}
-										{#if d.weapon}<span class="weapon">⚔ {d.weapon}</span>{/if}
-									</span>
-								{/if}
-							</li>
+<div class="panels">
+	<aside class="sa-card filters">
+		<h3>{t('map.filter')}</h3>
+		{#if episodes.length > 1}
+			<div class="ep-range">
+				<label>
+					<span>{t('timeline.from')}</span>
+					<select value={keys[lo]} onchange={(e) => setFrom(e.currentTarget.value)}>
+						{#each episodes as ep (ep.key)}
+							<option value={ep.key}>{ep.label}</option>
 						{/each}
-					</ol>
-				{:else}
-					<p class="sa-muted">—</p>
+					</select>
+				</label>
+				<label>
+					<span>{t('timeline.to')}</span>
+					<select value={keys[hi]} onchange={(e) => setTo(e.currentTarget.value)}>
+						{#each episodes as ep (ep.key)}
+							<option value={ep.key}>{ep.label}</option>
+						{/each}
+					</select>
+				</label>
+				{#if !isFullRange}
+					<button class="clear" onclick={showAllEpisodes}>{t('timeline.showAll')}</button>
 				{/if}
-			</aside>
-		{:else if id === 'timeline'}
-			<section class="sa-card">
-				<h3>🗓️ {t('timeline.title')}</h3>
-				<SceneTimeline />
-			</section>
+			</div>
 		{/if}
-	{/snippet}
-</DragBoard>
+		<div class="char-head">
+			<span class="sa-muted">{t('map.characters')} ({viewCharacters.length})</span>
+			<span class="bulk">
+				<button onclick={showAllChars}>{t('map.all')}</button>
+				<button onclick={hideAllChars}>{t('map.none')}</button>
+			</span>
+		</div>
+		<div class="char-list">
+			{#each viewCharacters as c (c.id)}
+				<label class="chip">
+					<input
+						type="checkbox"
+						checked={!hidden.has(c.id)}
+						onchange={() => toggleChar(c.id)}
+					/><span style:color={factionColor(factionAt(c, clock.current))}>{c.name}</span>
+				</label>
+			{/each}
+		</div>
+	</aside>
+
+	<aside class="sa-card deaths-panel">
+		<h3>💀 {t('map.deaths')} ({deaths.length})</h3>
+		{#if deaths.length}
+			<ol class="death-list">
+				{#each deaths as d (d.characterId)}
+					<li class:occurred={currentIndex >= d.orderIndex}>
+						<button
+							class="seek"
+							onclick={() => clock.seek(d.orderIndex)}
+							title={t('timeline.jumpHere')}>#{d.orderIndex}</button
+						>
+						<span class="who">{d.name}</span>
+						<span class="at sa-muted">@ {d.place}{d.ep ? ` · ${d.ep}` : ''}</span>
+						{#if d.killer || d.cause || d.weapon}
+							<span class="detail sa-muted">
+								{#if d.killer}<span class="killer">† {t('death.by')} {d.killer}</span>{/if}
+								{#if d.cause}<span class="cause">{d.cause}</span>{/if}
+								{#if d.weapon}<span class="weapon">⚔ {d.weapon}</span>{/if}
+							</span>
+						{/if}
+					</li>
+				{/each}
+			</ol>
+		{:else}
+			<p class="sa-muted">—</p>
+		{/if}
+	</aside>
+
+	<section class="sa-card timeline-panel">
+		<h3>🗓️ {t('timeline.title')}</h3>
+		<SceneTimeline />
+	</section>
+</div>
 
 <style>
     .map-wrap {
@@ -797,6 +476,22 @@
 
         .map-overlay .ov-sec.houses .ov-title {
             grid-column: 1 / -1;
+        }
+    }
+
+    .panels {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+    }
+
+    .panels .timeline-panel {
+        grid-column: 1 / -1;
+    }
+
+    @media (max-width: 720px) {
+        .panels {
+            grid-template-columns: 1fr;
         }
     }
 
@@ -927,88 +622,5 @@
 
     .char-list .chip input {
         width: auto;
-    }
-
-    aside ul {
-        list-style: none;
-        padding: 0;
-        margin: 0 0 0.75rem;
-    }
-
-    aside li {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 0.5rem;
-        padding: 0.25rem 0;
-    }
-
-    .up,
-    .dims label {
-        display: block;
-        font-size: 0.85rem;
-        color: var(--sa-text-dim);
-    }
-
-    .dims {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 0.5rem;
-        margin: 0.5rem 0;
-    }
-
-    button.active {
-        border-color: var(--sa-accent);
-        color: var(--sa-accent);
-    }
-
-    :global(.sa-loc-dot) {
-        background: var(--sa-accent);
-        border: 2px solid #000;
-        border-radius: 50%;
-    }
-
-    :global(.sa-death-badge) {
-        display: flex;
-        align-items: center;
-        gap: 2px;
-        font-size: 15px;
-        line-height: 1;
-        white-space: nowrap;
-        filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.6));
-    }
-
-    :global(.sa-death-badge .n) {
-        font: 600 11px/1 var(--sa-font-body);
-        color: #fff;
-        background: #d23b3b;
-        border-radius: 8px;
-        padding: 1px 5px;
-    }
-
-    :global(.sa-cluster) {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 22px;
-        height: 22px;
-        border-radius: 50%;
-        background: #5aa9e6;
-        color: #08121a;
-        font: 600 11px/1 var(--sa-font-body);
-        border: 2px solid #0d0d13;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-    }
-
-    :global(.sa-cluster.travel) {
-        background: #e0a23a;
-    }
-
-    :global(.sa-cluster.dead) {
-        background: #8a8a93;
-    }
-
-    :global(.sa-people-tip) {
-        line-height: 1.35;
     }
 </style>

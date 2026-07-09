@@ -30,6 +30,7 @@ const en = {
 	'nav.editor': 'Editor',
 	'nav.map': 'Map',
 	'nav.mapTimeline': 'Map & Timeline',
+	'nav.mapEditor': 'Map Editor',
 	'nav.timeline': 'Timeline',
 	'nav.graph': 'Graph',
 
@@ -71,6 +72,7 @@ const en = {
 	'map.travelers': 'Travelers',
 	'map.stationary': 'Stationary',
 	'map.dead': 'Dead',
+	'map.movementLines': 'Movement lines',
 	'map.show': 'Show',
 	'map.who': 'Who',
 	'map.everyone': 'Everyone',
@@ -83,6 +85,20 @@ const en = {
 	'map.characters': 'Characters',
 	'map.all': 'All',
 	'map.none': 'None',
+
+	'mapEditor.title': 'Map Editor',
+	'mapEditor.hint':
+		'Place and adjust locations on the base map here. The viewer at Map & Timeline is read-only.',
+	'mapEditor.editMode': 'Edit mode',
+	'mapEditor.editModeHint': 'Turn on edit mode to place or drag location markers.',
+	'mapEditor.unsavedChanges': '{count} unsaved change(s)',
+	'mapEditor.save': 'Save',
+	'mapEditor.saved': 'Saved.',
+	'mapEditor.discard': 'Discard changes',
+	'mapEditor.exportTitle': 'Export for deployment',
+	'mapEditor.exportHint':
+		'The saved coordinates only live in this browser. To ship them to everyone, export this file and commit it as data/hotd/location-coordinates.json.',
+	'mapEditor.exportCoordinates': 'Export coordinates',
 
 	'graph.title': 'Character graph',
 	'graph.empty': 'No characters yet. Extract a source or add characters in the Editor.',
@@ -188,6 +204,7 @@ const de: Messages = {
 	'nav.editor': 'Editor',
 	'nav.map': 'Karte',
 	'nav.mapTimeline': 'Karte & Zeitleiste',
+	'nav.mapEditor': 'Karten-Editor',
 	'nav.timeline': 'Zeitleiste',
 	'nav.graph': 'Graph',
 
@@ -230,6 +247,7 @@ const de: Messages = {
 	'map.travelers': 'Reisende',
 	'map.stationary': 'Stationäre',
 	'map.dead': 'Tote',
+	'map.movementLines': 'Bewegungslinien',
 	'map.show': 'Anzeigen',
 	'map.who': 'Wer',
 	'map.everyone': 'Alle',
@@ -242,6 +260,20 @@ const de: Messages = {
 	'map.characters': 'Figuren',
 	'map.all': 'Alle',
 	'map.none': 'Keine',
+
+	'mapEditor.title': 'Karten-Editor',
+	'mapEditor.hint':
+		'Platziere und justiere hier Orte auf der Basiskarte. Die Ansicht unter Karte & Zeitleiste ist nur lesbar.',
+	'mapEditor.editMode': 'Bearbeitungsmodus',
+	'mapEditor.editModeHint': 'Aktiviere den Bearbeitungsmodus, um Orts-Marker zu platzieren oder zu verschieben.',
+	'mapEditor.unsavedChanges': '{count} ungespeicherte Änderung(en)',
+	'mapEditor.save': 'Speichern',
+	'mapEditor.saved': 'Gespeichert.',
+	'mapEditor.discard': 'Änderungen verwerfen',
+	'mapEditor.exportTitle': 'Für Deployment exportieren',
+	'mapEditor.exportHint':
+		'Gespeicherte Koordinaten liegen nur in diesem Browser. Damit sie für alle gelten, exportiere diese Datei und committe sie als data/hotd/location-coordinates.json.',
+	'mapEditor.exportCoordinates': 'Koordinaten exportieren',
 
 	'graph.title': 'Figurengraph',
 	'graph.empty': 'Noch keine Figuren. Extrahiere eine Quelle oder füge Figuren im Editor hinzu.',
