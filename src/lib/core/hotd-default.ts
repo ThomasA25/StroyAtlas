@@ -158,7 +158,7 @@ function addDragons(project: Project, locale: Locale): void {
  * in the Green Council (S1E9) — the start of the Dance of the Dragons. Before
  * then every partisan stands at the royal court (Neutral); from the coronation
  * onward they take the side the dataset records. Modelled as a per-character
- * allegiance switch (see model.AllegianceChange) so the map and graph recolour
+ * allegiance switch (see model.AllegianceChange) so the map recolours
  * as the timeline crosses the coronation. Characters the dataset already marks
  * Neutral (and those with no faction) are left untouched.
  */

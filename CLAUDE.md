@@ -5,12 +5,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## What this is
 
 StoryAtlas — a SvelteKit SPA that turns serialized fiction (currently *House of the Dragon*) into an
-explorable map/timeline/relationship-graph atlas. It has two roles for the same codebase:
+explorable map/timeline atlas. It has two roles for the same codebase:
 
 - **Editor** (`/`, dev-only): paste source text, run an LLM extraction pass, and hand-edit the
-  resulting characters/locations/events/scenes.
-- **Viewer** (`/map`, `/graph`): the published, read-only experience — animated character movement
-  on a fictional base map, a synced timeline, and a Cytoscape relationship graph.
+  resulting characters/locations/events/scenes. A dedicated **map editor** (`/editor`, dev-only)
+  places locations on the base map and exports their coordinates for deployment.
+- **Viewer** (`/map`): the published, read-only experience — animated character movement on a
+  fictional base map with a synced timeline of key events.
 
 It is frontend-only: no backend. Data lives in the browser (IndexedDB via Dexie); the user supplies
 their own Anthropic API key for extraction (stored in `localStorage`, see
@@ -49,13 +50,12 @@ Tests are colocated `*.spec.ts` files next to the code they cover (no separate `
   resolution (matching a new "King's Landing" to an existing one) is deliberately light: normalized
   name/alias/id matching, not fuzzy dedup. Every produced entity is tagged `origin: 'extracted'` vs
   `'manual'` — this only records provenance, nothing is read-only because of it.
-- [derive.ts](src/lib/core/derive.ts) + [playback.ts](src/lib/core/playback.ts) +
-  [relationships.ts](src/lib/core/relationships.ts) — pure functions computing everything that is
-  *not* persisted: movement edges, timeline ordering, episode grouping, faction conflicts
-  (co-occurrence in events, allegiance resolved per-event via `factionAt`), heuristic "key events"
-  (keyword-matched death/battle/politics), deaths (from `StoryEvent.deaths`/`deathDetails`),
-  concurrent storylines (same `orderIndex`), map waypoint interpolation, and the character
-  relationship graph. All pure `Project -> data`, unit-tested without a browser.
+- [derive.ts](src/lib/core/derive.ts) + [playback.ts](src/lib/core/playback.ts) — pure functions
+  computing everything that is *not* persisted: movement edges, timeline ordering, episode
+  grouping, faction conflicts (co-occurrence in events, allegiance resolved per-event via
+  `factionAt`), heuristic "key events" (keyword-matched death/battle/politics, en+de), deaths (from
+  `StoryEvent.deaths`/`deathDetails`), concurrent storylines (same `orderIndex`), and map waypoint
+  interpolation. All pure `Project -> data`, unit-tested without a browser.
 - [store.svelte.ts](src/lib/core/store.svelte.ts) — `StoryStore`, a Svelte 5 class with a single
   deep-reactive `project = $state<Project>()` plus `$derived` getters wrapping every function in
   `derive.ts`. CRUD methods (`upsertX` / `removeX`) keep references consistent (e.g. removing a
@@ -106,8 +106,8 @@ default (`isHotdDefault`) — real user edits are never overwritten.
 
 Feature state lives in small `.svelte.ts` classes using runes directly (no stores): `store`
 ([store.svelte.ts](src/lib/core/store.svelte.ts)), `clock`
-([clock.svelte.ts](src/lib/core/clock.svelte.ts), the single playback-position source the map/timeline/graph
-animate from in lockstep), `layout` ([layout.svelte.ts](src/lib/core/layout.svelte.ts), per-board
+([clock.svelte.ts](src/lib/core/clock.svelte.ts), the single playback-position source the map and
+timeline animate from in lockstep), `layout` ([layout.svelte.ts](src/lib/core/layout.svelte.ts), per-board
 drag/resize panel layout, persisted to `localStorage`), `i18n`
 ([i18n.svelte.ts](src/lib/i18n/i18n.svelte.ts)). Follow this pattern (a class with `$state` fields
 and plain methods, exported as a singleton instance) for new cross-cutting state rather than
@@ -119,7 +119,7 @@ introducing a different state-management approach.
 `vite dev` (local) is the full editor; `vite build`/`vite preview` (what Netlify ships) is
 read-only. `/` redirects to `/map` when not in edit mode ([+page.ts](src/routes/+page.ts)). The app
 is SSR/prerender-disabled everywhere ([+layout.ts](src/routes/+layout.ts)) since it depends on
-browser-only APIs (IndexedDB, the Anthropic SDK, Leaflet, Cytoscape) — adapter-static ships a single
+browser-only APIs (IndexedDB, the Anthropic SDK, three.js/Threlte) — adapter-static ships a single
 `index.html` fallback so client-side routing handles everything (see
 [netlify.toml](netlify.toml)/[svelte.config.js](svelte.config.js)).
 
@@ -136,6 +136,6 @@ Two locales (`en`, `de`; German is default) via [messages.ts](src/lib/i18n/messa
   hand-format `.svelte` files differently.
 - Every mutable entity has explicit `origin: 'extracted' | 'manual'` — set it correctly on any new
   entity-creation path; never make behavior conditional on it beyond provenance display.
-- Derived data (`derive.ts`, `playback.ts`, `relationships.ts`) must stay pure and
+- Derived data (`derive.ts`, `playback.ts`) must stay pure and
   data-grounded — no invented facts, no heuristics beyond what's transparently documented (e.g. the
   keyword regexes for `keyEvents`). Add unit tests (`*.spec.ts`) alongside any new derivation.

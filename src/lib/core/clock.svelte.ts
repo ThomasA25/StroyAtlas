@@ -1,6 +1,6 @@
 /**
- * The shared playback clock — the single timing source the Map, Timeline, and
- * Graph all read from, so they animate in lockstep. `current` is a position on
+ * The shared playback clock — the single timing source the Map and Timeline
+ * both read from, so they animate in lockstep. `current` is a position on
  * the timeline measured in order_index units (fractional during playback);
  * `speed` is order-index units per second. Driven by requestAnimationFrame.
  */

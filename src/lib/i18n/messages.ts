@@ -32,7 +32,6 @@ const en = {
 	'nav.mapTimeline': 'Map & Timeline',
 	'nav.mapEditor': 'Map Editor',
 	'nav.timeline': 'Timeline',
-	'nav.graph': 'Graph',
 
 	'editor.title': 'Editor',
 
@@ -96,14 +95,6 @@ const en = {
 	'mapEditor.exportHint':
 		'The saved coordinates only live in this browser. To ship them to everyone, export this file and commit it as data/hotd/location-coordinates.json.',
 	'mapEditor.exportCoordinates': 'Export coordinates',
-
-	'graph.title': 'Character graph',
-	'graph.empty': 'No characters yet. Extract a source or add characters in the Editor.',
-	'graph.minStrength': 'Min. relationship strength',
-	'graph.hideIsolated': 'Hide unconnected',
-	'graph.legend': 'Factions',
-	'graph.relayout': 'Re-layout',
-	'graph.focusHint': 'Click a character to focus its connections — click empty space to reset.',
 
 	'player.speed': 'Speed',
 
@@ -207,7 +198,6 @@ const de: Messages = {
 	'nav.mapTimeline': 'Karte & Zeitleiste',
 	'nav.mapEditor': 'Karten-Editor',
 	'nav.timeline': 'Zeitleiste',
-	'nav.graph': 'Graph',
 
 	'editor.title': 'Editor',
 
@@ -272,14 +262,6 @@ const de: Messages = {
 	'mapEditor.exportHint':
 		'Gespeicherte Koordinaten liegen nur in diesem Browser. Damit sie für alle gelten, exportiere diese Datei und committe sie als data/hotd/location-coordinates.json.',
 	'mapEditor.exportCoordinates': 'Koordinaten exportieren',
-
-	'graph.title': 'Figurengraph',
-	'graph.empty': 'Noch keine Figuren. Extrahiere eine Quelle oder füge Figuren im Editor hinzu.',
-	'graph.minStrength': 'Min. Beziehungsstärke',
-	'graph.hideIsolated': 'Unverbundene ausblenden',
-	'graph.legend': 'Fraktionen',
-	'graph.relayout': 'Neu anordnen',
-	'graph.focusHint': 'Klicke eine Figur, um ihre Verbindungen zu fokussieren — klicke ins Leere zum Zurücksetzen.',
 
 	'player.speed': 'Geschwindigkeit',
 

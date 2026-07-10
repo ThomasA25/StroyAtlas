@@ -48,8 +48,7 @@
 	const nav = $derived([
 		...(EDIT_MODE ? [{ href: '/', label: t('nav.editor') }] : []),
 		{ href: '/map', label: t('nav.mapTimeline') },
-		...(EDIT_MODE ? [{ href: '/editor', label: t('nav.mapEditor') }] : []),
-		{ href: '/graph', label: t('nav.graph') }
+		...(EDIT_MODE ? [{ href: '/editor', label: t('nav.mapEditor') }] : [])
 	]);
 </script>
 
