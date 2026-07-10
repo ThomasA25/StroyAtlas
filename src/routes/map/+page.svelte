@@ -311,6 +311,10 @@
 	</div>
 </div>
 
+<div class="timeline-wrap">
+	<SceneTimeline />
+</div>
+
 <div class="panels">
 	<aside class="sa-card filters">
 		<h3>{t('map.filter')}</h3>
@@ -384,11 +388,6 @@
 			<p class="sa-muted">—</p>
 		{/if}
 	</aside>
-
-	<section class="sa-card timeline-panel">
-		<h3>🗓️ {t('timeline.title')}</h3>
-		<SceneTimeline />
-	</section>
 </div>
 
 <style>
@@ -479,14 +478,14 @@
         }
     }
 
+    .timeline-wrap {
+        margin-bottom: 1rem;
+    }
+
     .panels {
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 1rem;
-    }
-
-    .panels .timeline-panel {
-        grid-column: 1 / -1;
     }
 
     @media (max-width: 720px) {

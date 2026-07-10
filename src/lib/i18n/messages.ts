@@ -36,7 +36,6 @@ const en = {
 
 	'editor.title': 'Editor',
 
-	'timeline.title': 'Timeline',
 	'timeline.episode': 'Episode',
 	'timeline.from': 'From',
 	'timeline.to': 'To',
@@ -44,11 +43,9 @@ const en = {
 	'timeline.allEpisodes': 'All episodes ({count} scenes)',
 	'timeline.episodeOption': '{label} ({count})',
 	'timeline.showAll': 'Show all',
-	'timeline.scene': '(scene)',
 	'timeline.jumpHere': 'Jump here',
 	'timeline.keyEvents': 'Key events',
 	'timeline.noneDetected': 'None detected.',
-	'timeline.noScenes': 'No scenes yet. Extract a source or add scenes in the Editor.',
 
 	'map.title': 'Map',
 	'map.setBaseMap': 'Set a base map',
@@ -182,7 +179,11 @@ const en = {
 	'death.died': 'died',
 	'death.diesIn': 'Dies: {event}',
 	'death.by': 'by',
-	'timeline.showDeathsOnly': 'Deaths only'
+	'timeline.showDeathsOnly': 'Deaths only',
+
+	'eventCategory.death': 'Death',
+	'eventCategory.battle': 'Battle',
+	'eventCategory.politics': 'Politics'
 } as const;
 
 export type MessageKey = keyof typeof en;
@@ -210,7 +211,6 @@ const de: Messages = {
 
 	'editor.title': 'Editor',
 
-	'timeline.title': 'Zeitleiste',
 	'timeline.episode': 'Episode',
 	'timeline.from': 'Von',
 	'timeline.to': 'Bis',
@@ -218,11 +218,9 @@ const de: Messages = {
 	'timeline.allEpisodes': 'Alle Episoden ({count} Szenen)',
 	'timeline.episodeOption': '{label} ({count})',
 	'timeline.showAll': 'Alle anzeigen',
-	'timeline.scene': '(Szene)',
 	'timeline.jumpHere': 'Hierher springen',
 	'timeline.keyEvents': 'Schlüsselereignisse',
 	'timeline.noneDetected': 'Keine erkannt.',
-	'timeline.noScenes': 'Noch keine Szenen. Extrahiere eine Quelle oder füge Szenen im Editor hinzu.',
 
 	'map.title': 'Karte',
 	'map.setBaseMap': 'Basiskarte festlegen',
@@ -357,7 +355,11 @@ const de: Messages = {
 	'death.died': 'gestorben',
 	'death.diesIn': 'Tod: {event}',
 	'death.by': 'von',
-	'timeline.showDeathsOnly': 'Nur Tode'
+	'timeline.showDeathsOnly': 'Nur Tode',
+
+	'eventCategory.death': 'Tod',
+	'eventCategory.battle': 'Schlacht',
+	'eventCategory.politics': 'Politik'
 };
 
 export const messages: Record<Locale, Messages> = { en, de };
