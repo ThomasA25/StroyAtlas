@@ -6,12 +6,21 @@ import { buildCharacterClusters, type ClusterFilters } from './character-cluster
 
 const ned = asCharacterId('ned');
 const cat = asCharacterId('cat');
+const drogon = asCharacterId('drogon');
 const wf = asLocationId('winterfell');
 
 function project(): Project {
 	const p = emptyProject();
 	p.characters[ned] = { id: ned, name: 'Ned', faction: 'Stark', aliases: [], origin: 'manual' };
 	p.characters[cat] = { id: cat, name: 'Cat', faction: 'Stark', aliases: [], origin: 'manual' };
+	p.characters[drogon] = {
+		id: drogon,
+		name: 'Drogon',
+		faction: 'Stark',
+		aliases: [],
+		kind: 'dragon',
+		origin: 'manual'
+	};
 	p.locations[wf] = {
 		id: wf,
 		name: 'Winterfell',
@@ -53,6 +62,89 @@ describe('buildCharacterClusters', () => {
 		expect(clusters).toHaveLength(1);
 		expect(clusters[0]?.count).toBe(2);
 		expect(clusters[0]?.category).toBe('stationary');
+		expect(clusters[0]?.allDragons).toBe(false);
+		expect(clusters[0]?.hasDragon).toBe(false);
+	});
+
+	it('flags a cluster of only dragons as allDragons, a mixed one as hasDragon only', () => {
+		const p = project();
+		p.scenes['s1' as never] = {
+			id: 's1' as never,
+			orderIndex: 0,
+			startHint: '',
+			endHint: '',
+			locationId: wf,
+			characters: [drogon],
+			eventIds: [],
+			transitionToNext: '',
+			origin: 'manual'
+		};
+		const mixed = buildCharacterClusters(p, p, 0, new Map(), defaultFilters, labels);
+		expect(mixed[0]?.allDragons).toBe(false);
+		expect(mixed[0]?.hasDragon).toBe(true);
+
+		const onlyDragon = buildCharacterClusters(
+			p,
+			p,
+			0,
+			new Map(),
+			{ ...defaultFilters, isVisible: (id) => id === drogon },
+			labels
+		);
+		expect(onlyDragon[0]?.allDragons).toBe(true);
+		expect(onlyDragon[0]?.hasDragon).toBe(true);
+	});
+
+	it('rotates a flying dragon to face its travel direction, null when stationary', () => {
+		const p = project();
+		const kl = asLocationId('kings-landing');
+		p.locations[kl] = {
+			id: kl,
+			name: "King's Landing",
+			type: 'city',
+			coordinates: { x: 110, y: 20 }, // due east of Winterfell (10,20)
+			origin: 'manual'
+		};
+		p.scenes['s1' as never] = {
+			id: 's1' as never,
+			orderIndex: 0,
+			startHint: '',
+			endHint: '',
+			locationId: wf,
+			characters: [drogon],
+			eventIds: [],
+			transitionToNext: '',
+			origin: 'manual'
+		};
+		p.scenes['s2' as never] = {
+			id: 's2' as never,
+			orderIndex: 2,
+			startHint: '',
+			endHint: '',
+			locationId: kl,
+			characters: [drogon],
+			eventIds: [],
+			transitionToNext: '',
+			origin: 'manual'
+		};
+		const flying = buildCharacterClusters(
+			p,
+			p,
+			1,
+			new Map(),
+			{ ...defaultFilters, isVisible: (id) => id === drogon },
+			labels
+		);
+		expect(flying[0]?.dragonAngleDeg).toBeCloseTo(90); // facing due east
+		const resting = buildCharacterClusters(
+			p,
+			p,
+			0,
+			new Map(),
+			{ ...defaultFilters, isVisible: (id) => id === drogon },
+			labels
+		);
+		expect(resting[0]?.dragonAngleDeg).toBeNull();
 	});
 
 	it('drops a hidden character', () => {

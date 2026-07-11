@@ -9,7 +9,10 @@
 
 	// Clock-driven character/cluster markers: one dot per rounded position, a
 	// numeric badge when more than one character shares it, coloured by the
-	// dominant category (dead > traveling > stationary).
+	// dominant category (dead > traveling > stationary). A cluster that is
+	// entirely dragons renders as a dragon icon instead of a dot, so dragons
+	// read distinctly from people; a mixed cluster (e.g. a rider + their
+	// dragon) keeps the dot but gets a small dragon badge alongside it.
 	let {
 		clusters,
 		height,
@@ -27,15 +30,32 @@
 
 {#each clusters as c (c.key)}
 	{@const pos = toWorld(c.x, c.y, height, MapLayerZ.Character)}
-	<T.Mesh
-		position={[pos.x, pos.y, pos.z]}
-		scale={markerScale}
-		onpointerover={() => (hoveredKey = c.key)}
-		onpointerout={() => (hoveredKey = null)}
-	>
-		<T.CircleGeometry args={[RADIUS, 20]} />
-		<T.MeshBasicMaterial color={CATEGORY_COLOR[c.category]} />
-	</T.Mesh>
+	{#if c.allDragons}
+		<HTML position={[pos.x, pos.y, pos.z]}>
+			<div
+				class="sa-dragon-marker"
+				role="presentation"
+				style:--sa-dragon-angle="{c.dragonAngleDeg ?? 0}deg"
+				onpointerenter={() => (hoveredKey = c.key)}
+				onpointerleave={() => (hoveredKey = null)}
+			></div>
+		</HTML>
+	{:else}
+		<T.Mesh
+			position={[pos.x, pos.y, pos.z]}
+			scale={markerScale}
+			onpointerover={() => (hoveredKey = c.key)}
+			onpointerout={() => (hoveredKey = null)}
+		>
+			<T.CircleGeometry args={[RADIUS, 20]} />
+			<T.MeshBasicMaterial color={CATEGORY_COLOR[c.category]} />
+		</T.Mesh>
+		{#if c.hasDragon}
+			<HTML position={[pos.x, pos.y, pos.z]} pointerEvents="none">
+				<div class="sa-dragon-badge" style:--sa-dragon-angle="{c.dragonAngleDeg ?? 0}deg"></div>
+			</HTML>
+		{/if}
+	{/if}
 	{#if c.count > 1}
 		<HTML position={[pos.x, pos.y, pos.z]} pointerEvents="none">
 			<div class="sa-cluster-badge">{c.count}</div>
@@ -65,5 +85,32 @@
 		font: 600 11px/1 var(--sa-font-body);
 		border: 2px solid var(--sa-border);
 		box-shadow: var(--sa-shadow);
+	}
+	.sa-dragon-marker,
+	.sa-dragon-badge {
+		background-color: #cda45e;
+		mask-image: url('/drache.svg');
+		-webkit-mask-image: url('/drache.svg');
+		mask-repeat: no-repeat;
+		-webkit-mask-repeat: no-repeat;
+		mask-size: contain;
+		-webkit-mask-size: contain;
+		mask-position: center;
+		-webkit-mask-position: center;
+		filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.7));
+	}
+	.sa-dragon-marker {
+		/* rotate() is applied last so the icon spins in place around its own
+		   center, after the position offset — see --sa-dragon-angle above. */
+		transform: translate(-50%, -50%) rotate(var(--sa-dragon-angle, 0deg));
+		width: 72px;
+		height: 68px;
+	}
+	.sa-dragon-badge {
+		/* Fixed pixel offset (not a percentage of the badge's own size) so it
+		   stays pinned near the person marker/count badge regardless of icon size. */
+		transform: translate(calc(-50% - 10px), calc(-50% - 10px)) rotate(var(--sa-dragon-angle, 0deg));
+		width: 44px;
+		height: 42px;
 	}
 </style>

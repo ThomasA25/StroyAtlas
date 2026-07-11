@@ -33,6 +33,8 @@ interface ClusteredPerson {
 	faction: string;
 	dead: boolean;
 	moving: boolean;
+	isDragon: boolean;
+	direction: { dx: number; dy: number } | null;
 }
 
 export function buildCharacterClusters(
@@ -62,9 +64,10 @@ export function buildCharacterClusters(
 		if (dead && !filters.showDead) continue;
 		if (stationary && !filters.showStationary) continue;
 
+		const isDragon = ch?.kind === 'dragon';
 		const key = `${Math.round(p.x)},${Math.round(p.y)}`;
 		const cluster = clusters.get(key) ?? { x: p.x, y: p.y, people: [] };
-		cluster.people.push({ name, faction, dead, moving });
+		cluster.people.push({ name, faction, dead, moving, isDragon, direction: moving ? p.direction : null });
 		clusters.set(key, cluster);
 	}
 
@@ -75,6 +78,17 @@ function dominantCategory(people: ClusteredPerson[]): PersonCategory {
 	if (people.every((p) => p.dead)) return 'dead';
 	if (people.some((p) => p.moving)) return 'traveling';
 	return 'stationary';
+}
+
+/** CSS rotation (clockwise degrees) that turns the dragon icon's default
+ * upward-facing head to point along `d`, in map pixel space. */
+function angleFromDirection(d: { dx: number; dy: number }): number {
+	return (Math.atan2(d.dx, -d.dy) * 180) / Math.PI;
+}
+
+function dragonAngleDeg(people: ClusteredPerson[]): number | null {
+	const flying = people.find((p) => p.isDragon && p.direction);
+	return flying?.direction ? angleFromDirection(flying.direction) : null;
 }
 
 function toClusterVM(
@@ -103,6 +117,9 @@ function toClusterVM(
 		y: c.y,
 		count: c.people.length,
 		category: dominantCategory(c.people),
+		allDragons: c.people.every((p) => p.isDragon),
+		hasDragon: c.people.some((p) => p.isDragon),
+		dragonAngleDeg: dragonAngleDeg(c.people),
 		tooltip: { groups }
 	};
 }

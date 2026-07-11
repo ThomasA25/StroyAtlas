@@ -61,6 +61,13 @@ export interface CharacterClusterVM {
 	y: number;
 	count: number;
 	category: PersonCategory;
+	/** True when every character sharing this spot is a dragon (kind:'dragon'). */
+	allDragons: boolean;
+	/** True when at least one character sharing this spot is a dragon (e.g. a rider + their dragon). */
+	hasDragon: boolean;
+	/** CSS rotation (degrees, clockwise) so the dragon icon's head faces its
+	 * flight direction; null when no dragon here is currently in transit. */
+	dragonAngleDeg: number | null;
 	tooltip: TooltipContent;
 }
 
