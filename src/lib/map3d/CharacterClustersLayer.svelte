@@ -17,12 +17,20 @@
 		clusters,
 		height,
 		showNames,
-		markerScale
+		iconScale,
+		circleScale
 	}: {
 		clusters: CharacterClusterVM[];
 		height: number;
 		showNames: boolean;
-		markerScale: number;
+		/** Grows/shrinks with camera zoom (unlike location pins, which stay a
+		 * constant screen size) — see `characterScale` in MapScene.svelte. Drives
+		 * the HTML dragon/badge overlays (plain CSS, unaffected by camera zoom). */
+		iconScale: number;
+		/** Same capped curve as `iconScale`, but pre-divided by camera zoom so the
+		 * T.Mesh circle (which the camera's own zoom already scales) ends up at
+		 * the same apparent size instead of growing unbounded. */
+		circleScale: number;
 	} = $props();
 
 	let hoveredKey = $state<string | null>(null);
@@ -36,6 +44,7 @@
 				class="sa-dragon-marker"
 				role="presentation"
 				style:--sa-dragon-angle="{c.dragonAngleDeg ?? 0}deg"
+				style:--sa-icon-scale={iconScale * c.dragonSizeScale}
 				onpointerenter={() => (hoveredKey = c.key)}
 				onpointerleave={() => (hoveredKey = null)}
 			></div>
@@ -43,7 +52,7 @@
 	{:else}
 		<T.Mesh
 			position={[pos.x, pos.y, pos.z]}
-			scale={markerScale}
+			scale={circleScale}
 			onpointerover={() => (hoveredKey = c.key)}
 			onpointerout={() => (hoveredKey = null)}
 		>
@@ -52,13 +61,17 @@
 		</T.Mesh>
 		{#if c.hasDragon}
 			<HTML position={[pos.x, pos.y, pos.z]} pointerEvents="none">
-				<div class="sa-dragon-badge" style:--sa-dragon-angle="{c.dragonAngleDeg ?? 0}deg"></div>
+				<div
+					class="sa-dragon-badge"
+					style:--sa-dragon-angle="{c.dragonAngleDeg ?? 0}deg"
+					style:--sa-icon-scale={iconScale * c.dragonSizeScale}
+				></div>
 			</HTML>
 		{/if}
 	{/if}
 	{#if c.count > 1}
 		<HTML position={[pos.x, pos.y, pos.z]} pointerEvents="none">
-			<div class="sa-cluster-badge">{c.count}</div>
+			<div class="sa-cluster-badge" style:--sa-icon-scale={iconScale}>{c.count}</div>
 		</HTML>
 	{/if}
 	<MapTooltip
@@ -73,7 +86,7 @@
 
 <style>
 	.sa-cluster-badge {
-		transform: translate(-50%, -50%);
+		transform: translate(-50%, -50%) scale(var(--sa-icon-scale, 1));
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -100,17 +113,22 @@
 		filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.7));
 	}
 	.sa-dragon-marker {
-		/* rotate() is applied last so the icon spins in place around its own
-		   center, after the position offset — see --sa-dragon-angle above. */
-		transform: translate(-50%, -50%) rotate(var(--sa-dragon-angle, 0deg));
-		width: 72px;
-		height: 68px;
+		/* Transform functions apply right-to-left: scale first (around the
+		   icon's own center), then rotate, then the fixed position offset last —
+		   so growing/shrinking with zoom never disturbs the anchor placement. */
+		transform: translate(-50%, -50%) rotate(var(--sa-dragon-angle, 0deg)) scale(var(--sa-icon-scale, 1));
+		width: 55px;
+		height: 52px;
 	}
 	.sa-dragon-badge {
-		/* Fixed pixel offset (not a percentage of the badge's own size) so it
-		   stays pinned near the person marker/count badge regardless of icon size. */
-		transform: translate(calc(-50% - 10px), calc(-50% - 10px)) rotate(var(--sa-dragon-angle, 0deg));
-		width: 44px;
-		height: 42px;
+		/* Same base size as .sa-dragon-marker — a dragon's apparent size must only
+		   depend on --sa-icon-scale (zoom × lore size), never on whether it happens
+		   to share its cluster with a rider (badge) or stand alone (marker).
+		   Mismatched base sizes here previously caused a jarring jump the moment a
+		   rider died and the cluster flipped from badge to marker mid-timeline. */
+		transform: translate(calc(-50% - 10px), calc(-50% - 10px)) rotate(var(--sa-dragon-angle, 0deg))
+			scale(var(--sa-icon-scale, 1));
+		width: 55px;
+		height: 52px;
 	}
 </style>

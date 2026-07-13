@@ -45,16 +45,36 @@ interface DragonDef {
 	de: string;
 	/** Rider whose death event also kills this dragon. */
 	diesWith?: string;
+	/** Size relative to an average adult dragon (1 = average), from Fire &
+	 * Blood/show lore — e.g. Vhagar is the largest living dragon of the era,
+	 * Moondancer "never grew larger than a horse". Purely cosmetic (map marker
+	 * size), so approximate rankings are fine where sources disagree. */
+	sizeScale: number;
 }
 const DRAGONS: DragonDef[] = [
-	{ id: 'caraxes', riders: ['daemon-targaryen'], faction: 'Blacks', en: 'Caraxes', de: 'Caraxes' },
-	{ id: 'syrax', riders: ['rhaenyra-targaryen'], faction: 'Blacks', en: 'Syrax', de: 'Syrax' },
+	{
+		id: 'caraxes',
+		riders: ['daemon-targaryen'],
+		faction: 'Blacks',
+		en: 'Caraxes',
+		de: 'Caraxes',
+		sizeScale: 1.1 // "the Blood Wyrm" — long and serpentine, said to be about half Vhagar's size
+	},
+	{
+		id: 'syrax',
+		riders: ['rhaenyra-targaryen'],
+		faction: 'Blacks',
+		en: 'Syrax',
+		de: 'Syrax',
+		sizeScale: 1.0 // large but plump/battle-untested; slightly smaller than Meleys
+	},
 	{
 		id: 'vhagar',
 		riders: ['aemond-targaryen', 'laena-velaryon'],
 		faction: 'Greens',
 		en: 'Vhagar',
-		de: 'Vhagar'
+		de: 'Vhagar',
+		sizeScale: 1.5 // largest living dragon of the era, ~200 years old
 	},
 	{
 		id: 'vermax',
@@ -62,7 +82,8 @@ const DRAGONS: DragonDef[] = [
 		faction: 'Blacks',
 		en: 'Vermax',
 		de: 'Vermax',
-		diesWith: 'jacaerys-velaryon'
+		diesWith: 'jacaerys-velaryon',
+		sizeScale: 0.75 // young, still growing — one of the larger "young dragons"
 	},
 	{
 		id: 'arrax',
@@ -70,7 +91,8 @@ const DRAGONS: DragonDef[] = [
 		faction: 'Blacks',
 		en: 'Arrax',
 		de: 'Arrax',
-		diesWith: 'lucerys-velaryon'
+		diesWith: 'lucerys-velaryon',
+		sizeScale: 0.7 // young dragon, killed early in the war by Vhagar
 	},
 	{
 		id: 'meleys',
@@ -78,32 +100,64 @@ const DRAGONS: DragonDef[] = [
 		faction: 'Blacks',
 		en: 'Meleys',
 		de: 'Meleys',
-		diesWith: 'rhaenys-targaryen'
+		diesWith: 'rhaenys-targaryen',
+		sizeScale: 1.05 // "the Red Queen" — very large and the fastest dragon alive
 	},
-	{ id: 'sunfyre', riders: ['aegon-ii-targaryen'], faction: 'Greens', en: 'Sunfyre', de: 'Sunfyre' },
+	{
+		id: 'sunfyre',
+		riders: ['aegon-ii-targaryen'],
+		faction: 'Greens',
+		en: 'Sunfyre',
+		de: 'Sunfyre',
+		sizeScale: 0.9 // comparable to Seasmoke, smaller than Syrax
+	},
 	{
 		id: 'dreamfyre',
 		riders: ['helaena-targaryen'],
 		faction: 'Greens',
 		en: 'Dreamfyre',
-		de: 'Traumfeuer'
+		de: 'Traumfeuer',
+		sizeScale: 1.2 // one of the eldest dragons, sized just behind Vermithor
 	},
 	{
 		id: 'moondancer',
 		riders: ['baela-targaryen'],
 		faction: 'Blacks',
 		en: 'Moondancer',
-		de: 'Mondtänzerin'
+		de: 'Mondtänzerin',
+		sizeScale: 0.55 // smallest dragon alive during the Dance — never bigger than a horse
 	},
-	{ id: 'seasmoke', riders: ['addam-of-hull'], faction: 'Blacks', en: 'Seasmoke', de: 'Seerauch' },
-	{ id: 'vermithor', riders: ['hugh-hammer'], faction: 'Blacks', en: 'Vermithor', de: 'Vermithor' },
-	{ id: 'silverwing', riders: ['ulf-white'], faction: 'Blacks', en: 'Silverwing', de: 'Silberflügel' },
+	{
+		id: 'seasmoke',
+		riders: ['addam-of-hull'],
+		faction: 'Blacks',
+		en: 'Seasmoke',
+		de: 'Seerauch',
+		sizeScale: 0.9 // comparable to Sunfyre, smaller than Syrax
+	},
+	{
+		id: 'vermithor',
+		riders: ['hugh-hammer'],
+		faction: 'Blacks',
+		en: 'Vermithor',
+		de: 'Vermithor',
+		sizeScale: 1.35 // "the Bronze Fury" — second-largest dragon in Westeros after Vhagar
+	},
+	{
+		id: 'silverwing',
+		riders: ['ulf-white'],
+		faction: 'Blacks',
+		en: 'Silverwing',
+		de: 'Silberflügel',
+		sizeScale: 1.3 // close in age to Vermithor, presumed similarly large by the Dance
+	},
 	{
 		id: 'sheepstealer',
 		riders: ['rhaena-targaryen'],
 		faction: 'Blacks',
 		en: 'Sheepstealer',
-		de: 'Schafsdieb'
+		de: 'Schafsdieb',
+		sizeScale: 0.85 // wild and "skinny", but large enough to take on two young dragons at once
 	}
 ];
 
@@ -138,6 +192,7 @@ function addDragons(project: Project, locale: Locale): void {
 			aliases: [],
 			kind: 'dragon',
 			riderIds: d.riders.map((r) => r as CharacterId),
+			sizeScale: d.sizeScale,
 			origin: 'extracted'
 		};
 	}

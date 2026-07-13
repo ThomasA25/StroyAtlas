@@ -60,6 +60,19 @@
 	let camera = $state<THREE.OrthographicCamera>();
 	let controls = $state<OrbitControlsImpl>();
 	let markerScale = $state(1);
+	/** Zoom level at which the map is first fitted to the viewport — the
+	 * reference point `characterScale` is normalized against, so icons look
+	 * the same as today at the default view. */
+	let baseZoom = $state(1);
+	/** Unlike `markerScale` (which keeps location pins a constant screen size),
+	 * character/dragon icons should grow as the user zooms in. Drives the HTML
+	 * dragon/badge overlays directly (plain CSS, unaffected by camera zoom). */
+	let characterScale = $state(1);
+	/** T.Mesh circle markers live in the 3D scene, so the camera's own zoom
+	 * already multiplies their apparent size on screen — this cancels that out
+	 * so the circles follow the same capped `characterScale` curve instead of
+	 * growing unbounded with zoom. */
+	let circleScale = $state(1);
 	let accentColor = $state('#8b2fe0');
 
 	let draggingId = $state<LocationId | null>(null);
@@ -102,6 +115,7 @@
 		const h = mapConfig.height;
 		const { width: cw, height: ch } = untrack(() => size.current);
 		camera.zoom = cw && ch ? Math.min(cw / w, ch / h) : 1;
+		baseZoom = camera.zoom || 1;
 		camera.position.set(w / 2, h / 2, 100);
 		camera.updateProjectionMatrix();
 		controls?.target.set(w / 2, h / 2, 0);
@@ -111,7 +125,13 @@
 	$effect(() => {
 		if (!controls) return;
 		const update = () => {
-			if (camera) markerScale = 1 / camera.zoom;
+			if (!camera) return;
+			markerScale = 1 / camera.zoom;
+			// Square-rooted and clamped: a linear ratio made the person/dragon
+			// icons balloon at high zoom levels, so growth is damped and capped.
+			const ratio = camera.zoom / baseZoom;
+			characterScale = Math.min(2.5, Math.max(0.6, Math.sqrt(ratio)));
+			circleScale = characterScale / camera.zoom;
 		};
 		update();
 		controls.addEventListener('change', update);
@@ -192,5 +212,6 @@
 	clusters={characterClusters}
 	height={mapConfig.height}
 	showNames={showCharacterNames}
-	{markerScale}
+	iconScale={characterScale}
+	{circleScale}
 />

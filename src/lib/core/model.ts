@@ -66,6 +66,9 @@ export interface Character {
 	/** For a dragon, the canonical id(s) of its rider(s) — lets views pair a
 	 * dragon with its rider(s) (e.g. the map's "dragons + riders" mode). */
 	riderIds?: CharacterId[];
+	/** For a dragon, its size relative to an average adult dragon (1 = average).
+	 * Lets the map render bigger dragons bigger, e.g. Vhagar vs. Moondancer. */
+	sizeScale?: number;
 	origin: Origin;
 }
 

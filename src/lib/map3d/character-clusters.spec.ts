@@ -19,6 +19,7 @@ function project(): Project {
 		faction: 'Stark',
 		aliases: [],
 		kind: 'dragon',
+		sizeScale: 1.5,
 		origin: 'manual'
 	};
 	p.locations[wf] = {
@@ -93,6 +94,27 @@ describe('buildCharacterClusters', () => {
 		);
 		expect(onlyDragon[0]?.allDragons).toBe(true);
 		expect(onlyDragon[0]?.hasDragon).toBe(true);
+	});
+
+	it('exposes the dragon lore size, defaulting to 1 when a cluster has none', () => {
+		const p = project();
+		expect(buildCharacterClusters(p, p, 0, new Map(), defaultFilters, labels)[0]?.dragonSizeScale).toBe(
+			1
+		);
+
+		p.scenes['s1' as never] = {
+			id: 's1' as never,
+			orderIndex: 0,
+			startHint: '',
+			endHint: '',
+			locationId: wf,
+			characters: [drogon],
+			eventIds: [],
+			transitionToNext: '',
+			origin: 'manual'
+		};
+		const withDragon = buildCharacterClusters(p, p, 0, new Map(), defaultFilters, labels);
+		expect(withDragon[0]?.dragonSizeScale).toBe(1.5);
 	});
 
 	it('rotates a flying dragon to face its travel direction, null when stationary', () => {

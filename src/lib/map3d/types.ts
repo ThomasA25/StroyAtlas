@@ -68,6 +68,9 @@ export interface CharacterClusterVM {
 	/** CSS rotation (degrees, clockwise) so the dragon icon's head faces its
 	 * flight direction; null when no dragon here is currently in transit. */
 	dragonAngleDeg: number | null;
+	/** Largest lore size (relative to an average adult dragon) among any dragons
+	 * sharing this spot; 1 when there are none — see Character.sizeScale. */
+	dragonSizeScale: number;
 	tooltip: TooltipContent;
 }
 

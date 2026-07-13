@@ -35,6 +35,9 @@ interface ClusteredPerson {
 	moving: boolean;
 	isDragon: boolean;
 	direction: { dx: number; dy: number } | null;
+	/** For a dragon, its lore size relative to an average adult dragon (see
+	 * Character.sizeScale); 1 for people or dragons without a known size. */
+	sizeScale: number;
 }
 
 export function buildCharacterClusters(
@@ -65,9 +68,18 @@ export function buildCharacterClusters(
 		if (stationary && !filters.showStationary) continue;
 
 		const isDragon = ch?.kind === 'dragon';
+		const sizeScale = ch?.sizeScale ?? 1;
 		const key = `${Math.round(p.x)},${Math.round(p.y)}`;
 		const cluster = clusters.get(key) ?? { x: p.x, y: p.y, people: [] };
-		cluster.people.push({ name, faction, dead, moving, isDragon, direction: moving ? p.direction : null });
+		cluster.people.push({
+			name,
+			faction,
+			dead,
+			moving,
+			isDragon,
+			direction: moving ? p.direction : null,
+			sizeScale
+		});
 		clusters.set(key, cluster);
 	}
 
@@ -89,6 +101,12 @@ function angleFromDirection(d: { dx: number; dy: number }): number {
 function dragonAngleDeg(people: ClusteredPerson[]): number | null {
 	const flying = people.find((p) => p.isDragon && p.direction);
 	return flying?.direction ? angleFromDirection(flying.direction) : null;
+}
+
+/** Largest lore size among any dragons sharing this spot (1 when there are none). */
+function dragonSizeScale(people: ClusteredPerson[]): number {
+	const dragons = people.filter((p) => p.isDragon);
+	return dragons.length ? Math.max(...dragons.map((p) => p.sizeScale)) : 1;
 }
 
 function toClusterVM(
@@ -120,6 +138,7 @@ function toClusterVM(
 		allDragons: c.people.every((p) => p.isDragon),
 		hasDragon: c.people.some((p) => p.isDragon),
 		dragonAngleDeg: dragonAngleDeg(c.people),
+		dragonSizeScale: dragonSizeScale(c.people),
 		tooltip: { groups }
 	};
 }
