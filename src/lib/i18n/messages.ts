@@ -30,12 +30,11 @@ const en = {
 	'nav.editor': 'Editor',
 	'nav.map': 'Map',
 	'nav.mapTimeline': 'Map & Timeline',
+	'nav.mapEditor': 'Map Editor',
 	'nav.timeline': 'Timeline',
-	'nav.graph': 'Graph',
 
 	'editor.title': 'Editor',
 
-	'timeline.title': 'Timeline',
 	'timeline.episode': 'Episode',
 	'timeline.from': 'From',
 	'timeline.to': 'To',
@@ -43,11 +42,9 @@ const en = {
 	'timeline.allEpisodes': 'All episodes ({count} scenes)',
 	'timeline.episodeOption': '{label} ({count})',
 	'timeline.showAll': 'Show all',
-	'timeline.scene': '(scene)',
 	'timeline.jumpHere': 'Jump here',
 	'timeline.keyEvents': 'Key events',
 	'timeline.noneDetected': 'None detected.',
-	'timeline.noScenes': 'No scenes yet. Extract a source or add scenes in the Editor.',
 
 	'map.title': 'Map',
 	'map.setBaseMap': 'Set a base map',
@@ -71,6 +68,7 @@ const en = {
 	'map.travelers': 'Travelers',
 	'map.stationary': 'Stationary',
 	'map.dead': 'Dead',
+	'map.movementLines': 'Movement lines',
 	'map.show': 'Show',
 	'map.who': 'Who',
 	'map.everyone': 'Everyone',
@@ -84,13 +82,19 @@ const en = {
 	'map.all': 'All',
 	'map.none': 'None',
 
-	'graph.title': 'Character graph',
-	'graph.empty': 'No characters yet. Extract a source or add characters in the Editor.',
-	'graph.minStrength': 'Min. relationship strength',
-	'graph.hideIsolated': 'Hide unconnected',
-	'graph.legend': 'Factions',
-	'graph.relayout': 'Re-layout',
-	'graph.focusHint': 'Click a character to focus its connections — click empty space to reset.',
+	'mapEditor.title': 'Map Editor',
+	'mapEditor.hint':
+		'Place and adjust locations on the base map here. The viewer at Map & Timeline is read-only.',
+	'mapEditor.editMode': 'Edit mode',
+	'mapEditor.editModeHint': 'Turn on edit mode to place or drag location markers.',
+	'mapEditor.unsavedChanges': '{count} unsaved change(s)',
+	'mapEditor.save': 'Save',
+	'mapEditor.saved': 'Saved.',
+	'mapEditor.discard': 'Discard changes',
+	'mapEditor.exportTitle': 'Export for deployment',
+	'mapEditor.exportHint':
+		'The saved coordinates only live in this browser. To ship them to everyone, export this file and commit it as data/hotd/location-coordinates.json.',
+	'mapEditor.exportCoordinates': 'Export coordinates',
 
 	'player.speed': 'Speed',
 
@@ -166,7 +170,11 @@ const en = {
 	'death.died': 'died',
 	'death.diesIn': 'Dies: {event}',
 	'death.by': 'by',
-	'timeline.showDeathsOnly': 'Deaths only'
+	'timeline.showDeathsOnly': 'Deaths only',
+
+	'eventCategory.death': 'Death',
+	'eventCategory.battle': 'Battle',
+	'eventCategory.politics': 'Politics'
 } as const;
 
 export type MessageKey = keyof typeof en;
@@ -188,12 +196,11 @@ const de: Messages = {
 	'nav.editor': 'Editor',
 	'nav.map': 'Karte',
 	'nav.mapTimeline': 'Karte & Zeitleiste',
+	'nav.mapEditor': 'Karten-Editor',
 	'nav.timeline': 'Zeitleiste',
-	'nav.graph': 'Graph',
 
 	'editor.title': 'Editor',
 
-	'timeline.title': 'Zeitleiste',
 	'timeline.episode': 'Episode',
 	'timeline.from': 'Von',
 	'timeline.to': 'Bis',
@@ -201,11 +208,9 @@ const de: Messages = {
 	'timeline.allEpisodes': 'Alle Episoden ({count} Szenen)',
 	'timeline.episodeOption': '{label} ({count})',
 	'timeline.showAll': 'Alle anzeigen',
-	'timeline.scene': '(Szene)',
 	'timeline.jumpHere': 'Hierher springen',
 	'timeline.keyEvents': 'Schlüsselereignisse',
 	'timeline.noneDetected': 'Keine erkannt.',
-	'timeline.noScenes': 'Noch keine Szenen. Extrahiere eine Quelle oder füge Szenen im Editor hinzu.',
 
 	'map.title': 'Karte',
 	'map.setBaseMap': 'Basiskarte festlegen',
@@ -230,6 +235,7 @@ const de: Messages = {
 	'map.travelers': 'Reisende',
 	'map.stationary': 'Stationäre',
 	'map.dead': 'Tote',
+	'map.movementLines': 'Bewegungslinien',
 	'map.show': 'Anzeigen',
 	'map.who': 'Wer',
 	'map.everyone': 'Alle',
@@ -243,13 +249,19 @@ const de: Messages = {
 	'map.all': 'Alle',
 	'map.none': 'Keine',
 
-	'graph.title': 'Figurengraph',
-	'graph.empty': 'Noch keine Figuren. Extrahiere eine Quelle oder füge Figuren im Editor hinzu.',
-	'graph.minStrength': 'Min. Beziehungsstärke',
-	'graph.hideIsolated': 'Unverbundene ausblenden',
-	'graph.legend': 'Fraktionen',
-	'graph.relayout': 'Neu anordnen',
-	'graph.focusHint': 'Klicke eine Figur, um ihre Verbindungen zu fokussieren — klicke ins Leere zum Zurücksetzen.',
+	'mapEditor.title': 'Karten-Editor',
+	'mapEditor.hint':
+		'Platziere und justiere hier Orte auf der Basiskarte. Die Ansicht unter Karte & Zeitleiste ist nur lesbar.',
+	'mapEditor.editMode': 'Bearbeitungsmodus',
+	'mapEditor.editModeHint': 'Aktiviere den Bearbeitungsmodus, um Orts-Marker zu platzieren oder zu verschieben.',
+	'mapEditor.unsavedChanges': '{count} ungespeicherte Änderung(en)',
+	'mapEditor.save': 'Speichern',
+	'mapEditor.saved': 'Gespeichert.',
+	'mapEditor.discard': 'Änderungen verwerfen',
+	'mapEditor.exportTitle': 'Für Deployment exportieren',
+	'mapEditor.exportHint':
+		'Gespeicherte Koordinaten liegen nur in diesem Browser. Damit sie für alle gelten, exportiere diese Datei und committe sie als data/hotd/location-coordinates.json.',
+	'mapEditor.exportCoordinates': 'Koordinaten exportieren',
 
 	'player.speed': 'Geschwindigkeit',
 
@@ -325,7 +337,11 @@ const de: Messages = {
 	'death.died': 'gestorben',
 	'death.diesIn': 'Tod: {event}',
 	'death.by': 'von',
-	'timeline.showDeathsOnly': 'Nur Tode'
+	'timeline.showDeathsOnly': 'Nur Tode',
+
+	'eventCategory.death': 'Tod',
+	'eventCategory.battle': 'Schlacht',
+	'eventCategory.politics': 'Politik'
 };
 
 export const messages: Record<Locale, Messages> = { en, de };

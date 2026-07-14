@@ -78,31 +78,58 @@ export function characterPositionsAt(project: Project, t: number): CharacterPosi
 	return out;
 }
 
-/** True when `t` falls strictly inside a segment connecting two different places
- * — i.e. the character is currently in transit rather than resting at a spot. */
-export function movingAt(waypoints: Waypoint[], t: number): boolean {
-	if (waypoints.length < 2) return false;
+/** The waypoint pair `t` currently falls strictly between, or null when `t` is
+ * at/before/after the route (resting at an endpoint). */
+function currentSegment(waypoints: Waypoint[], t: number): [Waypoint, Waypoint] | null {
+	if (waypoints.length < 2) return null;
 	const first = waypoints[0]!;
 	const last = waypoints[waypoints.length - 1]!;
-	if (t <= first.orderIndex || t >= last.orderIndex) return false;
+	if (t <= first.orderIndex || t >= last.orderIndex) return null;
 	for (let i = 1; i < waypoints.length; i++) {
 		const a = waypoints[i - 1]!;
 		const b = waypoints[i]!;
-		if (t > a.orderIndex && t < b.orderIndex) return a.x !== b.x || a.y !== b.y;
+		if (t > a.orderIndex && t < b.orderIndex) return [a, b];
 	}
-	return false; // sitting exactly on a waypoint
+	return null;
+}
+
+/** True when `t` falls strictly inside a segment connecting two different places
+ * — i.e. the character is currently in transit rather than resting at a spot. */
+export function movingAt(waypoints: Waypoint[], t: number): boolean {
+	const seg = currentSegment(waypoints, t);
+	return !!seg && (seg[0].x !== seg[1].x || seg[0].y !== seg[1].y);
+}
+
+/** Direction vector (in map pixel space) of the segment `t` is currently
+ * travelling along, or null when not moving. */
+function directionAt(waypoints: Waypoint[], t: number): { dx: number; dy: number } | null {
+	const seg = currentSegment(waypoints, t);
+	if (!seg) return null;
+	const [a, b] = seg;
+	if (a.x === b.x && a.y === b.y) return null;
+	return { dx: b.x - a.x, dy: b.y - a.y };
 }
 
 export interface CharacterPlacement extends CharacterPosition {
 	moving: boolean;
+	direction: { dx: number; dy: number } | null;
 }
 
-/** Character positions plus whether each is currently travelling. */
+/** Character positions plus whether each is currently travelling and, if so,
+ * in which direction. */
 export function characterPlacementsAt(project: Project, t: number): CharacterPlacement[] {
 	const out: CharacterPlacement[] = [];
 	for (const [characterId, waypoints] of characterWaypoints(project)) {
 		const pos = positionAt(waypoints, t);
-		if (pos) out.push({ characterId, x: pos.x, y: pos.y, moving: movingAt(waypoints, t) });
+		if (pos) {
+			out.push({
+				characterId,
+				x: pos.x,
+				y: pos.y,
+				moving: movingAt(waypoints, t),
+				direction: directionAt(waypoints, t)
+			});
+		}
 	}
 	return out;
 }

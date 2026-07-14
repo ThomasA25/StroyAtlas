@@ -1,33 +1,51 @@
 <script lang="ts">
-	import { SvelteSet } from 'svelte/reactivity';
 	import { store } from '$lib/core/store.svelte';
 	import { clock } from '$lib/core/clock.svelte';
-	import { episodeKeyOf } from '$lib/core/derive';
+	import { episodeKeyOf, KEY_EVENT_CATEGORIES, type KeyEvent, type KeyEventCategory } from '$lib/core/derive';
 	import { episodeRange } from '$lib/core/episode-filter.svelte';
 	import { t } from '$lib/i18n/i18n.svelte';
 
-	// Scene track + key events, filtered by the shared episode range. Scenes show
-	// as compact one-line rows (#index + title); their details expand on request.
+	// Marker colour per key-event category, shared by the legend and the strip.
+	const CATEGORY_COLOR: Record<KeyEventCategory, string> = {
+		death: 'var(--sa-danger)',
+		battle: '#e0a23a',
+		politics: '#5aa9e6'
+	};
+
+	// Horizontal key-events strip, filtered by the shared episode range.
 	const currentIndex = $derived(Math.round(clock.current));
 	const keys = $derived(store.episodeGroups.map((e) => e.key));
 	const selectedKeys = $derived(episodeRange.selectedKeys(keys));
 	const isFullRange = $derived(episodeRange.isFull(keys));
 
-	const scenes = $derived(
-		isFullRange
-			? store.timelineScenes
-			: store.timelineScenes.filter((s) => selectedKeys.has(episodeKeyOf(s)))
-	);
 	const keyEvents = $derived(
 		isFullRange
 			? store.keyEvents
 			: store.keyEvents.filter((k) => selectedKeys.has(episodeKeyOf(k.event)))
 	);
+	// Episode boundaries drawn into the strip's background, so the key-events
+	// axis reads against the same episode structure as the Von/Bis filter above.
+	const episodesInView = $derived(
+		isFullRange
+			? store.episodeGroups
+			: store.episodeGroups.filter((e) => selectedKeys.has(e.key))
+	);
 
-	const expanded = new SvelteSet<string>();
-	function toggle(id: string): void {
-		if (expanded.has(id)) expanded.delete(id);
-		else expanded.add(id);
+	// Position by order_index against the clock's full range, so the playhead
+	// and event markers share one axis.
+	let hoveredCategory = $state<KeyEventCategory | null>(null);
+	let hoveredEventId = $state<string | null>(null);
+	let selectedEventId = $state<string | null>(null);
+	const selectedEvent = $derived(keyEvents.find((k) => k.event.id === selectedEventId) ?? null);
+
+	function pct(orderIndex: number): number {
+		if (clock.max <= 0) return 0;
+		return Math.min(100, Math.max(0, (orderIndex / clock.max) * 100));
+	}
+
+	function selectEvent(k: KeyEvent): void {
+		selectedEventId = k.event.id;
+		clock.seek(k.event.orderIndex);
 	}
 
 	const deathByEvent = $derived(
@@ -40,14 +58,6 @@
 			])
 		)
 	);
-	function sceneDeaths(eventIds: readonly string[]): string[] {
-		const out: string[] = [];
-		for (const id of eventIds) {
-			const n = deathByEvent.get(id);
-			if (n) out.push(...n);
-		}
-		return out;
-	}
 	function names(ids: readonly string[]): string {
 		return ids
 			.map((id) => store.project.characters[id as keyof typeof store.project.characters]?.name ?? id)
@@ -59,164 +69,216 @@
 	}
 </script>
 
-<div class="layout">
-	<ol class="track">
-		{#each scenes as scene (scene.id)}
-			{@const open = expanded.has(scene.id)}
-			{@const deaths = sceneDeaths(scene.eventIds)}
-			<li class="scene" class:current={scene.orderIndex === currentIndex} class:open>
-				<div class="row">
-					<button
-						class="seek"
-						onclick={() => clock.seek(scene.orderIndex)}
-						title={t('timeline.jumpHere')}>#{scene.orderIndex}</button
-					>
-					<button class="ttl" onclick={() => toggle(scene.id)} aria-expanded={open}>
-						<span class="arrow">▸</span>
-						<span class="text">{scene.startHint || t('timeline.scene')}</span>
-						{#if deaths.length}<span class="skull" title={t('death.label')}>💀</span>{/if}
-					</button>
-				</div>
-				{#if open}
-					<div class="detail">
-						<span class="sa-muted">@ {locName(scene.locationId)}</span>
-						{#if scene.characters.length}
-							<span class="sa-muted">{names(scene.characters)}</span>
-						{/if}
-						{#if deaths.length}
-							<span class="death">💀 {deaths.join(', ')}</span>
-						{/if}
-						{#if scene.transitionToNext}
-							<span class="trans sa-muted">→ {scene.transitionToNext}</span>
-						{/if}
+<section class="sa-card key-events">
+	<h3>{t('timeline.keyEvents')}</h3>
+	{#if keyEvents.length}
+		<div class="legend">
+			{#each KEY_EVENT_CATEGORIES as cat (cat)}
+				<button
+					type="button"
+					class="legend-chip"
+					class:dimmed={hoveredCategory != null && hoveredCategory !== cat}
+					onmouseenter={() => (hoveredCategory = cat)}
+					onmouseleave={() => (hoveredCategory = null)}
+					onfocus={() => (hoveredCategory = cat)}
+					onblur={() => (hoveredCategory = null)}
+				>
+					<span class="swatch" style:background={CATEGORY_COLOR[cat]}></span>
+					{t(`eventCategory.${cat}`)}
+				</button>
+			{/each}
+		</div>
+		<div class="strip">
+			<div class="axis"></div>
+			{#each episodesInView as ep (ep.key)}
+				<div class="episode-divider" style:left="{pct(ep.orderStart)}%" title={ep.label}></div>
+			{/each}
+			<div class="playhead" style:left="{pct(currentIndex)}%"></div>
+			{#each keyEvents as k (k.event.id)}
+				{@const active = hoveredCategory != null && k.categories.includes(hoveredCategory)}
+				{@const dimmed = hoveredCategory != null && !active}
+				<button
+					class="marker"
+					class:active
+					class:dimmed
+					class:selected={selectedEventId === k.event.id}
+					style:left="{pct(k.event.orderIndex)}%"
+					onclick={() => selectEvent(k)}
+					onmouseenter={() => (hoveredEventId = k.event.id)}
+					onmouseleave={() => (hoveredEventId = null)}
+					onfocus={() => (hoveredEventId = k.event.id)}
+					onblur={() => (hoveredEventId = null)}
+				>
+					{#each k.categories as cat (cat)}
+						<span class="dot" style:background={CATEGORY_COLOR[cat]}></span>
+					{/each}
+				</button>
+				{#if hoveredEventId === k.event.id}
+					<div class="marker-tooltip" style:left="{pct(k.event.orderIndex)}%">
+						{k.event.title}
 					</div>
 				{/if}
-			</li>
-		{:else}
-			<p class="sa-muted">{t('timeline.noScenes')}</p>
-		{/each}
-	</ol>
-
-	<aside class="sa-card">
-		<h3>{t('timeline.keyEvents')}</h3>
-		{#if keyEvents.length}
-			<ul>
-				{#each keyEvents as k (k.event.id)}
-					<li class:death={deathByEvent.has(k.event.id)}>
-						<button onclick={() => clock.seek(k.event.orderIndex)}>#{k.event.orderIndex}</button>
-						{#if deathByEvent.has(k.event.id)}<span title={t('death.label')}>💀</span>{/if}
-						<span>{k.event.title}</span>
-						<span class="cats">{k.categories.join(', ')}</span>
-					</li>
-				{/each}
-			</ul>
-		{:else}
-			<p class="sa-muted">{t('timeline.noneDetected')}</p>
+			{/each}
+		</div>
+		{#if selectedEvent}
+			{@const eventDeaths = deathByEvent.get(selectedEvent.event.id) ?? []}
+			<div class="event-detail">
+				<div class="event-detail-head">
+					<button class="seek" onclick={() => clock.seek(selectedEvent.event.orderIndex)}
+					>#{selectedEvent.event.orderIndex}</button
+					>
+					<strong>{selectedEvent.event.title}</strong>
+					{#each selectedEvent.categories as cat (cat)}
+						<span class="cat-chip" style:color={CATEGORY_COLOR[cat]}
+						>{t(`eventCategory.${cat}`)}</span
+						>
+					{/each}
+				</div>
+				<span class="sa-muted">@ {locName(selectedEvent.event.locationId)}</span>
+				{#if selectedEvent.event.charactersInvolved.length}
+					<span class="sa-muted">{names(selectedEvent.event.charactersInvolved)}</span>
+				{/if}
+				{#if eventDeaths.length}
+					<span class="death">💀 {eventDeaths.join(', ')}</span>
+				{/if}
+			</div>
 		{/if}
-	</aside>
-</div>
+	{:else}
+		<p class="sa-muted">{t('timeline.noneDetected')}</p>
+	{/if}
+</section>
 
 <style>
-	.layout {
-		display: grid;
-		grid-template-columns: 1fr 280px;
-		gap: 1rem;
-		align-items: start;
-	}
-	.track {
-		list-style: none;
-		padding: 0;
-		margin: 0;
-		display: flex;
-		flex-direction: column;
-	}
-	.scene {
-		border-bottom: 1px solid var(--sa-border);
-	}
-	.row {
-		display: flex;
-		align-items: baseline;
-		gap: 0.5rem;
-	}
-	.seek {
-		flex: none;
-		font-variant-numeric: tabular-nums;
-		font-size: 0.72rem;
-		padding: 0.05rem 0.35rem;
-		color: var(--sa-text-dim);
-	}
-	.ttl {
-		flex: 1;
-		display: flex;
-		align-items: baseline;
-		gap: 0.4rem;
-		text-align: left;
-		background: none;
-		border: none;
-		border-radius: 0;
-		padding: 0.25rem 0;
-		font-size: 0.85rem;
-		color: var(--sa-text);
-		cursor: pointer;
-	}
-	.ttl:hover {
-		color: var(--sa-accent);
-		background: none;
-	}
-	.ttl .arrow {
-		flex: none;
-		font-size: 0.7rem;
-		color: var(--sa-text-dim);
-		transition: transform 0.15s;
-	}
-	.scene.open .ttl .arrow {
-		transform: rotate(90deg);
-	}
-	.scene.current .ttl .text {
-		color: var(--sa-accent);
-		font-weight: 600;
-	}
-	.skull {
-		flex: none;
-		font-size: 0.8rem;
-	}
-	.detail {
-		display: flex;
-		flex-direction: column;
-		gap: 0.1rem;
-		padding: 0 0 0.45rem 2.3rem;
-		font-size: 0.8rem;
-	}
 	.death {
 		color: var(--sa-danger);
 		font-weight: 500;
 	}
-	.trans {
-		font-style: italic;
+	.key-events h3 {
+		margin-bottom: 0.6rem;
 	}
-	aside li.death span:not(.cats) {
-		color: var(--sa-danger);
+	.legend {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.4rem;
+		margin-bottom: 2rem;
 	}
-	aside ul {
-		list-style: none;
+	.legend-chip {
+		display: flex;
+		align-items: center;
+		gap: 0.35rem;
+		width: auto;
+		padding: 0.2rem 0.55rem;
+		font-size: 0.78rem;
+		background: var(--sa-surface-2);
+		border: 1px solid var(--sa-border);
+		border-radius: 999px;
+		cursor: pointer;
+		transition: opacity 0.15s;
+	}
+	.legend-chip.dimmed {
+		opacity: 0.4;
+	}
+	.legend-chip .swatch {
+		width: 0.6rem;
+		height: 0.6rem;
+		border-radius: 50%;
+		flex: none;
+	}
+	.strip {
+		position: relative;
+		height: 3rem;
+		margin: 0 0.5rem;
+	}
+	.strip .axis {
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 50%;
+		height: 1px;
+		background: var(--sa-border);
+	}
+	.strip .episode-divider {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		width: 1px;
+		background: var(--sa-border);
+	}
+	.strip .playhead {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		width: 2px;
+		background: var(--sa-accent);
+		transform: translateX(-1px);
+	}
+	.strip .marker {
+		position: absolute;
+		top: 50%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 2px;
+		width: auto;
 		padding: 0;
-		margin: 0;
+		background: none;
+		border: none;
+		border-radius: 0;
+		transform: translate(-50%, -50%);
+		cursor: pointer;
+		transition:
+			opacity 0.15s,
+			transform 0.15s;
 	}
-	aside li {
+	.strip .marker .dot {
+		width: 0.55rem;
+		height: 0.55rem;
+		border-radius: 50%;
+		border: 1px solid var(--sa-surface);
+	}
+	.strip .marker.dimmed {
+		opacity: 0.25;
+	}
+	.strip .marker.active .dot {
+		box-shadow: 0 0 0 3px color-mix(in srgb, currentColor 35%, transparent);
+	}
+	.strip .marker.active,
+	.strip .marker.selected {
+		transform: translate(-50%, -50%) scale(1.3);
+	}
+	.strip .marker-tooltip {
+		position: absolute;
+		bottom: 50%;
+		margin-bottom: 0.85rem;
+		transform: translateX(-50%);
+		background: var(--sa-surface);
+		border: 1px solid var(--sa-border);
+		border-radius: var(--sa-radius);
+		padding: 0.2rem 0.55rem;
+		font-size: 0.75rem;
+		white-space: nowrap;
+		box-shadow: var(--sa-shadow);
+		pointer-events: none;
+		z-index: 5;
+	}
+	.event-detail {
+		display: flex;
+		flex-wrap: wrap;
+		flex-direction: column;
+		gap: 0.15rem;
+		margin-top: 0.75rem;
+		padding-top: 0.6rem;
+		border-top: 1px solid var(--sa-border);
+		font-size: 0.82rem;
+	}
+	.event-detail-head {
 		display: flex;
 		align-items: center;
 		gap: 0.4rem;
-		padding: 0.25rem 0;
-		font-size: 0.85rem;
+		flex-wrap: wrap;
 	}
-	.cats {
-		margin-left: auto;
-		color: var(--sa-text-dim);
-		font-size: 0.75rem;
-	}
-	@media (max-width: 720px) {
-		.layout {
-			grid-template-columns: 1fr;
-		}
+	.cat-chip {
+		font-size: 0.72rem;
+		font-weight: 500;
 	}
 </style>
