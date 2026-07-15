@@ -48,6 +48,7 @@
 	const nav = $derived([
 		...(EDIT_MODE ? [{ href: '/', label: t('nav.editor') }] : []),
 		{ href: '/map', label: t('nav.mapTimeline') },
+		{ href: '/tree', label: t('nav.familyTree') },
 		...(EDIT_MODE ? [{ href: '/editor', label: t('nav.mapEditor') }] : [])
 	]);
 </script>

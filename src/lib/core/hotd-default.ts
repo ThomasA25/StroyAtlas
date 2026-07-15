@@ -164,6 +164,72 @@ const DRAGONS: DragonDef[] = [
 /** Canonical ids of all dragons — lets views distinguish dragons from people. */
 export const DRAGON_IDS: ReadonlySet<string> = new Set(DRAGONS.map((d) => d.id));
 
+/**
+ * Dynastic family relationships for the main characters, powering the /tree
+ * family tree. This is HotD-specific enrichment the generic extraction model
+ * can't infer (like DRAGONS/DEATH_DETAILS): only parent and spouse edges are
+ * recorded — children and siblings are derived from them (see derive.familyTree).
+ * Ids are the canonical name slugs already used across the dataset. Only the
+ * Targaryen/Velaryon/Hightower core is modelled; everyone else stays off the tree.
+ *
+ * A few deliberate simplifications keep the tree grounded in characters the
+ * dataset actually contains: Rhaenyra's three eldest are attached to her consort
+ * Laenor (their official father), and the Hull brothers to Corlys (their rumoured
+ * sire) — ancestors not present in the data (Baelon, Aemon, …) are simply omitted.
+ */
+interface FamilyDef {
+	id: string;
+	gender: 'male' | 'female';
+	/** Canonical ids of this character's parents (must also appear in the data). */
+	parents?: string[];
+	/** Canonical ids of this character's spouses/consorts (reciprocal is derived). */
+	spouses?: string[];
+}
+const FAMILY: FamilyDef[] = [
+	// ── Founding couples ──
+	{ id: 'viserys-i-targaryen', gender: 'male', spouses: ['aemma-arryn', 'alicent-hightower'] },
+	{ id: 'aemma-arryn', gender: 'female' },
+	{ id: 'alicent-hightower', gender: 'female', parents: ['otto-hightower'] },
+	{ id: 'otto-hightower', gender: 'male' },
+	{ id: 'daemon-targaryen', gender: 'male', spouses: ['rhea-royce', 'laena-velaryon', 'rhaenyra-targaryen'] },
+	{ id: 'rhea-royce', gender: 'female' },
+	{ id: 'corlys-velaryon', gender: 'male', spouses: ['rhaenys-targaryen'] },
+	{ id: 'rhaenys-targaryen', gender: 'female' },
+	// ── Their children ──
+	{ id: 'rhaenyra-targaryen', gender: 'female', parents: ['viserys-i-targaryen', 'aemma-arryn'], spouses: ['laenor-velaryon'] },
+	{ id: 'aegon-ii-targaryen', gender: 'male', parents: ['viserys-i-targaryen', 'alicent-hightower'], spouses: ['helaena-targaryen'] },
+	{ id: 'helaena-targaryen', gender: 'female', parents: ['viserys-i-targaryen', 'alicent-hightower'] },
+	{ id: 'aemond-targaryen', gender: 'male', parents: ['viserys-i-targaryen', 'alicent-hightower'] },
+	{ id: 'laenor-velaryon', gender: 'male', parents: ['corlys-velaryon', 'rhaenys-targaryen'] },
+	{ id: 'laena-velaryon', gender: 'female', parents: ['corlys-velaryon', 'rhaenys-targaryen'] },
+	{ id: 'addam-of-hull', gender: 'male', parents: ['corlys-velaryon'] },
+	{ id: 'alyn-of-hull', gender: 'male', parents: ['corlys-velaryon'] },
+	// ── Grandchildren ──
+	{ id: 'jacaerys-velaryon', gender: 'male', parents: ['rhaenyra-targaryen', 'laenor-velaryon'] },
+	{ id: 'lucerys-velaryon', gender: 'male', parents: ['rhaenyra-targaryen', 'laenor-velaryon'] },
+	{ id: 'joffrey-velaryon', gender: 'male', parents: ['rhaenyra-targaryen', 'laenor-velaryon'] },
+	{ id: 'baela-targaryen', gender: 'female', parents: ['daemon-targaryen', 'laena-velaryon'] },
+	{ id: 'rhaena-targaryen', gender: 'female', parents: ['daemon-targaryen', 'laena-velaryon'] },
+	{ id: 'jaehaerys-targaryen', gender: 'male', parents: ['aegon-ii-targaryen', 'helaena-targaryen'] }
+];
+
+/**
+ * Attach the FAMILY relationships to the seeded characters. Only touches
+ * characters that exist in the project and only records edges whose endpoints
+ * are also present, so a dataset missing some people still yields a valid tree.
+ */
+function addFamily(project: Project): void {
+	for (const f of FAMILY) {
+		const character = project.characters[f.id as CharacterId];
+		if (!character) continue;
+		character.gender = f.gender;
+		const parents = (f.parents ?? []).filter((p) => project.characters[p as CharacterId]);
+		if (parents.length) character.parentIds = parents as CharacterId[];
+		const spouses = (f.spouses ?? []).filter((s) => project.characters[s as CharacterId]);
+		if (spouses.length) character.spouseIds = spouses as CharacterId[];
+	}
+}
+
 /** Inject dragons into a freshly-seeded project (see DRAGONS). */
 function addDragons(project: Project, locale: Locale): void {
 	const factionLabel = (f: 'Blacks' | 'Greens') =>
@@ -418,6 +484,7 @@ export function hotdDefaultProject(locale: Locale): Project {
 		mergeExtractionInto(project, result, { orderOffset: nextOrderOffset(project) });
 	}
 	addDragons(project, locale);
+	addFamily(project);
 	applyDeathDetails(project, locale);
 	applyCoronationSplit(project);
 	applyLocationCoordinates(project);

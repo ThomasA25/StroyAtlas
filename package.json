@@ -18,6 +18,7 @@
     "@threlte/core": "^8.5.16",
     "@threlte/extras": "^9.21.0",
     "dexie": "^4.4.4",
+    "relatives-tree": "^3.2.2",
     "three": "^0.185.1",
     "zod": "^4.4.3"
   },

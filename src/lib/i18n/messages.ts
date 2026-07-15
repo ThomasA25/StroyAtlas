@@ -18,6 +18,7 @@ const en = {
 	'common.delete': 'Delete',
 	'common.save': 'Save',
 	'common.clear': 'Clear',
+	'common.close': 'Close',
 	'language.label': 'Language',
 	'layout.dragHint': 'Drag to reorder',
 	'layout.reset': 'Reset layout',
@@ -32,6 +33,13 @@ const en = {
 	'nav.mapTimeline': 'Map & Timeline',
 	'nav.mapEditor': 'Map Editor',
 	'nav.timeline': 'Timeline',
+	'nav.familyTree': 'Family Tree',
+
+	'tree.title': 'Family Tree',
+	'tree.family': 'Family',
+	'tree.aliases': 'Also known as',
+	'tree.empty': 'No family relationships have been defined for these characters yet.',
+	'tree.profileSoon': 'Full profile coming soon.',
 
 	'editor.title': 'Editor',
 
@@ -184,6 +192,7 @@ const de: Messages = {
 	'common.delete': 'Löschen',
 	'common.save': 'Speichern',
 	'common.clear': 'Leeren',
+	'common.close': 'Schließen',
 	'language.label': 'Sprache',
 	'layout.dragHint': 'Zum Umsortieren ziehen',
 	'layout.reset': 'Layout zurücksetzen',
@@ -198,6 +207,13 @@ const de: Messages = {
 	'nav.mapTimeline': 'Karte & Zeitleiste',
 	'nav.mapEditor': 'Karten-Editor',
 	'nav.timeline': 'Zeitleiste',
+	'nav.familyTree': 'Stammbaum',
+
+	'tree.title': 'Stammbaum',
+	'tree.family': 'Familie',
+	'tree.aliases': 'Auch bekannt als',
+	'tree.empty': 'Für diese Figuren sind noch keine Familienbeziehungen hinterlegt.',
+	'tree.profileSoon': 'Vollständiges Profil folgt.',
 
 	'editor.title': 'Editor',
 
