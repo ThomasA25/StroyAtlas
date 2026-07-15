@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { Canvas } from '@threlte/core';
 	import { store } from '$lib/core/store.svelte';
 	import { t } from '$lib/i18n/i18n.svelte';
 	import type { CharacterId } from '$lib/core/ids';
@@ -8,13 +9,14 @@
 		buildProfile,
 		pickFamilyRoot
 	} from '$lib/tree/family-view';
-	import FamilyTreeCanvas from '$lib/tree/FamilyTreeCanvas.svelte';
+	import FamilyTreeScene from '$lib/tree/FamilyTreeScene.svelte';
 	import CharacterProfileModal from '$lib/tree/CharacterProfileModal.svelte';
 
 	// Read-only viewer over the derived family graph. All logic lives in
 	// $lib/tree/family-view.ts; this page only holds the two pieces of UI state
 	// (which family is shown, which card is open) and wires the builders to the
-	// presentational components.
+	// Threlte scene. Panning/zooming happens inside the scene, so the page itself
+	// never scrolls.
 
 	const nodes = $derived(store.familyTree);
 	const families = $derived(buildFamilyGroups(nodes, store.project));
@@ -52,7 +54,11 @@
 </div>
 
 {#if layout}
-	<FamilyTreeCanvas {layout} onSelect={(id) => (selectedId = id)} />
+	<div class="tree-stage">
+		<Canvas>
+			<FamilyTreeScene {layout} onSelect={(id) => (selectedId = id)} />
+		</Canvas>
+	</div>
 {:else}
 	<p class="sa-muted empty">{t('tree.empty')}</p>
 {/if}
@@ -80,6 +86,23 @@
 
 	.family-pick select {
 		width: auto;
+	}
+
+	/* Fills the viewport below the header/picker: the tree is panned and zoomed
+	   in place, so the page never grows a scrollbar of its own. */
+	.tree-stage {
+		height: calc(100vh - 12.5rem);
+		min-height: 380px;
+		border: 1px solid var(--sa-border);
+		border-radius: var(--sa-radius);
+		background: var(--sa-surface);
+		overflow: hidden;
+		/* A pan drag is a pointer drag over ordinary text (the card names) — without
+		   this the browser reads it as a text-selection gesture instead. Applied to
+		   the whole stage, not just the cards, so it also covers anything else drawn
+		   here later. */
+		user-select: none;
+		-webkit-user-select: none;
 	}
 
 	.empty {

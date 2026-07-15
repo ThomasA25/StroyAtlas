@@ -6,7 +6,7 @@
 	import type { IntersectionEvent } from '@threlte/extras';
 	import type { OrbitControls as OrbitControlsImpl } from 'three/examples/jsm/controls/OrbitControls.js';
 	import type { LocationId } from '$lib/core/ids';
-	import { readCssVar } from './css-color';
+	import { readCssVar } from '$lib/ui/css-color';
 	import BaseMapPlane from './BaseMapPlane.svelte';
 	import MovementLinesLayer from './MovementLinesLayer.svelte';
 	import LocationMarkersLayer from './LocationMarkersLayer.svelte';
