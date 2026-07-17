@@ -7,8 +7,8 @@
   publish = "build"
 
 [build.environment]
-  # Vite 8 / Svelte 5 need a modern Node.
-  NODE_VERSION = "20"
+  # Vite 8 / Svelte 5 need a modern Node; camera-controls (three.js dep) requires >=22.
+  NODE_VERSION = "22"
 
 # Client-side routing: any path that isn't a real file (e.g. /map, /graph)
 # is served the SPA shell so the SvelteKit router can take over. Real assets
