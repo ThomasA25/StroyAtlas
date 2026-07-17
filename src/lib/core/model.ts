@@ -81,6 +81,13 @@ export interface Character {
 	/** Spouses/consorts (canonical ids), for the family tree. Stored on at least
 	 * one partner; derive.familyTree makes the link reciprocal. */
 	spouseIds?: CharacterId[];
+	/** Portrait image URL, shown in the family tree's profile modal in place of
+	 * the initial-letter placeholder. Optional; falls back to the initial when absent. */
+	image?: string;
+	/** Short, locale-resolved bullet-point facts for the family tree's profile
+	 * modal (e.g. title, notable relationship, cause of death). Kept terse —
+	 * this is a quick-glance list, not a biography. */
+	facts?: string[];
 	origin: Origin;
 }
 

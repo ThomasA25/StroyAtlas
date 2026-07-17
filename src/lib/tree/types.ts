@@ -66,10 +66,14 @@ export interface FamilyLayoutVM {
 export interface ProfileVM {
 	id: CharacterId;
 	name: string;
-	/** First letter, standing in for the portrait until real photos exist. */
+	/** First letter, standing in for the portrait when no `image` is set. */
 	initial: string;
+	/** Portrait image URL; falls back to `initial` when absent. */
+	image?: string;
 	accent: string;
 	house: string;
 	faction: string | null;
 	aliases: string[];
+	/** Short bullet-point facts (see Character.facts). */
+	facts: string[];
 }

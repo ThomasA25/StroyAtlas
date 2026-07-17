@@ -177,9 +177,11 @@ export function buildProfile(character: Character | undefined): ProfileVM | null
 		id: character.id,
 		name: character.name,
 		initial: character.name.charAt(0),
+		image: character.image,
 		accent: accentFor(character),
 		house: houseFor(character),
 		faction: factionAt(character, FINAL_POSITION),
-		aliases: character.aliases
+		aliases: character.aliases,
+		facts: character.facts ?? []
 	};
 }

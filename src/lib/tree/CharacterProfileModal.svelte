@@ -6,7 +6,7 @@
 	 * A character's profile, shown when a tree card is clicked. Purely
 	 * presentational — the facts are already resolved by family-view.buildProfile().
 	 * Closing (× / backdrop / Escape) is handled here so callers only supply data.
-	 * The portrait is a placeholder initial until real photos exist.
+	 * The portrait falls back to an initial letter when `profile.image` is unset.
 	 */
 	interface Props {
 		profile: ProfileVM;
@@ -41,7 +41,11 @@
 		tabindex="-1"
 	>
 		<button class="modal-close" onclick={onClose} aria-label={t('common.close')}>×</button>
-		<div class="avatar" aria-hidden="true">{profile.initial}</div>
+		{#if profile.image}
+			<img class="avatar" src={profile.image} alt="" />
+		{:else}
+			<div class="avatar avatar-fallback" aria-hidden="true">{profile.initial}</div>
+		{/if}
 		<h2>{profile.name}</h2>
 		<dl class="facts">
 			{#if profile.house}
@@ -57,7 +61,15 @@
 				<dd>{profile.aliases.join(', ')}</dd>
 			{/if}
 		</dl>
-		<p class="soon sa-muted">{t('tree.profileSoon')}</p>
+		{#if profile.facts.length}
+			<ul class="bullet-facts">
+				{#each profile.facts as fact (fact)}
+					<li>{fact}</li>
+				{/each}
+			</ul>
+		{:else}
+			<p class="soon sa-muted">{t('tree.profileSoon')}</p>
+		{/if}
 	</div>
 </div>
 
@@ -99,12 +111,16 @@
 		width: 72px;
 		height: 72px;
 		margin: 0 auto 0.75rem;
+		border-radius: 50%;
+		border: 2px solid var(--accent, var(--sa-border));
+		object-fit: cover;
+	}
+
+	.avatar-fallback {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		border-radius: 50%;
 		background: var(--sa-surface-2);
-		border: 2px solid var(--accent, var(--sa-border));
 		font-family: var(--sa-font-display);
 		font-size: 1.8rem;
 		font-weight: 600;
@@ -136,5 +152,17 @@
 		margin: 0;
 		font-size: 0.82rem;
 		font-style: italic;
+	}
+
+	.bullet-facts {
+		margin: 0;
+		padding-left: 1.1rem;
+		text-align: left;
+		font-size: 0.85rem;
+		line-height: 1.45;
+	}
+
+	.bullet-facts li + li {
+		margin-top: 0.2rem;
 	}
 </style>
