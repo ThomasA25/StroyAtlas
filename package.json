@@ -18,12 +18,13 @@
     "@threlte/core": "^8.5.16",
     "@threlte/extras": "^9.21.0",
     "dexie": "^4.4.4",
+    "relatives-tree": "^3.2.2",
     "three": "^0.185.1",
     "zod": "^4.4.3"
   },
   "devDependencies": {
     "@sveltejs/adapter-static": "^3.0.10",
-    "@sveltejs/kit": "^2.68.0",
+    "@sveltejs/kit": "^2.69.3",
     "@sveltejs/vite-plugin-svelte": "^7.1.2",
     "@types/geojson": "^7946.0.16",
     "@types/node": "^24.13.2",

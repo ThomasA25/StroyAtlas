@@ -69,6 +69,25 @@ export interface Character {
 	/** For a dragon, its size relative to an average adult dragon (1 = average).
 	 * Lets the map render bigger dragons bigger, e.g. Vhagar vs. Moondancer. */
 	sizeScale?: number;
+	/** Sex — used only to lay out couples in the family tree (see /tree and
+	 * derive.familyTree). Optional; a missing value is placed as a spouse either
+	 * way, it only affects which side of a couple a node sits on. */
+	gender?: 'male' | 'female';
+	/** Biological/legal parents (canonical ids), for the family tree. Children and
+	 * siblings are *derived* from these links (derive.familyTree), so only the
+	 * upward parent edges are stored. Optional; absent means parents are unknown or
+	 * out of scope for the tree. */
+	parentIds?: CharacterId[];
+	/** Spouses/consorts (canonical ids), for the family tree. Stored on at least
+	 * one partner; derive.familyTree makes the link reciprocal. */
+	spouseIds?: CharacterId[];
+	/** Portrait image URL, shown in the family tree's profile modal in place of
+	 * the initial-letter placeholder. Optional; falls back to the initial when absent. */
+	image?: string;
+	/** Short, locale-resolved bullet-point facts for the family tree's profile
+	 * modal (e.g. title, notable relationship, cause of death). Kept terse —
+	 * this is a quick-glance list, not a biography. */
+	facts?: string[];
 	origin: Origin;
 }
 

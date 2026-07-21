@@ -29,7 +29,8 @@ import {
 	concurrentStorylines,
 	episodeGroups,
 	characterDeaths,
-	deathEvents
+	deathEvents,
+	familyTree
 } from './derive';
 
 /**
@@ -55,6 +56,7 @@ export class StoryStore {
 	readonly episodeGroups = $derived(episodeGroups(this.project));
 	readonly characterDeaths = $derived(characterDeaths(this.project));
 	readonly deathEvents = $derived(deathEvents(this.project));
+	readonly familyTree = $derived(familyTree(this.project));
 
 	/** Replace the entire project (load from disk, import, or extraction merge). */
 	load(project: Project): void {
@@ -155,6 +157,12 @@ export class StoryStore {
 		}
 		for (const scene of Object.values(this.project.scenes)) {
 			scene.characters = scene.characters.filter((c) => c !== id);
+		}
+		// Keep family links dangling-free so the tree never references a ghost.
+		for (const character of Object.values(this.project.characters)) {
+			if (character.parentIds) character.parentIds = character.parentIds.filter((c) => c !== id);
+			if (character.spouseIds) character.spouseIds = character.spouseIds.filter((c) => c !== id);
+			if (character.riderIds) character.riderIds = character.riderIds.filter((c) => c !== id);
 		}
 	}
 

@@ -164,6 +164,335 @@ const DRAGONS: DragonDef[] = [
 /** Canonical ids of all dragons — lets views distinguish dragons from people. */
 export const DRAGON_IDS: ReadonlySet<string> = new Set(DRAGONS.map((d) => d.id));
 
+/**
+ * Dynastic family relationships for the main characters, powering the /tree
+ * family tree. This is HotD-specific enrichment the generic extraction model
+ * can't infer (like DRAGONS/DEATH_DETAILS): only parent and spouse edges are
+ * recorded — children and siblings are derived from them (see derive.familyTree).
+ * Ids are the canonical name slugs already used across the dataset. Only the
+ * Targaryen/Velaryon/Hightower core is modelled; everyone else stays off the tree.
+ *
+ * A few deliberate simplifications keep the tree grounded in characters the
+ * dataset actually contains: Rhaenyra's three eldest are attached to her consort
+ * Laenor (their official father), and the Hull brothers to Corlys (their rumoured
+ * sire) — ancestors not present in the data (Baelon, Aemon, …) are simply omitted.
+ */
+interface FamilyDef {
+	id: string;
+	gender: 'male' | 'female';
+	/** Canonical ids of this character's parents (must also appear in the data). */
+	parents?: string[];
+	/** Canonical ids of this character's spouses/consorts (reciprocal is derived). */
+	spouses?: string[];
+}
+const FAMILY: FamilyDef[] = [
+	// ── Founding couples ──
+	{ id: 'viserys-i-targaryen', gender: 'male', spouses: ['aemma-arryn', 'alicent-hightower'] },
+	{ id: 'aemma-arryn', gender: 'female' },
+	{ id: 'alicent-hightower', gender: 'female', parents: ['otto-hightower'] },
+	{ id: 'otto-hightower', gender: 'male' },
+	{ id: 'daemon-targaryen', gender: 'male', spouses: ['rhea-royce', 'laena-velaryon', 'rhaenyra-targaryen'] },
+	{ id: 'rhea-royce', gender: 'female' },
+	{ id: 'corlys-velaryon', gender: 'male', spouses: ['rhaenys-targaryen'] },
+	{ id: 'rhaenys-targaryen', gender: 'female' },
+	// ── Their children ──
+	{ id: 'rhaenyra-targaryen', gender: 'female', parents: ['viserys-i-targaryen', 'aemma-arryn'], spouses: ['laenor-velaryon'] },
+	{ id: 'aegon-ii-targaryen', gender: 'male', parents: ['viserys-i-targaryen', 'alicent-hightower'], spouses: ['helaena-targaryen'] },
+	{ id: 'helaena-targaryen', gender: 'female', parents: ['viserys-i-targaryen', 'alicent-hightower'] },
+	{ id: 'aemond-targaryen', gender: 'male', parents: ['viserys-i-targaryen', 'alicent-hightower'] },
+	{ id: 'laenor-velaryon', gender: 'male', parents: ['corlys-velaryon', 'rhaenys-targaryen'] },
+	{ id: 'laena-velaryon', gender: 'female', parents: ['corlys-velaryon', 'rhaenys-targaryen'] },
+	{ id: 'addam-of-hull', gender: 'male', parents: ['corlys-velaryon'] },
+	{ id: 'alyn-of-hull', gender: 'male', parents: ['corlys-velaryon'] },
+	// ── Grandchildren ──
+	{ id: 'jacaerys-velaryon', gender: 'male', parents: ['rhaenyra-targaryen', 'laenor-velaryon'] },
+	{ id: 'lucerys-velaryon', gender: 'male', parents: ['rhaenyra-targaryen', 'laenor-velaryon'] },
+	{ id: 'joffrey-velaryon', gender: 'male', parents: ['rhaenyra-targaryen', 'laenor-velaryon'] },
+	{ id: 'baela-targaryen', gender: 'female', parents: ['daemon-targaryen', 'laena-velaryon'] },
+	{ id: 'rhaena-targaryen', gender: 'female', parents: ['daemon-targaryen', 'laena-velaryon'] },
+	{ id: 'jaehaerys-targaryen', gender: 'male', parents: ['aegon-ii-targaryen', 'helaena-targaryen'] }
+];
+
+/**
+ * Attach the FAMILY relationships to the seeded characters. Only touches
+ * characters that exist in the project and only records edges whose endpoints
+ * are also present, so a dataset missing some people still yields a valid tree.
+ */
+function addFamily(project: Project): void {
+	for (const f of FAMILY) {
+		const character = project.characters[f.id as CharacterId];
+		if (!character) continue;
+		character.gender = f.gender;
+		const parents = (f.parents ?? []).filter((p) => project.characters[p as CharacterId]);
+		if (parents.length) character.parentIds = parents as CharacterId[];
+		const spouses = (f.spouses ?? []).filter((s) => project.characters[s as CharacterId]);
+		if (spouses.length) character.spouseIds = spouses as CharacterId[];
+	}
+}
+
+/**
+ * Portrait + short bullet-point facts for the /tree profile modal, sourced
+ * from the German Game of Thrones Fandom wiki (gameofthrones.fandom.com/de).
+ * Only the FAMILY core is covered. Facts are German-only (no English wiki
+ * pass was done) — an English-locale project simply shows no facts, falling
+ * back to the modal's placeholder text; the portrait itself is locale-independent.
+ */
+interface CharacterProfileDef {
+	id: string;
+	image?: string;
+	facts: string[];
+}
+const CHARACTER_PROFILES: CharacterProfileDef[] = [
+	{
+		id: 'viserys-i-targaryen',
+		image:
+			'https://static.wikia.nocookie.net/gameofthrones/images/b/b0/102_Viserys.jpg/revision/latest?cb=20220830192415&path-prefix=de',
+		facts: [
+			'Fünfter Targaryen-König, genannt „der Friedvolle“',
+			'Vater von Rhaenyra, Aegon II., Aemond und Helaena',
+			'Erst mit Aemma Arryn, dann mit Alicent Hohenturm verheiratet',
+			'Starb an einer unbekannten Krankheit'
+		]
+	},
+	{
+		id: 'aemma-arryn',
+		image:
+			'https://static.wikia.nocookie.net/gameofthrones/images/4/42/101_Aemma.jpg/revision/latest?cb=20220830164135&path-prefix=de',
+		facts: [
+			'Königin aus Haus Arryn, erste Gemahlin von Viserys I.',
+			'Mutter von Rhaenyra Targaryen',
+			'Starb bei einem Kaiserschnitt an Blutverlust',
+			'Sohn Baelon überlebte die Geburt nur einen Tag'
+		]
+	},
+	{
+		id: 'alicent-hightower',
+		image:
+			'https://static.wikia.nocookie.net/gameofthrones/images/7/72/Teaser_Alicent_alt.png/revision/latest?cb=20220830163821&path-prefix=de',
+		facts: [
+			'Königin aus Haus Hohenturm, zweite Gemahlin von Viserys I.',
+			'Tochter der Hand des Königs, Otto Hohenturm',
+			'Mutter von Aegon II., Helaena, Aemond und Daeron',
+			'Anführerin der Grünen im Tanz der Drachen'
+		]
+	},
+	{
+		id: 'otto-hightower',
+		image:
+			'https://static.wikia.nocookie.net/gameofthrones/images/6/6c/102_Otto.jpg/revision/latest?cb=20220830174253&path-prefix=de',
+		facts: [
+			'Hand des Königs unter Jaehaerys I., Viserys I. und Aegon II.',
+			'Vater von Alicent Hohenturm',
+			'Strippenzieher der Grünen Fraktion',
+			'Von Rhaenyra Targaryen enthauptet'
+		]
+	},
+	{
+		id: 'daemon-targaryen',
+		image: 'https://static.wikia.nocookie.net/gameofthrones/images/d/d5/Daemon_S3_Profile.png/revision/latest?cb=20260702220100',
+		facts: [
+			'Prinz, jüngerer Bruder von König Viserys I.',
+			'Reiter des Drachen Caraxes, führt die Klinge Dunkle Schwester',
+			'Später Ehemann seiner Nichte Rhaenyra Targaryen',
+			'Bedeutender Anführer der Schwarzen im Tanz der Drachen'
+		]
+	},
+	{
+		id: 'rhea-royce',
+		// No real portrait on the wiki — only a generic placeholder shared across
+		// unillustrated characters, so left unset rather than showing a non-portrait.
+		facts: [
+			'Erbin von Runenstein aus Haus Rois (Royce)',
+			'Erste, entfremdete Gemahlin von Daemon Targaryen',
+			'Ehe blieb kinderlos',
+			'Starb 116 n. A. E. an den Folgen eines Jagdunfalls'
+		]
+	},
+	{
+		id: 'corlys-velaryon',
+		image:
+			'https://static.wikia.nocookie.net/gameofthrones/images/5/5a/Corlys_Velaryon_S2.jpg/revision/latest?cb=20240606091353',
+		facts: [
+			'Lord der Gezeiten, Oberhaupt des Hauses Velaryon, „die Seeschlange“',
+			'Berühmter Seefahrer mit der größten Flotte von Westeros',
+			'Ehemann von Prinzessin Rhaenys Targaryen',
+			'Vater von Laenor und Laena Velaryon'
+		]
+	},
+	{
+		id: 'rhaenys-targaryen',
+		image:
+			'https://static.wikia.nocookie.net/gameofthrones/images/7/79/102_Rhaenys.jpg/revision/latest?cb=20220830193505&path-prefix=de',
+		facts: [
+			'Genannt „die Königin, die niemals war“',
+			'Reiterin des Drachen Meleys',
+			'Gemahlin von Corlys Velaryon, Cousine von Viserys I.',
+			'Fiel mit Meleys in der Schlacht von Krähenruh'
+		]
+	},
+	{
+		id: 'rhaenyra-targaryen',
+		image:
+			'https://static.wikia.nocookie.net/gameofthrones/images/9/97/Rhaenyra-110-Portrait.jpg/revision/latest?cb=20231212095855',
+		facts: [
+			'Von Viserys I. zur Thronerbin ernannt',
+			'Reiterin des Drachen Syrax',
+			'Tochter von Viserys I. und Aemma Arryn',
+			'Ihr Thronanspruch löste den Tanz der Drachen aus'
+		]
+	},
+	{
+		id: 'aegon-ii-targaryen',
+		image:
+			'https://static.wikia.nocookie.net/gameofthrones/images/3/3f/S2_Aegon_II_Targaryen_Infobox.jpg/revision/latest?cb=20240624172214',
+		facts: [
+			'Sechster König aus dem Haus Targaryen',
+			'Ältester Sohn von Viserys I. und Alicent Hohenturm',
+			'Reiter des Drachen Sonnenfeuer',
+			'Thronbesteigung löste den Tanz der Drachen aus'
+		]
+	},
+	{
+		id: 'helaena-targaryen',
+		image:
+			'https://static.wikia.nocookie.net/gameofthrones/images/c/cf/301_Helaena_Targaryen.png/revision/latest?cb=20260626190349&path-prefix=de',
+		facts: [
+			'Prinzessin und spätere Königin aus Haus Targaryen',
+			'Tochter von Viserys I. und Alicent Hohenturm',
+			'Schwester und Gemahlin von Aegon II.',
+			'Reiterin des Drachen Traumfeuer'
+		]
+	},
+	{
+		id: 'aemond-targaryen',
+		image:
+			'https://static.wikia.nocookie.net/gameofthrones/images/f/f0/Aemond_Targaryen_Official_Guide_2.jpg/revision/latest?cb=20221010040524',
+		facts: [
+			'Genannt „Aemond Einauge“, zweiter Sohn von Viserys I. und Alicent',
+			'Beansprucht den Drachen Vhagar für sich',
+			'Verlor ein Auge im Streit mit Rhaenyras Söhnen',
+			'Wird Prinzregent der Grünen nach Aegons Verwundung'
+		]
+	},
+	{
+		id: 'laenor-velaryon',
+		image:
+			'https://static.wikia.nocookie.net/gameofthrones/images/5/50/Laenor_Velaryon_Official_Guide_3.jpg/revision/latest?cb=20220926034629',
+		facts: [
+			'Sohn von Corlys Velaryon und Rhaenys Targaryen',
+			'Reiter des Drachen Seerauch',
+			'Erster Ehemann von Rhaenyra Targaryen',
+			'Kämpfte im Krieg um die Trittsteine'
+		]
+	},
+	{
+		id: 'laena-velaryon',
+		image:
+			'https://static.wikia.nocookie.net/gameofthrones/images/a/ab/Laena_Velaryon_Official_Guide_3.jpg/revision/latest?cb=20220926034616',
+		facts: [
+			'Tochter von Corlys Velaryon und Rhaenys Targaryen',
+			'Zweite Gemahlin von Daemon Targaryen',
+			'Reiterin des Drachen Vhagar',
+			'Ließ sich bei Geburtskomplikationen von Vhagar verbrennen'
+		]
+	},
+	{
+		id: 'addam-of-hull',
+		image: 'https://static.wikia.nocookie.net/gameofthrones/images/c/c8/Addam-portrait.png/revision/latest?cb=20240625103939',
+		facts: [
+			'Schiffsbauer für die Velaryon-Flotte aus Holk (Hull)',
+			'Gerüchteweise unehelicher Sohn von Laenor Velaryon',
+			'Als Drachensaat Reiter des Drachen Seerauch',
+			'Später als Addam Velaryon legitimiert'
+		]
+	},
+	{
+		id: 'alyn-of-hull',
+		image: 'https://static.wikia.nocookie.net/gameofthrones/images/3/33/Alyn_of_Hull.png/revision/latest?cb=20240605031249',
+		facts: [
+			'Seemann in Diensten des Hauses Velaryon aus Holk (Hull)',
+			'Kämpfte im Krieg um die Trittsteine',
+			'Rettete Lord Corlys Velaryon das Leben',
+			'Bruder von Addam aus Holk'
+		]
+	},
+	{
+		id: 'jacaerys-velaryon',
+		image:
+			'https://static.wikia.nocookie.net/gameofthrones/images/0/0d/JacaerysVelaryonOlderInfobox.PNG/revision/latest?cb=20221006133736',
+		facts: [
+			'Ältester Sohn von Rhaenyra Targaryen und Laenor Velaryon',
+			'Reiter des Drachen Vermax',
+			'Zweiter in der Thronfolge nach Rhaenyra',
+			'Genetisch vermutlich Sohn von Harwin Kraft, nicht Laenor'
+		]
+	},
+	{
+		id: 'lucerys-velaryon',
+		image:
+			'https://static.wikia.nocookie.net/gameofthrones/images/3/32/Lucerys_Velaryon_Official_Guide_2.jpg/revision/latest?cb=20221010040909',
+		facts: [
+			'Zweiter Sohn von Rhaenyra Targaryen und Laenor Velaryon',
+			'Erbe von Driftmark, Reiter des Drachen Arrax',
+			'Von Vhagar über Sturmkap in Stücke gerissen',
+			'Sein Tod löste den offenen Krieg des Tanzes der Drachen aus'
+		]
+	},
+	{
+		id: 'joffrey-velaryon',
+		image:
+			'https://static.wikia.nocookie.net/gameofthrones/images/4/45/Joffrey_Velaryon_Official_Guide.jpg/revision/latest?cb=20221010040846',
+		facts: [
+			'Im deutschen Wiki als „Gottfrid Velaryon“ geführt',
+			'Dritter Sohn von Rhaenyra Targaryen und Laenor Velaryon',
+			'Reiter des Drachen Tyraxes',
+			'Wächst auf Drachenstein auf'
+		]
+	},
+	{
+		id: 'baela-targaryen',
+		image:
+			'https://static.wikia.nocookie.net/gameofthrones/images/3/39/Baela_Targaryen_Official_Guide_2.jpg/revision/latest?cb=20221010040554',
+		facts: [
+			'Älteste Tochter von Daemon Targaryen und Laena Velaryon',
+			'Reiterin des Drachen Mondtänzerin',
+			'Ältere Schwester von Rhaena Targaryen',
+			'Kämpft auf Seiten der Schwarzen'
+		]
+	},
+	{
+		id: 'rhaena-targaryen',
+		image:
+			'https://static.wikia.nocookie.net/gameofthrones/images/d/d0/Rhaena_Targaryen_Official_Guide_2.jpg/revision/latest?cb=20221010040922',
+		facts: [
+			'Jüngste Tochter von Daemon Targaryen und Laena Velaryon',
+			'Ihr Drachenei schlüpfte nie, lange ohne eigenen Drachen',
+			'Jüngere Schwester von Baela Targaryen',
+			'Kämpft auf Seiten der Schwarzen'
+		]
+	},
+	{
+		id: 'jaehaerys-targaryen',
+		image: 'https://static.wikia.nocookie.net/gameofthrones/images/c/ce/Jaehaerys_Targaryen_S2.png/revision/latest?cb=20240617081002',
+		facts: [
+			'Ältester Sohn von Aegon II. und Helaena Targaryen',
+			'Zwillingsbruder von Jaehaera Targaryen',
+			'Von den Attentätern Blut und Käse enthauptet',
+			'Sein Tod entfacht Rachemorde im Tanz der Drachen'
+		]
+	}
+];
+
+/** Attach CHARACTER_PROFILES (portrait + facts) to the seeded characters. */
+function addCharacterProfiles(project: Project): void {
+	for (const p of CHARACTER_PROFILES) {
+		const character = project.characters[p.id as CharacterId];
+		if (!character) continue;
+		if (p.image) character.image = p.image;
+		character.facts = p.facts;
+	}
+}
+
 /** Inject dragons into a freshly-seeded project (see DRAGONS). */
 function addDragons(project: Project, locale: Locale): void {
 	const factionLabel = (f: 'Blacks' | 'Greens') =>
@@ -418,6 +747,8 @@ export function hotdDefaultProject(locale: Locale): Project {
 		mergeExtractionInto(project, result, { orderOffset: nextOrderOffset(project) });
 	}
 	addDragons(project, locale);
+	addFamily(project);
+	addCharacterProfiles(project);
 	applyDeathDetails(project, locale);
 	applyCoronationSplit(project);
 	applyLocationCoordinates(project);
